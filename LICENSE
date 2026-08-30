@@ -1,0 +1,57 @@
+INKLINE Theme for Obsidian
+Copyright (c) 2026 Paperless Movement, S.L. (myICOR)
+
+This theme (theme.css, manifest.json and the associated source and
+documentation files, EXCLUDING the Font Software identified in the section
+below) is licensed under the Creative Commons
+Attribution-NonCommercial-NoDerivatives 4.0 International License
+(CC BY-NC-ND 4.0).
+
+In plain language, you are free to:
+
+  - Use the theme in your own vaults, including installing it through the
+    official Obsidian community theme directory.
+  - Copy and redistribute the theme, unchanged and in full, for
+    noncommercial purposes, with attribution to
+    Paperless Movement, S.L. (myICOR).
+  - Modify your own copy for personal use (CSS snippets, direct edits).
+    Private modification is expressly licensed by Section 2(a)(1)(B) of
+    the legal code; only sharing modified versions with the public is not.
+
+You may not:
+
+  - Use or redistribute the theme for commercial purposes, including
+    selling it or bundling it into any paid product, template, theme pack
+    or service.
+  - Share modified or derivative versions of the theme with the public.
+
+No trademark rights are granted. "myICOR", "ICOR", "ICOR Journey" and
+"INKLINE" remain the exclusive marks of their owner.
+
+This summary is not the license and does not replace it. The full legal
+code governs and is available at:
+
+    https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.en
+
+The license is granted as-is, without warranties, and does not affect
+rights arising from statutory exceptions and limitations (such as fair
+use / fair dealing and Sections 44a ff. UrhG).
+
+-------------------------------------------------------------------------------
+
+THIRD-PARTY FONT SOFTWARE - NOT COVERED BY THE LICENSE ABOVE
+
+The file theme.css contains four typefaces embedded as base64-encoded woff2
+Font Software: Bricolage Grotesque, Instrument Sans, Spline Sans Mono and
+Caveat.
+
+That Font Software is not part of the licensed material above. It is
+licensed separately and exclusively under the SIL Open Font License, Version
+1.1, it retains the copyright of its respective authors, and it is neither
+relicensed nor sublicensed by this file. Nothing in the license above
+grants or implies any permission to sell, sublicense or redistribute the Font
+Software by itself, and no such permission is available from this project.
+
+Each typeface's copyright notice and the full text of the SIL Open Font
+License, Version 1.1 are reproduced in THIRD-PARTY-NOTICES.md and in the
+header comment of theme.css.
