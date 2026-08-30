@@ -1,6 +1,6 @@
 # Security Policy
 
-ICOR for Life INKLINE is an Obsidian **theme**. It is a single CSS file. It ships no
+ICOR for Life - INKLINE is an Obsidian **theme**. It is a single CSS file. It ships no
 JavaScript, makes no network requests, and stores no credentials. That means its
 security surface is very small, and this file says so plainly rather than implying
 a risk the theme does not carry. It is not zero, so here is how to reach us.

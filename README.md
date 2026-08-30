@@ -1,4 +1,4 @@
-# ICOR for Life INKLINE
+# ICOR for Life - INKLINE
 
 An Obsidian theme with two rooms: an ink room (dark) and a paper room
 (light). One marker orange, drawn hairlines, and a teacher's handwriting
@@ -44,33 +44,33 @@ Requires Obsidian 1.5.0 or newer.
 - **From Obsidian:** Settings, Appearance, Themes, Manage, search "myICOR
   INKLINE", install, use.
 - **Manually:** copy `theme.css` and `manifest.json` from the latest
-  release into `.obsidian/themes/ICOR for Life INKLINE/`, then select the theme
+  release into `.obsidian/themes/ICOR for Life - INKLINE/`, then select the theme
   under Settings, Appearance.
 
 ## ICOR for Life Obsidian Edition
 
-ICOR for Life INKLINE is the visual system of the **ICOR for Life Obsidian
+ICOR for Life - INKLINE is the visual system of the **ICOR for Life Obsidian
 Edition**: ICOR (Input, Control, Output, Refine), the productivity
 methodology by Paperless Movement / myICOR, implemented as a ready-to-use
 Obsidian vault. The Edition's dashboards are built on INKLINE's tokens,
 so the theme is not an accessory here; it is the layer the other parts
 draw themselves with. Best to be used in combination with:
 
-- **[ICOR Planner](https://obsidian.md/plugins?id=icor-for-life-planner)**, the weekly
+- **[ICOR for Life - Planner](https://obsidian.md/plugins?id=icor-for-life-planner)**, the weekly
   planning board: Todoist, ClickUp, starred email and Google Calendar
   synced into the vault, planned by drag and drop. Its cards, lanes and
   tray are styled with INKLINE tokens.
-- **[ICOR Focus](https://obsidian.md/plugins?id=icor-for-life-focus)**, the gravity map
+- **[ICOR for Life - Focus](https://obsidian.md/plugins?id=icor-for-life-focus)**, the gravity map
   of your vault: what you touched today sits close, older work ripples
   outward. Drawn with the same token grammar, in both rooms.
-- **[ICOR Diagrams](https://obsidian.md/plugins?id=icor-for-life-diagrams)**, a
+- **[ICOR for Life - Diagrams](https://obsidian.md/plugins?id=icor-for-life-diagrams)**, a
   fullscreen viewer with zoom and pan for the mermaid diagrams this theme
   styles, so a diagram keeps the ink look at every zoom level.
-- **[myICOR Connect](https://obsidian.md/plugins?id=icor-for-life-connect)**, your
+- **[ICOR for Life - Connect](https://obsidian.md/plugins?id=icor-for-life-connect)**, your
   app.myicor.com courses, progress and knowledge base inside the vault.
   Its dashboards ship with zero palette of their own and take every color
   from the theme.
-- **[ICOR AI Chat](https://obsidian.md/plugins?id=icor-for-life-chat)**, your AI team
+- **[ICOR for Life - Chat](https://obsidian.md/plugins?id=icor-for-life-chat)**, your AI team
   in a tab beside your notes. Its cards, tool rows and decision blocks are
   drawn with this theme's tokens, and a shipped gate measures them against
   it in all four rooms.
