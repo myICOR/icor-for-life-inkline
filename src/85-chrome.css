@@ -1,0 +1,92 @@
+/* @guard body.icor-scaffold-chrome */
+
+/* THE SCAFFOLD'S CHROME DECISIONS, and the one part of the old
+   icor-rooms.css that is NOT about rooms.
+
+   These rules take Obsidian controls away: the vault-switcher row at the
+   bottom of the left column, and New note / New folder / Change sort order
+   from the file-tree toolbar. That is a product decision about what the ICOR
+   for Life vault shows, not a piece of the INKLINE look, and icor-rooms.css
+   said so itself before it moved here:
+
+     "This hide stays in the SCAFFOLD and never moves into the theme: what
+      Obsidian shows is a product decision, and a community user who
+      installed INKLINE for its typography must not silently lose their
+      file-tree toolbar."
+
+   Bundling the snippets into the theme in 1.4.0 would have moved it anyway,
+   silently, as a passenger of the room icons. test/header-row.test.mjs caught
+   it: that gate asserts the THEME keeps the sort button visible and orders
+   it, and it went red the moment these rules arrived. So they get their own
+   toggle instead, OFF by default, and the scaffold turns it on for its own
+   vault. Same rules, same vault, and nobody else's toolbar.
+
+   The rest of the old snippet - every room icon and colour - is portable and
+   lives in 60-rooms.css, on by default, because it keys on root folders
+   named "00 " through "06 " and a vault without those matches nothing. */
+
+/* ------------------------------------------------------------------ *
+ * Bottom of the left column: the vault-switcher row is hidden so the
+ * myICOR button sits at the very bottom. Neither function it carried is
+ * deleted by this hide, and both routes are MEASURED rather than
+ * assumed. Settings: the gear myICOR Connect puts in the top-right row
+ * (attachTopButtons), and Cmd+,. Vault switching: Obsidian registers
+ * `app:switch-vault` and `app:open-another-vault` as ordinary palette
+ * commands, checked against the app bundle on 2026-08-30.
+ *
+ * Decision, 2026-08-30: a settings entry in two places means one of
+ * them is wrong, so the panel-corner entry is the one that goes.
+ * ------------------------------------------------------------------ */
+.workspace-sidedock-vault-profile {
+  display: none !important;
+}
+
+
+/* ------------------------------------------------------------------ *
+ * THE FILE-TREE TOOLBAR IS REDUCED TO FILE-TREE ACTIONS.
+ *
+ * Decision, 2026-08-30, and it is a decision rather than a fact, so it
+ * is dated: this row had become the destination for everything homeless,
+ * and what is left is judged on one question - is this an action ON THE
+ * FILE TREE, or is it the only visible way into a plugin?
+ *
+ * Hidden: New note and New folder. Rooms and folders are the AI Team's
+ * job (ask Larry), and a note is created from the room it belongs to.
+ * Both keep a palette route, which is what makes the hide a relocation.
+ *
+ * Also hidden: Change sort order (user ruling, 2026-08-30: "sorting
+ * not needed"). Recorded honestly: this one is NOT a relocation. The
+ * button is sort's ONLY route - Obsidian registers eight file-explorer
+ * commands and not one of them changes sort order (measured against
+ * the app bundle on 2026-08-30, not assumed) - so this hide removes
+ * the function from the vault. That price was ruled acceptable
+ * deliberately, not overlooked; the ordering the rooms need is already
+ * pinned by their numeric prefixes, which is why sort had nothing left
+ * to do here.
+ *
+ * Kept: collapse all, permanent under the same ruling.
+ *
+ * Also here, and NOT hidden: the Focus map launcher and the AI Team
+ * robot. The left ribbon is hidden by `icor-ribbon.css`, so this row is
+ * the only place either plugin has a visible entry point. That is the
+ * same only-route rule the sort button is kept under, one layer up: a
+ * plugin whose icon lives only on a hidden surface has no icon.
+ *
+ * The CONTAINER is deliberately not hidden. It is the slot these
+ * controls live in, and the theme styles it.
+ *
+ * This hide stays in the SCAFFOLD and never moves into the theme: what
+ * Obsidian shows is a product decision, and a community user who
+ * installed INKLINE for its typography must not silently lose their
+ * file-tree toolbar.
+ * ------------------------------------------------------------------ */
+.nav-buttons-container .clickable-icon[aria-label="New folder"],
+.nav-buttons-container .clickable-icon:has(svg.lucide-folder-plus),
+.nav-buttons-container .clickable-icon[aria-label="New note"],
+.nav-buttons-container .clickable-icon:has(svg.lucide-edit-3),
+.nav-buttons-container .clickable-icon:has(svg.lucide-pen-box),
+.nav-buttons-container .clickable-icon[aria-label="Change sort order"],
+.nav-buttons-container .clickable-icon:has(svg.lucide-sort-asc),
+.nav-buttons-container .clickable-icon:has(svg.lucide-sort-desc) {
+  display: none !important;
+}

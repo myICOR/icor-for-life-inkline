@@ -2,6 +2,7 @@
   "name": "myicor-inkline",
   "private": true,
   "scripts": {
-    "test": "node --test test/*.test.mjs"
+    "build": "node build.mjs",
+    "test": "node build.mjs --check && node --test test/*.test.mjs"
   }
 }

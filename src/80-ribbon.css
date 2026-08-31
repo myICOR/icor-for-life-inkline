@@ -1,0 +1,36 @@
+/* @guard body.icor-hide-ribbon */
+
+/* Was .obsidian/snippets/icor-ribbon.css in the ICOR for Life scaffold until
+   theme 1.4.0. It ships inside the theme now, guarded by the line above.
+
+   THE POLARITY FLIPPED, and it is the only one that did. In the scaffold
+   this was `body:not(.icor-keep-ribbon)`: hidden by default, a toggle to
+   bring it back. That is right for the scaffold, where every action the
+   ribbon carried has another route - terminal and settings in the top row,
+   sort and collapse and the Focus map and the AI Team robot on the file-tree
+   toolbar, myICOR in the folder-tree footer, and new note, daily note, new
+   scratchpad canvas and graph view as palette commands.
+
+   It is wrong for a theme. Someone installing INKLINE in their own vault has
+   none of those routes, and a theme that removes a navigation surface on
+   install has broken their vault to make a point about ours. So the default
+   here is OFF - the ribbon stays - and the ICOR for Life scaffold turns it on
+   for its own vault through Style Settings.
+
+   The flip is why the 1.4.0 release notes tell existing members to delete the
+   old snippet files. The old icor-ribbon.css hides the ribbon with
+   `!important` and no toggle can outrank it, so a leftover copy makes the new
+   switch look broken. */
+
+.workspace-ribbon.mod-left {
+  display: none !important;
+}
+
+/* Obsidian insets the top-left tab header by calc(80px - ribbon width) to
+ * clear the macOS traffic lights - a sum that assumes the ribbon still
+ * occupies its column. With the ribbon hidden, restore the full inset so the
+ * sidebar toggle never slides under the window buttons. (Fullscreen keeps
+ * Obsidian's own 0px.) */
+body.mod-macos.is-frameless:not(.is-fullscreen) {
+  --frame-left-space: 80px;
+}

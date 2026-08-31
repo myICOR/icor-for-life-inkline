@@ -36,6 +36,32 @@ this repo and it gets fixed fast.
 - **A token grammar for plugins.** Every `--ink-*` token falls back to
   Obsidian defaults, and first-party ICOR plugins style themselves with the
   same tokens, so their dashboards match the theme in both modes.
+- **Room icons for numbered folders.** A root folder whose name starts `00 `
+  through `06 ` loses the number in the sidebar and gains an inked icon in its
+  own hue. Built for the ICOR for Life vault, harmless anywhere else: a vault
+  without those folders matches nothing and looks untouched.
+- **A banner over the folder tree**, which links to myicor.com when the
+  myICOR Connect plugin is installed.
+
+## Settings
+
+Everything above is on out of the box. To change any of it, install the
+[Style Settings](https://obsidian.md/plugins?id=obsidian-style-settings)
+community plugin; the theme then appears under Settings, Style Settings with
+five switches. The plugin is optional and the theme is complete without it.
+
+| Switch | Default | What it does |
+| --- | --- | --- |
+| Turn off the handwritten layer | off | Blockquotes, note/tip/quote callouts and `%%comments%%` render in the body face instead of handwriting. |
+| Hide the ICOR for Life banner | off | Removes the banner above the folder tree. |
+| Turn off room icons and colors | off | Root folders named `00` to `06` keep their prefixes and Obsidian's default folder look. |
+| Reduce Obsidian's own controls | off | Hides the vault-switcher row, and New note, New folder and Change sort order from the file-tree toolbar. |
+| Hide the left ribbon | off | Hides Obsidian's thin left ribbon. |
+
+The last two are off because they take a control away from Obsidian, and a
+theme should not do that to a vault it was just installed into. The ICOR for
+Life Obsidian Edition ships them on, because there every one of those routes
+exists somewhere else.
 
 ## Install
 
@@ -46,6 +72,23 @@ Requires Obsidian 1.5.0 or newer.
 - **Manually:** copy `theme.css` and `manifest.json` from the latest
   release into `.obsidian/themes/ICOR for Life - INKLINE/`, then select the theme
   under Settings, Appearance.
+
+## Building
+
+`theme.css` is generated. Edit the files under `src/` and run:
+
+```
+npm run build     # regenerate theme.css from src/
+npm test          # fails if theme.css and src/ have drifted, then runs the gates
+```
+
+Each file under `src/` may declare `/* @guard <selector> */` on its first
+line, and the build puts that guard on every selector in the file. So a
+guarded file is written as plain CSS: nobody types the guard, nobody forgets
+it on one rule, and nobody gets it half-right on another.
+
+The gates run in a real engine rather than over the CSS text, because the
+failure they exist to catch is a switch that moves and changes nothing.
 
 ## ICOR for Life Obsidian Edition
 
