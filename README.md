@@ -73,6 +73,27 @@ Requires Obsidian 1.5.0 or newer.
   release into `.obsidian/themes/ICOR for Life - INKLINE/`, then select the theme
   under Settings, Appearance.
 
+## For plugin authors: the rooms contract
+
+Room icons and colours are data-driven. The theme draws whatever four custom
+properties and one attribute say, and applies its own ICOR defaults only to
+folder rows nobody else has claimed:
+
+| Set on `.nav-folder-title` | Meaning |
+| --- | --- |
+| `data-icor-kind="room"` | block, no arrow, prefix hidden, label from `--room-label` |
+| `data-icor-kind="family"` | coloured name and a small glyph |
+| `data-icor-kind="none"` | leave this row to Obsidian, even if it is a 00-06 room |
+| `--room-color` | the colour in the ink room |
+| `--room-color-paper` | optional; the colour in the paper room, falls back to `--room-color` |
+| `--room-icon` | `url(...)` used as a mask |
+| `--room-label` | optional; rooms only; the text shown in place of the real name |
+
+Inline styles beat the theme's defaults by the ordinary cascade, so a plugin
+that sets these on a row owns that row. Nothing needs `!important`. The
+contract is measured in `test/rooms.test.mjs`. ICOR for Life - Interface is
+the first-party plugin that writes it.
+
 ## Building
 
 `theme.css` is generated. Edit the files under `src/` and run:
