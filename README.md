@@ -37,7 +37,7 @@ this repo and it gets fixed fast.
   Obsidian defaults, and first-party ICOR plugins style themselves with the
   same tokens, so their dashboards match the theme in both modes.
 - **Room icons for numbered folders.** A root folder whose name starts `00 `
-  through `06 ` loses the number in the sidebar and gains an inked icon in its
+  through `07 ` loses the number in the sidebar and gains an inked icon in its
   own hue. Built for the ICOR for Life vault, harmless anywhere else: a vault
   without those folders matches nothing and looks untouched.
 - **A banner over the folder tree**, which links to myicor.com when the
@@ -54,7 +54,7 @@ five switches. The plugin is optional and the theme is complete without it.
 | --- | --- | --- |
 | Turn off the handwritten layer | off | Blockquotes, note/tip/quote callouts and `%%comments%%` render in the body face instead of handwriting. |
 | Hide the ICOR for Life banner | off | Removes the banner above the folder tree. |
-| Turn off room icons and colors | off | Root folders named `00` to `06` keep their prefixes and Obsidian's default folder look. |
+| Turn off room icons and colors | off | Root folders named `00` to `07` keep their prefixes and Obsidian's default folder look. |
 | Reduce Obsidian's own controls | off | Hides the vault-switcher row, and New note, New folder and Change sort order from the file-tree toolbar. |
 | Hide the left ribbon | off | Hides Obsidian's thin left ribbon. |
 
@@ -83,7 +83,7 @@ folder rows nobody else has claimed:
 | --- | --- |
 | `data-icor-kind="room"` | block, no arrow, prefix hidden, label from `--room-label` |
 | `data-icor-kind="family"` | coloured name and a small glyph |
-| `data-icor-kind="none"` | leave this row to Obsidian, even if it is a 00-06 room |
+| `data-icor-kind="none"` | leave this row to Obsidian, even if it is a 00-07 room |
 | `--room-color` | the colour in the ink room |
 | `--room-color-paper` | optional; the colour in the paper room, falls back to `--room-color` |
 | `--room-icon` | `url(...)` used as a mask |
@@ -142,7 +142,7 @@ draw themselves with. Best to be used in combination with:
 The theme styles whatever you run it with, first-party or not: the tokens
 fall back to Obsidian's defaults, so your own plugin choices keep working.
 
-The complete, preconfigured experience (theme, all plugins, the seven-room
+The complete, preconfigured experience (theme, all plugins, the eight-room
 vault structure and the AI team) ships free as the **ICOR for Life**
 vault: https://myicor.com. The method behind it is taught in the ICOR
 Journey there.

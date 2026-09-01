@@ -161,6 +161,52 @@
     "weight": "400"
    }
   },
+  "r07": {
+   "roomColor": "#b57a86",
+   "borderLeft": "2px solid rgb(181, 122, 134)",
+   "background": "color(srgb 0.709804 0.478431 0.52549 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(181, 122, 134)",
+    "mask": "svg#28ee53ab:312"
+   },
+   "after": {
+    "content": "\"Databases\"",
+    "color": "rgb(181, 122, 134)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "r07data": {
+   "roomColor": "#b57a86",
+   "borderLeft": "2px solid rgb(181, 122, 134)",
+   "background": "color(srgb 0.709804 0.478431 0.52549 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(181, 122, 134)",
+    "mask": "svg#28ee53ab:312"
+   },
+   "after": {
+    "content": "\"Databases\"",
+    "color": "rgb(181, 122, 134)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
   "n04journal": {
    "roomColor": "#c2a35c",
    "borderLeft": "0px none rgb(0, 0, 0)",
@@ -313,6 +359,24 @@
     "h": "14px",
     "mr": "6px",
     "bg": "rgb(128, 135, 166)",
+    "mask": "svg#52d66a44:325"
+   },
+   "after": "none"
+  },
+  "floor07": {
+   "roomColor": "#b57a86",
+   "borderLeft": "0px none rgb(0, 0, 0)",
+   "background": "rgba(0, 0, 0, 0)",
+   "opacity": "1",
+   "arrow": "block",
+   "textSize": "14px",
+   "textColor": "rgb(181, 122, 134)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "14px",
+    "h": "14px",
+    "mr": "6px",
+    "bg": "rgb(181, 122, 134)",
     "mask": "svg#52d66a44:325"
    },
    "after": "none"
@@ -599,6 +663,52 @@
     "weight": "400"
    }
   },
+  "r07": {
+   "roomColor": "#8f5560",
+   "borderLeft": "2px solid rgb(143, 85, 96)",
+   "background": "color(srgb 0.560784 0.333333 0.376471 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(143, 85, 96)",
+    "mask": "svg#28ee53ab:312"
+   },
+   "after": {
+    "content": "\"Databases\"",
+    "color": "rgb(143, 85, 96)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "r07data": {
+   "roomColor": "#8f5560",
+   "borderLeft": "2px solid rgb(143, 85, 96)",
+   "background": "color(srgb 0.560784 0.333333 0.376471 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(143, 85, 96)",
+    "mask": "svg#28ee53ab:312"
+   },
+   "after": {
+    "content": "\"Databases\"",
+    "color": "rgb(143, 85, 96)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
   "n04journal": {
    "roomColor": "#7f662f",
    "borderLeft": "0px none rgb(0, 0, 0)",
@@ -751,6 +861,24 @@
     "h": "14px",
     "mr": "6px",
     "bg": "rgb(86, 94, 126)",
+    "mask": "svg#52d66a44:325"
+   },
+   "after": "none"
+  },
+  "floor07": {
+   "roomColor": "#8f5560",
+   "borderLeft": "0px none rgb(0, 0, 0)",
+   "background": "rgba(0, 0, 0, 0)",
+   "opacity": "1",
+   "arrow": "block",
+   "textSize": "14px",
+   "textColor": "rgb(143, 85, 96)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "14px",
+    "h": "14px",
+    "mr": "6px",
+    "bg": "rgb(143, 85, 96)",
     "mask": "svg#52d66a44:325"
    },
    "after": "none"

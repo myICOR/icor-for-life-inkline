@@ -34,6 +34,8 @@ export const TREE = [
   ['r04', '04 Inner World'],
   ['r05', '05 Assets'],
   ['r06', '06 AI Team'],
+  ['r07', '07 Databases'],
+  ['r07data', '07 Data'],   /* the private-vault name; the prefix is the identity */
   ['n04journal', '04 Inner World/Journal'],
   ['n04mylife', '04 Inner World/My Life'],
   ['n04goals', '04 Inner World/My Life/Goals'],
@@ -43,6 +45,7 @@ export const TREE = [
   ['n06sessions', '06 AI Team/AI Sessions'],
   ['floor', '03 WiP/2026-08-31-some-work'],
   ['floor2', '06 AI Team/Agents/Penn - Journal Writer'],
+  ['floor07', '07 Databases/mypka-health'],
   ['date', '04 Inner World/Journal/2026'],
   ['date2', '04 Inner World/Journal/2026/08'],
   ['session', '06 AI Team/AI Sessions/2026-08-30_1312_open-note_abc123'],
