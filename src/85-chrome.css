@@ -36,10 +36,38 @@
  *
  * Decision, 2026-08-30: a settings entry in two places means one of
  * them is wrong, so the panel-corner entry is the one that goes.
+ *
+ * THE HOST SETS DISPLAY ON THIS ROW. An earlier comment here said it only
+ * positioned the element; that was false, and the (0,2,1) rule it excused
+ * lost the moment its !important came off (Flint, review of 1.6.0,
+ * 2026-09-04, measured with app.css in the document). Both 1.12.7 and
+ * 1.13.7 carry, at (0,4,1):
+ *
+ *   body:not(.is-mobile) .workspace-split.mod-left-split
+ *     .workspace-sidedock-vault-profile { display: var(--vault-profile-display) }
+ *
+ * with the variable defaulting to flex on body at (0,0,1). So the hide
+ * rides two routes, and either one alone holds:
+ *
+ *   1. The variable. Guarded, `body` weighs (0,1,1) and beats the host's
+ *      default, so the host's own rule reads none. This is the route the
+ *      review linter recommends, and the one that survives a host that
+ *      rewrites its selector.
+ *   2. A plain display, for an app where the variable does not exist (its
+ *      introduction version is unverified; only 1.12.7 and 1.13.7 are on
+ *      this machine). The heavy arm mirrors the host's selector and weighs
+ *      (0,5,1) once guarded; the light arm (0,2,1) covers the element
+ *      wherever the host does not contest it.
+ *
+ * Proved in test/toggles.test.mjs with the host stylesheet in front of
+ * the theme, not by reading the CSS.
  * ------------------------------------------------------------------ */
-.workspace-sidedock-vault-profile {
-  /* No !important: guarded, this weighs (0,2,0); the host never sets display
-     on this element, it only positions it. */
+body {
+  --vault-profile-display: none;
+}
+
+.workspace-sidedock-vault-profile,
+body:not(.is-mobile) .workspace-split.mod-left-split .workspace-sidedock-vault-profile {
   display: none;
 }
 
