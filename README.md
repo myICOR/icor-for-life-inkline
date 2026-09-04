@@ -67,7 +67,7 @@ exists somewhere else.
 
 Requires Obsidian 1.5.0 or newer.
 
-- **From Obsidian:** Settings, Appearance, Themes, Manage, search "myICOR
+- **From Obsidian:** Settings, Appearance, Themes, Manage, search "ICOR for Life -
   INKLINE", install, use.
 - **Manually:** copy `theme.css` and `manifest.json` from the latest
   release into `.obsidian/themes/ICOR for Life - INKLINE/`, then select the theme
