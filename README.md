@@ -65,7 +65,7 @@ exists somewhere else.
 
 ## Install
 
-Requires Obsidian 1.5.0 or newer.
+Requires Obsidian 1.5.8 or newer.
 
 - **From Obsidian:** Settings, Appearance, Themes, Manage, search "ICOR for Life -
   INKLINE", install, use.
