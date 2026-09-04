@@ -2736,10 +2736,12 @@ body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([da
 /* no collapse arrows on rooms: icon + text only */
 body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .collapse-icon,
 body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .nav-folder-collapse-indicator{
-  display: none !important;
-  width: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  /* No !important: this selector weighs (0,5,0) before the guard is merged in,
+     and the host sets display on .collapse-icon at (0,1,0) and at most (0,3,0). */
+  display: none;
+  width: 0;
+  margin: 0;
+  padding: 0;
 }
 
 /* hide the real name text (with its sort prefix) */
