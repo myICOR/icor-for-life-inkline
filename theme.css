@@ -1996,7 +1996,11 @@ body {
 
 /* selection is the marker */
 ::selection { background: var(--ink-marker-selection); color: var(--ink-paper); }
-.cm-s-obsidian .cm-selectionBackground, .cm-s-obsidian ::selection { background: var(--ink-marker-selection) !important; }
+/* The editor paints its selection layer and its ::selection from
+   --text-selection, mapped to the marker in the token map above. The
+   host rule that consumes it sits at (0,5,0) and reads the variable, so
+   there is nothing here to outrank: a forced rule stood in this spot until
+   1.6.0 and painted the same pixel the variable already paints. */
 .cm-s-obsidian .cm-activeLine { background: transparent; }
 .cm-s-obsidian .cm-cursor { border-left-color: var(--ink-marker); }
 
