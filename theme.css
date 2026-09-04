@@ -1921,7 +1921,9 @@ body {
   padding: 9px 16px;
 }
 .vertical-tab-content .setting-item-heading:not(.setting-group *):first-child { margin-top: 0; }
-/* section bottom: the last row before the next heading (or the pane end) */
+/* section bottom: the last row before the next heading (or the pane end).
+   `:has(+ .setting-item-heading)` stays: it selects a row by what FOLLOWS
+   it, and CSS has no previous-sibling combinator to spell that without it. */
 .vertical-tab-content .setting-item:not(.setting-item-heading):not(.setting-group *):has(+ .setting-item-heading),
 .vertical-tab-content .setting-item:not(.setting-item-heading):not(.setting-group *):last-child {
   border-bottom-left-radius: var(--ink-radius-subtle);
@@ -2376,7 +2378,12 @@ input[type="range"]:focus-visible::-webkit-slider-thumb { border-color: var(--in
 .sync-status-icon.mod-error { color: var(--ink-destructive-text); }
 .tree-item-self .collapse-icon { color: var(--ink-paper-faint); }
 
-/* reduced motion: the line renders drawn, instantly */
+/* reduced motion: the line renders drawn, instantly.
+   The four !important below stay ON PURPOSE. The app writes transitions
+   as inline style (its animate helper sets style.transition = "all <n>ms"
+   on the element it moves, and the editor sets the cursor blink duration
+   the same way), and an inline declaration loses to nothing except an
+   !important one. No selector, at any specificity, reaches it. */
 @media (prefers-reduced-motion: reduce) {
   .tooltip { animation: none; }
   * {
