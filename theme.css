@@ -3172,7 +3172,10 @@ body:not(.icor-hide-banner) a.micor-banner:focus-visible{
    switch look broken. */
 
 body.icor-hide-ribbon .workspace-ribbon.mod-left{
-  display: none !important;
+  /* No !important, unlike the snippet it replaced: with the guard merged in
+     this weighs (0,3,0), and the host shows the ribbon at (0,1,0) and hides
+     it at (0,2,0). The snippet needed the force; the theme does not. */
+  display: none;
 }
 
 /* Obsidian insets the top-left tab header by calc(80px - ribbon width) to
@@ -3228,7 +3231,9 @@ body.mod-macos.is-frameless:not(.is-fullscreen).icor-hide-ribbon{
  * them is wrong, so the panel-corner entry is the one that goes.
  * ------------------------------------------------------------------ */
 body.icor-scaffold-chrome .workspace-sidedock-vault-profile{
-  display: none !important;
+  /* No !important: guarded, this weighs (0,2,0); the host never sets display
+     on this element, it only positions it. */
+  display: none;
 }
 
 
@@ -3278,5 +3283,10 @@ body.icor-scaffold-chrome .nav-buttons-container .clickable-icon:has(svg.lucide-
 body.icor-scaffold-chrome .nav-buttons-container .clickable-icon[aria-label="Change sort order"],
 body.icor-scaffold-chrome .nav-buttons-container .clickable-icon:has(svg.lucide-sort-asc),
 body.icor-scaffold-chrome .nav-buttons-container .clickable-icon:has(svg.lucide-sort-desc){
-  display: none !important;
+  /* No !important: guarded, the :has() arms weigh (0,4,1) and the aria arms
+     (0,4,0); the host shows .clickable-icon at (0,1,0), .file-tree .clickable-icon
+     at (0,2,0). The :has() arms stay: the button carries only a translated
+     aria-label, and the icon class is the one thing on it that does not
+     change with the interface language. */
+  display: none;
 }

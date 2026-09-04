@@ -23,7 +23,10 @@
    switch look broken. */
 
 .workspace-ribbon.mod-left {
-  display: none !important;
+  /* No !important, unlike the snippet it replaced: with the guard merged in
+     this weighs (0,3,0), and the host shows the ribbon at (0,1,0) and hides
+     it at (0,2,0). The snippet needed the force; the theme does not. */
+  display: none;
 }
 
 /* Obsidian insets the top-left tab header by calc(80px - ribbon width) to

@@ -38,7 +38,9 @@
  * them is wrong, so the panel-corner entry is the one that goes.
  * ------------------------------------------------------------------ */
 .workspace-sidedock-vault-profile {
-  display: none !important;
+  /* No !important: guarded, this weighs (0,2,0); the host never sets display
+     on this element, it only positions it. */
+  display: none;
 }
 
 
@@ -88,5 +90,10 @@
 .nav-buttons-container .clickable-icon[aria-label="Change sort order"],
 .nav-buttons-container .clickable-icon:has(svg.lucide-sort-asc),
 .nav-buttons-container .clickable-icon:has(svg.lucide-sort-desc) {
-  display: none !important;
+  /* No !important: guarded, the :has() arms weigh (0,4,1) and the aria arms
+     (0,4,0); the host shows .clickable-icon at (0,1,0), .file-tree .clickable-icon
+     at (0,2,0). The :has() arms stay: the button carries only a translated
+     aria-label, and the icon class is the one thing on it that does not
+     change with the interface language. */
+  display: none;
 }
