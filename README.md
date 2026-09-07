@@ -111,6 +111,22 @@ it on one rule, and nobody gets it half-right on another.
 The gates run in a real engine rather than over the CSS text, because the
 failure they exist to catch is a switch that moves and changes nothing.
 
+## Releasing
+
+A release is cut only when a version tag is pushed. A plain push to `main`
+never releases anything.
+
+1. Bump the version in `manifest.json` and `versions.json` (new line, same `minAppVersion`).
+2. Push to `main`. Nothing ships yet.
+3. Flint reads the diff before ship. No read, no tag.
+4. Tag the commit with the bare version and push the tag:
+   `git tag -a 1.6.1 -m "ICOR for Life - INKLINE 1.6.1" && git push github 1.6.1`
+   (never `v1.6.1`: the Obsidian directory reads the tag as the version).
+
+The Release workflow refuses a tag that does not equal `manifest.json`'s
+version or that is not on `main`, then publishes `manifest.json` and `theme.css` with the commit subjects since the previous tag as notes.
+The nightly version gate still checks that tag, branch and release agree.
+
 ## ICOR for Life Obsidian Edition
 
 ICOR for Life - INKLINE is the visual system of the **ICOR for Life Obsidian

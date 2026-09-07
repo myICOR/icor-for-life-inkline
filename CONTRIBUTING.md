@@ -11,3 +11,6 @@ distribute your contribution for any purpose, including under the
 theme's license; you retain the right to use your own contribution for
 personal purposes. If you do not agree, please open an issue describing
 the change instead of a pull request.
+
+Releases are cut from a version tag, never from a push to `main`. The
+steps are in the README under "Releasing".
