@@ -33,7 +33,7 @@ const CHROME = process.env.CHROME_BIN
 /* Obsidian's own file-explorer toolbar, in the DOM order the host builds it,
    with the two suite launchers appended after as plugins actually append
    them. The theme centers and reorders; the fixture is what it starts from. */
-function fixture({ extraCss = '' } = {}) {
+function fixture({ extraCss = '', scaffoldHides = true, paneWidth = null } = {}) {
   const icon = (cls) =>
     `<svg class="${cls}" viewBox="0 0 24 24"><path d="M0 0h24v24H0z"/></svg>`;
   const btn = (id, svgCls, extra = '') =>
@@ -41,14 +41,26 @@ function fixture({ extraCss = '' } = {}) {
   return `<!doctype html><html><head><style>
   * { box-sizing: border-box; }
   body { margin: 0; }
+  /* STAND-IN for the HOST. These two declarations are Obsidian's own, from
+     app.css, and they are in the fixture because the theme is not free to
+     ignore them: the wrap is the host's decision and the theme only gets to
+     say what happens to the box when the host takes it. Without them the
+     fixture measures a theme talking to nobody. Literals rather than the
+     host's tokens because the fixture carries no Obsidian variable sheet:
+     8px is --size-4-2. */
+  .nav-header { padding: 8px; }
+  .nav-buttons-container { flex-wrap: wrap; }
   /* STAND-IN for the scaffold's icor-rooms.css, which hides these two. They
      are in the fixture rather than omitted so the assumption is visible: the
      numbers below are true given the host controls the scaffold LEAVES.
      The scaffold also hides sort; that is the snippet's decision, so the
-     THEME gate keeps sort visible and orders it. */
-  .nav-buttons-container .clickable-icon:has(svg.lucide-pen-box),
-  .nav-buttons-container .clickable-icon:has(svg.lucide-folder-plus) { display: none !important; }
+     THEME gate keeps sort visible and orders it. Switched OFF for the
+     narrow-pane gate, where the vault under test is a plain community one
+     that never installed the snippet and therefore shows every control. */
+${scaffoldHides ? `  .nav-buttons-container .clickable-icon:has(svg.lucide-pen-box),
+  .nav-buttons-container .clickable-icon:has(svg.lucide-folder-plus) { display: none !important; }` : ''}
 ${themeCss}
+${paneWidth === null ? '' : `  .workspace-leaf-content { width: ${paneWidth}px; }`}
 ${extraCss}
   </style></head><body>
   <div class="workspace-leaf-content" data-type="file-explorer"><div class="nav-header">
@@ -71,7 +83,10 @@ ${extraCss}
     const cs = getComputedStyle(el);
     if (cs.display === 'none') { seen[id] = null; continue; }
     const b = el.getBoundingClientRect();
-    seen[id] = { left: Math.round(b.left - r.left), width: Math.round(b.width) };
+    seen[id] = {
+      left: Math.round(b.left - r.left), width: Math.round(b.width),
+      top: Math.round(b.top - r.top), height: Math.round(b.height),
+    };
   }
   document.getElementById('out').textContent = JSON.stringify({
     controls: seen,
@@ -105,6 +120,9 @@ function measure(opts) {
 }
 
 const VISIBLE = ['sort', 'collapse', 'focus', 'robot'];
+/* Every control the fixture builds, which is what a vault without the
+   scaffold snippet actually renders. */
+const ALL = ['newnote', 'newfolder', 'sort', 'collapse', 'focus', 'robot'];
 
 function gaps(m) {
   const ls = VISIBLE.map((id) => m.controls[id].left);
@@ -181,6 +199,52 @@ test('the visual order is launchers, sort, collapse last', () => {
    silent drift. */
 test('the settled width is the specified 108', () => {
   assert.equal(gaps(measure()).span, 108, 'four controls no longer occupy 108px');
+});
+
+/* THE NARROW-PANE GATE. Reported by Olivier Van Biervliet, theme channel,
+ * 2026-09-14; ruled by Iris 2026-09-15.
+ *
+ * The wrap is the HOST's decision, not the theme's: Obsidian's own
+ * `.nav-buttons-container` ships `flex-wrap: wrap`, and a narrow sidebar is
+ * a supported sidebar. What the theme owes is a box that GROWS when the host
+ * uses that wrap. A fixed `height` cannot grow, so the second line renders
+ * outside the row and paints over the file tree below it.
+ *
+ * 180px of pane with six controls is the smallest real case, and it is
+ * measured rather than argued: the scaffold snippet is off, because the
+ * vault that reported this is a community vault that installed the theme
+ * for its typography and never installed the snippet, so every host control
+ * and both launchers render. Six 24px controls with 4px gaps want 164px; at
+ * a 180px pane the host's 8px nav-header padding and the theme's own 8px
+ * side padding leave the row 148px of content, so five controls take the
+ * first line and one wraps to a second. Two 24px lines with the row's own
+ * 4px gap between them is 52px.
+ *
+ * The second assertion is the defect itself stated as geometry. Row height
+ * alone is not enough: a row could report 52px and still let a control hang
+ * below its own box. Nothing may sit past the bottom edge, because past the
+ * bottom edge is the tree.
+ */
+test('the row grows to fit when the host wraps it', () => {
+  const m = measure({ paneWidth: 180, scaffoldHides: false });
+
+  const secondLine = ALL.filter((id) => m.controls[id] && m.controls[id].top >= 24);
+  assert.ok(secondLine.length > 0,
+    'six controls did not wrap at a 180px pane, so this gate is measuring the wrong case '
+    + `and would go green on a row that never grew.\n${JSON.stringify(m, null, 2)}`);
+
+  assert.equal(m.rowHeight, 52,
+    `the row is ${m.rowHeight}px tall on two wrapped lines; a row that grows with its content `
+    + 'is 24px + 4px gap + 24px = 52px. A fixed height pins it at 24px and the second line '
+    + `escapes the box.\n${JSON.stringify(m, null, 2)}`);
+
+  for (const id of ALL) {
+    const c = m.controls[id];
+    assert.ok(c, `${id} is not rendered at all`);
+    assert.ok(c.top + c.height <= m.rowHeight,
+      `${id} ends ${c.top + c.height}px down while the row is only ${m.rowHeight}px tall, `
+      + 'so it paints over the file tree');
+  }
 });
 
 /* NEGATIVE CONTROL. Every assertion above is a comparison of numbers, and a

@@ -1324,7 +1324,7 @@ body.inkline-no-hand {
   justify-content: center;
   align-items: center;
   gap: 4px;
-  height: 24px;
+  min-height: 24px;
   margin-bottom: 8px;
   padding: 0 8px;
 }
