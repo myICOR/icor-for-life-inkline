@@ -11,9 +11,33 @@
  * appeared only when the tree could collapse - is withdrawn with the
  * ruling, so the gate now asserts presence unconditionally.
  *
- * Chrome is REQUIRED, not optional. A skip here would be a gate reporting
+ * WHY THE HOST STYLESHEET IS IN THE DOCUMENT (2026-09-16). Until now this
+ * fixture carried two hand-written declarations standing in for Obsidian -
+ * `.nav-header { padding: 8px }` and `.nav-buttons-container { flex-wrap:
+ * wrap }` - and that stand-in is how the tree-slot overlap reached 1.6.0.
+ * A stand-in is a second copy of the host's behaviour, written by us, and a
+ * second copy drifts: ours named padding and wrap and knew nothing about
+ * the host's `gap`, so every number below was measured in a row where the
+ * theme's own `gap: 4px` had no contest to win. It won by default in the
+ * fixture and by luck in the app. The fixture now loads app.css out of the
+ * Obsidian installs on this machine, every build of it that can be found,
+ * and runs the whole set once per build in front of the theme. The two
+ * stand-ins are DELETED rather than kept alongside: keeping them would
+ * leave the copy that drifts sitting next to the source that cannot.
+ *
+ * There is no theme-alone pass here, and the absence is deliberate. This
+ * file measures geometry, and the geometry of this row is a contest - the
+ * host wraps, the theme grows; the host sets a 2px gap, the theme sets 4px.
+ * Rendered with no host on the page the theme is talking to nobody, and the
+ * numbers it produces are about a document Obsidian never builds.
+ *
+ * Chrome is REQUIRED, not optional. A skip there would be a gate reporting
  * green having measured nothing. If the browser is missing this file fails
- * and says how to fix it.
+ * and says how to fix it. A missing Obsidian install is the other case and
+ * is treated the way test/toggles.test.mjs treats it: the host passes are
+ * SKIPPED, loudly, naming what was not measured, because a visible skip is
+ * honest and a silent downgrade to a stand-in is the bug at the top of this
+ * comment.
  */
 
 import test from 'node:test';
@@ -23,6 +47,7 @@ import { readFileSync, writeFileSync, mkdtempSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve, join } from 'node:path';
 import { tmpdir } from 'node:os';
+import { hostBuilds } from './obsidian-host.mjs';
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const themeCss = readFileSync(resolve(repo, 'theme.css'), 'utf8');
@@ -32,8 +57,14 @@ const CHROME = process.env.CHROME_BIN
 
 /* Obsidian's own file-explorer toolbar, in the DOM order the host builds it,
    with the two suite launchers appended after as plugins actually append
-   them. The theme centers and reorders; the fixture is what it starts from. */
-function fixture({ extraCss = '', scaffoldHides = true, paneWidth = null } = {}) {
+   them, and Obsidian's own stylesheet in front of the theme. The theme
+   centers and reorders; the fixture is what it starts from.
+
+   The body classes are the host's own defaults, not decoration: app.css
+   hangs its variables off the theme class, and every spacing token this row
+   reads - --size-4-2 on the header, --size-2-1 on the row - resolves
+   through them. */
+function fixture(host, { extraCss = '', scaffoldHides = true, paneWidth = null } = {}) {
   const icon = (cls) =>
     `<svg class="${cls}" viewBox="0 0 24 24"><path d="M0 0h24v24H0z"/></svg>`;
   const btn = (id, svgCls, extra = '') =>
@@ -41,17 +72,13 @@ function fixture({ extraCss = '', scaffoldHides = true, paneWidth = null } = {})
   return `<!doctype html><html><head><style>
   * { box-sizing: border-box; }
   body { margin: 0; }
-  /* STAND-IN for the HOST. These two declarations are Obsidian's own, from
-     app.css, and they are in the fixture because the theme is not free to
-     ignore them: the wrap is the host's decision and the theme only gets to
-     say what happens to the box when the host takes it. Without them the
-     fixture measures a theme talking to nobody. Literals rather than the
-     host's tokens because the fixture carries no Obsidian variable sheet:
-     8px is --size-4-2. */
-  .nav-header { padding: 8px; }
-  .nav-buttons-container { flex-wrap: wrap; }
-  /* STAND-IN for the scaffold's icor-rooms.css, which hides these two. They
-     are in the fixture rather than omitted so the assumption is visible: the
+  </style>
+  <style>${host.css}</style>
+  <style>
+  /* STAND-IN for the scaffold's icor-rooms.css, which hides these two. It is
+     a stand-in and stays one: that file lives in the ICOR for Life scaffold,
+     not in this repo, so there is no source here to read it from. It is in
+     the fixture rather than omitted so the assumption is visible: the
      numbers below are true given the host controls the scaffold LEAVES.
      The scaffold also hides sort; that is the snippet's decision, so the
      THEME gate keeps sort visible and orders it. Switched OFF for the
@@ -62,7 +89,8 @@ ${scaffoldHides ? `  .nav-buttons-container .clickable-icon:has(svg.lucide-pen-b
 ${themeCss}
 ${paneWidth === null ? '' : `  .workspace-leaf-content { width: ${paneWidth}px; }`}
 ${extraCss}
-  </style></head><body>
+  </style></head>
+  <body class="theme-dark mod-macos is-frameless obsidian-app">
   <div class="workspace-leaf-content" data-type="file-explorer"><div class="nav-header">
     <div id="row" class="nav-buttons-container micor-tree-slot">
       ${btn('newnote', 'lucide-pen-box')}
@@ -92,6 +120,8 @@ ${extraCss}
     controls: seen,
     rowHeight: Math.round(r.height),
     rowWidth: Math.round(r.width),
+    rowGap: getComputedStyle(row).rowGap,
+    headerPadding: getComputedStyle(document.querySelector('.nav-header')).padding,
   });
   </script></body></html>`;
 }
@@ -99,9 +129,9 @@ ${extraCss}
 const dir = mkdtempSync(join(tmpdir(), 'inkline-headerrow-'));
 let shot = 0;
 
-function measure(opts) {
+function measure(host, opts) {
   const file = join(dir, `f${shot++}.html`);
-  writeFileSync(file, fixture(opts));
+  writeFileSync(file, fixture(host, opts));
   let dom;
   try {
     dom = execFileSync(CHROME, [
@@ -134,42 +164,9 @@ function gaps(m) {
   };
 }
 
-/* CARDINALITY FIRST. Every assertion below is about numbers the THEME
-   produces. If the fixture stopped matching the theme's selectors, the
-   numbers would be a bare flex row's defaults and the whole file would go
-   green describing nothing. 24px controls and a 24px row are the theme's
-   own values and nothing else in the fixture sets them. */
-test('the fixture is actually being styled by theme.css', () => {
-  assert.match(themeCss, /\.micor-tree-slot\s*\{/, 'the slot rule is gone from theme.css');
-  const m = measure();
-  assert.equal(m.rowHeight, 24, 'the row is not 24px tall, so theme.css did not apply to the fixture');
-  for (const id of VISIBLE) {
-    assert.ok(m.controls[id], `${id} is not rendered at all`);
-    assert.equal(m.controls[id].width, 24, `${id} is not 24px wide, so the theme's control rule missed it`);
-  }
-  assert.equal(m.controls.newnote, null, 'the stand-in for the scaffold hide did not take');
-});
-
-/* The ruling itself: collapse-all is PERMANENT. No state class, no gating -
-   the fixture carries no micor-can-collapse and the control must render. */
-test('collapse-all renders unconditionally', () => {
-  const m = measure();
-  assert.ok(m.controls.collapse,
-    'collapse-all does not render without a state class; the conditional gating was supposed '
-    + 'to be withdrawn (user ruling, 2026-08-30)');
-});
-
-/* The ruling's other half: the cluster is CENTERED in the row. Centered
-   means anchored to the row's own box - equal space both sides - and to
-   nothing else: not the banner, not the room glyph column. */
-test('the cluster is centered in the row', () => {
-  const g = gaps(measure());
-  assert.ok(Math.abs(g.left - g.right) <= 1,
-    `the cluster sits ${g.left}px from the left and ${g.right}px from the right; `
-    + 'a centered row has equal space both sides (1px rounding allowed)');
-});
-
-/* The inset token is neither consumed nor restated. It existed to align the
+/* The one assertion in this file that reads the source rather than the
+   render, and therefore the one that needs neither Chrome nor an install.
+   The inset token is neither consumed nor restated: it existed to align the
    row's LEFT edge to the banner, and a centered row has no left anchor. A
    surviving var() would be a dead declaration; a 14px literal would be the
    second copy of another file's number. Both are drift. */
@@ -184,78 +181,154 @@ test('the banner inset is neither consumed nor restated', () => {
     + 'token existed to prevent');
 });
 
-test('the visual order is launchers, sort, collapse last', () => {
-  const m = measure();
-  const order = ['focus', 'robot', 'sort', 'collapse'];
-  const lefts = order.map((id) => m.controls[id].left);
-  assert.deepEqual([...lefts].sort((a, b) => a - b), lefts,
-    'the controls do not lay out in the order launchers, sort, collapse.\n'
-    + JSON.stringify(m.controls, null, 2));
-});
+/* The geometry set, once per Obsidian build on this machine. */
+function suite(host) {
+  const tag = ` [behind app.css ${host.version}]`;
+  const m0 = (opts) => measure(host, opts);
 
-/* The stated width, which is a spec rather than an observation: four
-   controls at 24px with 4px gaps occupy 108px. It is here so a future gap
-   or size change has to be a deliberate edit to this file rather than a
-   silent drift. */
-test('the settled width is the specified 108', () => {
-  assert.equal(gaps(measure()).span, 108, 'four controls no longer occupy 108px');
-});
+  /* CARDINALITY FIRST. Every assertion below is about numbers the THEME
+     produces. If the fixture stopped matching the theme's selectors, the
+     numbers would be a bare flex row's defaults and the whole file would go
+     green describing nothing. 24px controls and a 24px row are the theme's
+     own values and nothing else in the fixture sets them. */
+  test('the fixture is actually being styled by theme.css' + tag, () => {
+    assert.match(themeCss, /\.micor-tree-slot\s*\{/, 'the slot rule is gone from theme.css');
+    const m = m0();
+    assert.equal(m.rowHeight, 24, 'the row is not 24px tall, so theme.css did not apply to the fixture');
+    for (const id of VISIBLE) {
+      assert.ok(m.controls[id], `${id} is not rendered at all`);
+      assert.equal(m.controls[id].width, 24, `${id} is not 24px wide, so the theme's control rule missed it`);
+    }
+    assert.equal(m.controls.newnote, null, 'the stand-in for the scaffold hide did not take');
+  });
 
-/* THE NARROW-PANE GATE. Reported by Olivier Van Biervliet, theme channel,
- * 2026-09-14; ruled by Iris 2026-09-15.
- *
- * The wrap is the HOST's decision, not the theme's: Obsidian's own
- * `.nav-buttons-container` ships `flex-wrap: wrap`, and a narrow sidebar is
- * a supported sidebar. What the theme owes is a box that GROWS when the host
- * uses that wrap. A fixed `height` cannot grow, so the second line renders
- * outside the row and paints over the file tree below it.
- *
- * 180px of pane with six controls is the smallest real case, and it is
- * measured rather than argued: the scaffold snippet is off, because the
- * vault that reported this is a community vault that installed the theme
- * for its typography and never installed the snippet, so every host control
- * and both launchers render. Six 24px controls with 4px gaps want 164px; at
- * a 180px pane the host's 8px nav-header padding and the theme's own 8px
- * side padding leave the row 148px of content, so five controls take the
- * first line and one wraps to a second. Two 24px lines with the row's own
- * 4px gap between them is 52px.
- *
- * The second assertion is the defect itself stated as geometry. Row height
- * alone is not enough: a row could report 52px and still let a control hang
- * below its own box. Nothing may sit past the bottom edge, because past the
- * bottom edge is the tree.
- */
-test('the row grows to fit when the host wraps it', () => {
-  const m = measure({ paneWidth: 180, scaffoldHides: false });
+  /* THE HOST IS ON THE PAGE AND IS THE ONE THE THEME HAS TO BEAT. Without
+     this, a fixture that loaded an app.css the selectors never reached would
+     be indistinguishable from the stand-in it replaced, and every number
+     below would again be measured against nobody. Two host declarations
+     touch this row and both are checked: the header's padding, which sets
+     how much width the row has to work with, and the row's own gap, which
+     app.css puts at --size-2-1 and the theme overrides at 4px. The second is
+     a contest the old stand-in never staged. */
+  test('app.css is in front of the theme, and the theme wins the gap' + tag, () => {
+    const m = m0();
+    assert.match(m.headerPadding, /^8px$/,
+      `the nav-header reports ${m.headerPadding} of padding; app.css ${host.version} sets `
+      + '--size-4-2 there, so a different number means the host sheet did not reach this '
+      + 'fixture and the row is being measured in a document Obsidian never builds');
+    assert.equal(m.rowGap, '4px',
+      `the row's gap is ${m.rowGap}; app.css sets --size-2-1 (2px) on .nav-buttons-container `
+      + 'and the theme sets 4px on .micor-tree-slot. 2px means the theme lost that contest, '
+      + 'and the wrapped-row height below is computed from the 4px');
+  });
 
-  const secondLine = ALL.filter((id) => m.controls[id] && m.controls[id].top >= 24);
-  assert.ok(secondLine.length > 0,
-    'six controls did not wrap at a 180px pane, so this gate is measuring the wrong case '
-    + `and would go green on a row that never grew.\n${JSON.stringify(m, null, 2)}`);
+  /* The ruling itself: collapse-all is PERMANENT. No state class, no gating -
+     the fixture carries no micor-can-collapse and the control must render. */
+  test('collapse-all renders unconditionally' + tag, () => {
+    const m = m0();
+    assert.ok(m.controls.collapse,
+      'collapse-all does not render without a state class; the conditional gating was supposed '
+      + 'to be withdrawn (user ruling, 2026-08-30)');
+  });
 
-  assert.equal(m.rowHeight, 52,
-    `the row is ${m.rowHeight}px tall on two wrapped lines; a row that grows with its content `
-    + 'is 24px + 4px gap + 24px = 52px. A fixed height pins it at 24px and the second line '
-    + `escapes the box.\n${JSON.stringify(m, null, 2)}`);
+  /* The ruling's other half: the cluster is CENTERED in the row. Centered
+     means anchored to the row's own box - equal space both sides - and to
+     nothing else: not the banner, not the room glyph column. */
+  test('the cluster is centered in the row' + tag, () => {
+    const g = gaps(m0());
+    assert.ok(Math.abs(g.left - g.right) <= 1,
+      `the cluster sits ${g.left}px from the left and ${g.right}px from the right; `
+      + 'a centered row has equal space both sides (1px rounding allowed)');
+  });
 
-  for (const id of ALL) {
-    const c = m.controls[id];
-    assert.ok(c, `${id} is not rendered at all`);
-    assert.ok(c.top + c.height <= m.rowHeight,
-      `${id} ends ${c.top + c.height}px down while the row is only ${m.rowHeight}px tall, `
-      + 'so it paints over the file tree');
-  }
-});
+  test('the visual order is launchers, sort, collapse last' + tag, () => {
+    const m = m0();
+    const order = ['focus', 'robot', 'sort', 'collapse'];
+    const lefts = order.map((id) => m.controls[id].left);
+    assert.deepEqual([...lefts].sort((a, b) => a - b), lefts,
+      'the controls do not lay out in the order launchers, sort, collapse.\n'
+      + JSON.stringify(m.controls, null, 2));
+  });
 
-/* NEGATIVE CONTROL. Every assertion above is a comparison of numbers, and a
-   harness that measured the same thing twice would satisfy all of them
-   forever. Hand it the exact regression this ruling reverses - a packed
-   row - and it must go red. */
-test('the harness can see a packed row when handed one', () => {
-  const g = gaps(measure({
-    extraCss: '.micor-tree-slot { justify-content: flex-start !important; }',
-  }));
-  assert.ok(Math.abs(g.left - g.right) > 10,
-    `the harness reports a planted flex-start row as centered (left ${g.left}, right ${g.right}); `
-    + 'it cannot be trusted to detect the defect it exists to catch');
-});
+  /* The stated width, which is a spec rather than an observation: four
+     controls at 24px with 4px gaps occupy 108px. It is here so a future gap
+     or size change has to be a deliberate edit to this file rather than a
+     silent drift. */
+  test('the settled width is the specified 108' + tag, () => {
+    assert.equal(gaps(m0()).span, 108, 'four controls no longer occupy 108px');
+  });
+
+  /* THE NARROW-PANE GATE. Reported by Olivier Van Biervliet, theme channel,
+   * 2026-09-14; ruled by Iris 2026-09-15.
+   *
+   * The wrap is the HOST's decision, not the theme's: Obsidian's own
+   * `.nav-buttons-container` ships `flex-wrap: wrap`, and a narrow sidebar is
+   * a supported sidebar. What the theme owes is a box that GROWS when the host
+   * uses that wrap. A fixed `height` cannot grow, so the second line renders
+   * outside the row and paints over the file tree below it.
+   *
+   * 180px of pane with six controls is the smallest real case, and it is
+   * measured rather than argued: the scaffold snippet is off, because the
+   * vault that reported this is a community vault that installed the theme
+   * for its typography and never installed the snippet, so every host control
+   * and both launchers render. Six 24px controls with 4px gaps want 164px; at
+   * a 180px pane the host's own nav-header padding (--size-4-2, 8px a side)
+   * and the theme's own 8px side padding leave the row 148px of content, so
+   * five controls take the first line and one wraps to a second. Two 24px
+   * lines with the row's own 4px gap between them is 52px. Every one of those
+   * numbers now comes off app.css or theme.css, none off a stand-in.
+   *
+   * The second assertion is the defect itself stated as geometry. Row height
+   * alone is not enough: a row could report 52px and still let a control hang
+   * below its own box. Nothing may sit past the bottom edge, because past the
+   * bottom edge is the tree.
+   */
+  test('the row grows to fit when the host wraps it' + tag, () => {
+    const m = m0({ paneWidth: 180, scaffoldHides: false });
+
+    const secondLine = ALL.filter((id) => m.controls[id] && m.controls[id].top >= 24);
+    assert.ok(secondLine.length > 0,
+      'six controls did not wrap at a 180px pane, so this gate is measuring the wrong case '
+      + `and would go green on a row that never grew.\n${JSON.stringify(m, null, 2)}`);
+
+    assert.equal(m.rowHeight, 52,
+      `the row is ${m.rowHeight}px tall on two wrapped lines; a row that grows with its content `
+      + 'is 24px + 4px gap + 24px = 52px. A fixed height pins it at 24px and the second line '
+      + `escapes the box.\n${JSON.stringify(m, null, 2)}`);
+
+    for (const id of ALL) {
+      const c = m.controls[id];
+      assert.ok(c, `${id} is not rendered at all`);
+      assert.ok(c.top + c.height <= m.rowHeight,
+        `${id} ends ${c.top + c.height}px down while the row is only ${m.rowHeight}px tall, `
+        + 'so it paints over the file tree');
+    }
+  });
+
+  /* NEGATIVE CONTROL. Every assertion above is a comparison of numbers, and a
+     harness that measured the same thing twice would satisfy all of them
+     forever. Hand it the exact regression this ruling reverses - a packed
+     row - and it must go red. */
+  test('the harness can see a packed row when handed one' + tag, () => {
+    const g = gaps(m0({
+      extraCss: '.micor-tree-slot { justify-content: flex-start !important; }',
+    }));
+    assert.ok(Math.abs(g.left - g.right) > 10,
+      `the harness reports a planted flex-start row as centered (left ${g.left}, right ${g.right}); `
+      + 'it cannot be trusted to detect the defect it exists to catch');
+  });
+}
+
+const hosts = hostBuilds();
+if (hosts.length === 0) {
+  test('the header row, behind Obsidian\'s own app.css', {
+    skip: 'no Obsidian install found on this machine, so the header row was NOT measured. '
+      + 'Every number this file checks - the 108px cluster, the 52px wrapped row, the '
+      + 'no-overlap bound - is a consequence of app.css and theme.css together, and the '
+      + 'hand-written stand-in for app.css that used to stand here is what let the 1.6.0 '
+      + 'overlap through. Install Obsidian, or point OBSIDIAN_ASAR at an obsidian.asar, '
+      + 'to run this gate.',
+  }, () => {});
+} else {
+  for (const host of hosts) suite(host);
+}
