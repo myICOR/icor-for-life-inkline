@@ -110,9 +110,30 @@ body:not(.is-mobile) .workspace-split.mod-left-split .workspace-sidedock-vault-p
  * installed INKLINE for its typography must not silently lose their
  * file-tree toolbar.
  * ------------------------------------------------------------------ */
+/* THE THREE NEW-NOTE ICON IDS, AND WHY NONE OF THEM IS DEAD WEIGHT.
+ *
+ * `setIcon` stamps the svg with whatever id it was handed, so the id on the
+ * new-note button is the string the file explorer passed to `addNavButton`,
+ * and that string has changed twice. Measured on the asars on this machine,
+ * 2026-09-17, not assumed:
+ *
+ *   lucide-edit     the live id on 1.13.7: addNavButton("lucide-edit", ...)
+ *   lucide-edit-3   older builds
+ *   lucide-pen-box  older builds
+ *
+ * All three are named, which is the set Connect 0.15.1 ships at its own
+ * styles.css:1439-1443. Until 2026-09-17 the theme named only the two older
+ * ones, so on 1.13.7 the icon arms matched nothing and the hide rode on the
+ * translated `aria-label` arm alone - it failed OPEN under a German or
+ * Spanish interface, which is the one failure mode the icon arms exist to
+ * prevent. An arm that matches nothing costs nothing and keeps a member on
+ * an older Obsidian covered, so do not "clean up" the two that look dead.
+ * ------------------------------------------------------------------ */
+/* The sort arm below is Tom's dated exception, 2026-08-30 ("sorting not needed"): one control under one toggle, its price written above, and it licenses no other only-route hide anywhere in the suite (Iris ruling, 2026-09-17). */
 .nav-buttons-container .clickable-icon[aria-label="New folder"],
 .nav-buttons-container .clickable-icon:has(svg.lucide-folder-plus),
 .nav-buttons-container .clickable-icon[aria-label="New note"],
+.nav-buttons-container .clickable-icon:has(svg.lucide-edit),
 .nav-buttons-container .clickable-icon:has(svg.lucide-edit-3),
 .nav-buttons-container .clickable-icon:has(svg.lucide-pen-box),
 .nav-buttons-container .clickable-icon[aria-label="Change sort order"],

@@ -1441,28 +1441,52 @@ body.inkline-no-hand {
 }
 .micor-tree-slot .clickable-icon svg { width: 16px; height: 16px; }
 
-/* THE ORDER: launchers, then sort, then collapse-all last.
+/* THE ORDER: every launcher first, then every host control in the host's
+ * own order. Ruled by Iris, 2026-09-17.
  *
- * Only the two HOST controls are named here, and they are named by their
- * lucide icon rather than by `aria-label`, which is translated. Everything
- * else keeps the initial `order: 0` and lands in the launcher group, so a
- * plugin added tomorrow sorts itself and there is no roster in this file
- * to maintain. Launchers therefore appear in the order their plugins
- * created them, which is the one ordering that needs no authority to
- * decide it.
+ * Two groups and one boundary. Group one is every suite launcher - Connect's
+ * four, Focus, Planner, the AI Team robot - which keeps the initial
+ * `order: 0` and is named nowhere, so a plugin added tomorrow sorts itself
+ * and there is no launcher roster in this file to maintain. They appear in
+ * the order their plugins created them, which is the one ordering that
+ * needs no authority to decide it.
  *
- * Collapse-all is last because it is the row's panel-scoped verb rather
- * than a destination: launchers are what a user reaches for, so they sit
- * where reading starts, and the verb closes the row. (The scaffold hides
- * sort by its own ruling; the order rule stays so a vault running this
- * theme without that snippet still gets a sane row.)
+ * Group two is every HOST control, at `order: 1`, and inside that group
+ * NOTHING is ranked. Flex ties break on DOM order, so Obsidian's own
+ * `addNavButton` sequence decides it: new note, new folder, sort,
+ * auto-reveal, collapse-all. Collapse-all still closes the row, and it does
+ * so by the host's own hand rather than by a rank written here, which keeps
+ * the 2026-08-30 "verb closes the row" ruling without a per-control number
+ * that can drift. The earlier rule ranked sort 1 and collapse-all 2 and
+ * named nothing else, so auto-reveal - restored to the toolbar by Interface
+ * 0.7.0 - landed at 0 and sorted itself INTO the launcher group.
+ *
+ * The controls are named by their lucide icon rather than by `aria-label`,
+ * which is translated. New note carries three ids across Obsidian builds
+ * (`lucide-edit` live on 1.13.7, `lucide-edit-3` and `lucide-pen-box`
+ * older) and collapse-all two, one per state; see src/85-chrome.css for the
+ * measurement behind that list.
+ *
+ * No separator glyph and no wider gap at the boundary: the row keeps its
+ * 4px rhythm and 24px grid, and the boundary reads by glyph vocabulary -
+ * destinations, then panel verbs. A separator would be a fourth kind of
+ * thing on a row that already has three.
+ *
+ * The scaffold hides new note, new folder and sort by its own dated ruling
+ * (src/85-chrome.css, OFF by default); this rule stays complete so a
+ * community vault with every control on the row gets the same boundary.
  *
  * If the host ever renames one of these icons the rule stops matching and
  * that control joins the launcher group. Untidy, never absent - the failure
  * mode is a wrong position, not a missing button. */
-.micor-tree-slot .clickable-icon:has(svg.lucide-sort-asc) { order: 1; }
+.micor-tree-slot .clickable-icon:has(svg.lucide-edit),
+.micor-tree-slot .clickable-icon:has(svg.lucide-edit-3),
+.micor-tree-slot .clickable-icon:has(svg.lucide-pen-box),
+.micor-tree-slot .clickable-icon:has(svg.lucide-folder-plus),
+.micor-tree-slot .clickable-icon:has(svg.lucide-sort-asc),
+.micor-tree-slot .clickable-icon:has(svg.lucide-gallery-vertical),
 .micor-tree-slot .clickable-icon:has(svg.lucide-chevrons-down-up),
-.micor-tree-slot .clickable-icon:has(svg.lucide-chevrons-up-down) { order: 2; }
+.micor-tree-slot .clickable-icon:has(svg.lucide-chevrons-up-down) { order: 1; }
 
 /* No height collapse when the row is empty, and the absence is deliberate.
  * With collapse-all permanent (user ruling, 2026-08-30) this row can
@@ -3314,9 +3338,30 @@ body:not(.is-mobile).icor-scaffold-chrome .workspace-split.mod-left-split .works
  * installed INKLINE for its typography must not silently lose their
  * file-tree toolbar.
  * ------------------------------------------------------------------ */
+/* THE THREE NEW-NOTE ICON IDS, AND WHY NONE OF THEM IS DEAD WEIGHT.
+ *
+ * `setIcon` stamps the svg with whatever id it was handed, so the id on the
+ * new-note button is the string the file explorer passed to `addNavButton`,
+ * and that string has changed twice. Measured on the asars on this machine,
+ * 2026-09-17, not assumed:
+ *
+ *   lucide-edit     the live id on 1.13.7: addNavButton("lucide-edit", ...)
+ *   lucide-edit-3   older builds
+ *   lucide-pen-box  older builds
+ *
+ * All three are named, which is the set Connect 0.15.1 ships at its own
+ * styles.css:1439-1443. Until 2026-09-17 the theme named only the two older
+ * ones, so on 1.13.7 the icon arms matched nothing and the hide rode on the
+ * translated `aria-label` arm alone - it failed OPEN under a German or
+ * Spanish interface, which is the one failure mode the icon arms exist to
+ * prevent. An arm that matches nothing costs nothing and keeps a member on
+ * an older Obsidian covered, so do not "clean up" the two that look dead.
+ * ------------------------------------------------------------------ */
+/* The sort arm below is Tom's dated exception, 2026-08-30 ("sorting not needed"): one control under one toggle, its price written above, and it licenses no other only-route hide anywhere in the suite (Iris ruling, 2026-09-17). */
 body.icor-scaffold-chrome .nav-buttons-container .clickable-icon[aria-label="New folder"],
 body.icor-scaffold-chrome .nav-buttons-container .clickable-icon:has(svg.lucide-folder-plus),
 body.icor-scaffold-chrome .nav-buttons-container .clickable-icon[aria-label="New note"],
+body.icor-scaffold-chrome .nav-buttons-container .clickable-icon:has(svg.lucide-edit),
 body.icor-scaffold-chrome .nav-buttons-container .clickable-icon:has(svg.lucide-edit-3),
 body.icor-scaffold-chrome .nav-buttons-container .clickable-icon:has(svg.lucide-pen-box),
 body.icor-scaffold-chrome .nav-buttons-container .clickable-icon[aria-label="Change sort order"],

@@ -25,6 +25,17 @@
  * stand-ins are DELETED rather than kept alongside: keeping them would
  * leave the copy that drifts sitting next to the source that cannot.
  *
+ * AND THE THIRD STAND-IN IS GONE TOO (Iris ruling, 2026-09-17). A third
+ * one outlived the other two: a hand-written copy of the scaffold's hides,
+ * attributed to `icor-rooms.css`. It had drifted in both directions the
+ * comment above predicts. It named a file that no longer holds the rule -
+ * the hides moved into this repo as `src/85-chrome.css` behind the
+ * `icor-scaffold-chrome` toggle - and it hid `lucide-pen-box` where
+ * Obsidian 1.13.7 stamps `lucide-edit`, so it was hiding a button the
+ * shipped theme did not hide. The switch is now the real thing: the body
+ * carries `icor-scaffold-chrome` or it does not, and the hide under test
+ * is the theme's own, built by build.mjs with its own guard.
+ *
  * There is no theme-alone pass here, and the absence is deliberate. This
  * file measures geometry, and the geometry of this row is a contest - the
  * host wraps, the theme grows; the host sets a 2px gap, the theme sets 4px.
@@ -55,16 +66,26 @@ const themeCss = readFileSync(resolve(repo, 'theme.css'), 'utf8');
 const CHROME = process.env.CHROME_BIN
   || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
-/* Obsidian's own file-explorer toolbar, in the DOM order the host builds it,
-   with the two suite launchers appended after as plugins actually append
-   them, and Obsidian's own stylesheet in front of the theme. The theme
-   centers and reorders; the fixture is what it starts from.
+/* Obsidian's own file-explorer toolbar, in the DOM order the host builds it
+   (the `addNavButton` sequence read off the 1.13.7 asar: new note, new folder,
+   sort, auto-reveal, collapse-all), with the two suite launchers appended
+   after as plugins actually append them, and Obsidian's own stylesheet in
+   front of the theme. The theme centers and reorders; the fixture is what it
+   starts from.
+
+   `lucide-edit` is the id 1.13.7 stamps on the new-note button, measured on
+   the asar rather than assumed. The older `lucide-edit-3` and `lucide-pen-box`
+   are still covered by the theme; they are not what this fixture renders,
+   because the fixture's job is to be the host that exists.
 
    The body classes are the host's own defaults, not decoration: app.css
    hangs its variables off the theme class, and every spacing token this row
    reads - --size-4-2 on the header, --size-2-1 on the row - resolves
-   through them. */
-function fixture(host, { extraCss = '', scaffoldHides = true, paneWidth = null } = {}) {
+   through them. `icor-scaffold-chrome` is the scaffold's own toggle, OFF by
+   default, and it is what src/85-chrome.css is guarded by: with it on the
+   theme hides the host controls the scaffold relocated, with it off a
+   community vault keeps every one of them. */
+function fixture(host, { extraCss = '', scaffoldChrome = true, paneWidth = null } = {}) {
   const icon = (cls) =>
     `<svg class="${cls}" viewBox="0 0 24 24"><path d="M0 0h24v24H0z"/></svg>`;
   const btn = (id, svgCls, extra = '') =>
@@ -75,27 +96,17 @@ function fixture(host, { extraCss = '', scaffoldHides = true, paneWidth = null }
   </style>
   <style>${host.css}</style>
   <style>
-  /* STAND-IN for the scaffold's icor-rooms.css, which hides these two. It is
-     a stand-in and stays one: that file lives in the ICOR for Life scaffold,
-     not in this repo, so there is no source here to read it from. It is in
-     the fixture rather than omitted so the assumption is visible: the
-     numbers below are true given the host controls the scaffold LEAVES.
-     The scaffold also hides sort; that is the snippet's decision, so the
-     THEME gate keeps sort visible and orders it. Switched OFF for the
-     narrow-pane gate, where the vault under test is a plain community one
-     that never installed the snippet and therefore shows every control. */
-${scaffoldHides ? `  .nav-buttons-container .clickable-icon:has(svg.lucide-pen-box),
-  .nav-buttons-container .clickable-icon:has(svg.lucide-folder-plus) { display: none !important; }` : ''}
 ${themeCss}
 ${paneWidth === null ? '' : `  .workspace-leaf-content { width: ${paneWidth}px; }`}
 ${extraCss}
   </style></head>
-  <body class="theme-dark mod-macos is-frameless obsidian-app">
+  <body class="theme-dark mod-macos is-frameless obsidian-app${scaffoldChrome ? ' icor-scaffold-chrome' : ''}">
   <div class="workspace-leaf-content" data-type="file-explorer"><div class="nav-header">
     <div id="row" class="nav-buttons-container micor-tree-slot">
-      ${btn('newnote', 'lucide-pen-box')}
+      ${btn('newnote', 'lucide-edit')}
       ${btn('newfolder', 'lucide-folder-plus')}
       ${btn('sort', 'lucide-sort-asc')}
+      ${btn('autoreveal', 'lucide-gallery-vertical')}
       ${btn('collapse', 'lucide-chevrons-down-up')}
       ${btn('focus', 'lucide-focus', 'ifocus-launcher')}
       ${btn('robot', 'lucide-bot', 'aic-tree-launcher')}
@@ -106,7 +117,7 @@ ${extraCss}
   const row = document.getElementById('row');
   const r = row.getBoundingClientRect();
   const seen = {};
-  for (const id of ['newnote','newfolder','sort','collapse','focus','robot']) {
+  for (const id of ['newnote','newfolder','sort','autoreveal','collapse','focus','robot']) {
     const el = document.getElementById(id);
     const cs = getComputedStyle(el);
     if (cs.display === 'none') { seen[id] = null; continue; }
@@ -149,14 +160,19 @@ function measure(host, opts) {
   return JSON.parse(m[1]);
 }
 
-const VISIBLE = ['sort', 'collapse', 'focus', 'robot'];
-/* Every control the fixture builds, which is what a vault without the
-   scaffold snippet actually renders. */
-const ALL = ['newnote', 'newfolder', 'sort', 'collapse', 'focus', 'robot'];
+/* What the scaffold vault renders: the two launchers, plus the two host
+   controls the scaffold keeps (auto-reveal, which Interface 0.7.0 restored
+   and which is the host's own only route to the setting, and collapse-all,
+   permanent under the 2026-08-30 ruling). */
+const VISIBLE = ['focus', 'robot', 'autoreveal', 'collapse'];
+/* Every control the fixture builds, which is what a community vault - one
+   that installed INKLINE for its typography and never turned the scaffold
+   toggle on - actually renders. */
+const ALL = ['newnote', 'newfolder', 'sort', 'autoreveal', 'collapse', 'focus', 'robot'];
 
-function gaps(m) {
-  const ls = VISIBLE.map((id) => m.controls[id].left);
-  const rs = VISIBLE.map((id) => m.controls[id].left + m.controls[id].width);
+function gaps(m, ids = VISIBLE) {
+  const ls = ids.map((id) => m.controls[id].left);
+  const rs = ids.map((id) => m.controls[id].left + m.controls[id].width);
   return {
     left: Math.min(...ls),
     right: m.rowWidth - Math.max(...rs),
@@ -190,7 +206,12 @@ function suite(host) {
      produces. If the fixture stopped matching the theme's selectors, the
      numbers would be a bare flex row's defaults and the whole file would go
      green describing nothing. 24px controls and a 24px row are the theme's
-     own values and nothing else in the fixture sets them. */
+     own values and nothing else in the fixture sets them.
+
+     Auto-reveal is named here on purpose. It is the newest control on the
+     row, it was absent from this fixture until 2026-09-17, and a roster that
+     silently loses it again is exactly the drift that let Connect hide the
+     button in the first place. */
   test('the fixture is actually being styled by theme.css' + tag, () => {
     assert.match(themeCss, /\.micor-tree-slot\s*\{/, 'the slot rule is gone from theme.css');
     const m = m0();
@@ -199,7 +220,24 @@ function suite(host) {
       assert.ok(m.controls[id], `${id} is not rendered at all`);
       assert.equal(m.controls[id].width, 24, `${id} is not 24px wide, so the theme's control rule missed it`);
     }
-    assert.equal(m.controls.newnote, null, 'the stand-in for the scaffold hide did not take');
+    assert.equal(m.controls.newnote, null,
+      'the theme\'s own new-note hide did not take under body.icor-scaffold-chrome. On 1.13.7 the '
+      + 'host stamps `lucide-edit`; a theme that only names `lucide-edit-3` and `lucide-pen-box` '
+      + 'matches nothing here and survives in the app only on the English aria label');
+  });
+
+  /* Both halves of the toggle, in one place, because the toggle is the
+     product decision and a gate that only ever measured one side could not
+     tell "hidden by the scaffold" from "never rendered". */
+  test('auto-reveal renders in both passes' + tag, () => {
+    for (const scaffoldChrome of [true, false]) {
+      const m = m0({ scaffoldChrome });
+      assert.ok(m.controls.autoreveal,
+        `auto-reveal does not render with the scaffold toggle ${scaffoldChrome ? 'on' : 'off'}; `
+        + 'it is the host\'s only route to that setting and nothing in this theme may hide it');
+      assert.equal(m.controls.autoreveal.width, 24,
+        'auto-reveal is not 24px wide, so this file is measuring the old roster');
+    }
   });
 
   /* THE HOST IS ON THE PAGE AND IS THE ONE THE THEME HAS TO BEAT. Without
@@ -241,25 +279,52 @@ function suite(host) {
       + 'a centered row has equal space both sides (1px rounding allowed)');
   });
 
-  test('the visual order is launchers, sort, collapse last' + tag, () => {
+  /* THE ORDER, ruled by Iris 2026-09-17. Two groups and one boundary: every
+     suite launcher at order 0 in the order its plugin created it, every HOST
+     control at order 1, and inside that group nothing is ranked - flex ties
+     break on DOM order, so the host's own `addNavButton` sequence decides and
+     there is no per-control rank in the stylesheet to drift.
+     No separator glyph and no wider gap at the boundary; it reads by glyph
+     vocabulary, destinations then panel verbs. */
+  test('launchers first, then the host controls in the host\'s own order' + tag, () => {
     const m = m0();
-    const order = ['focus', 'robot', 'sort', 'collapse'];
+    const order = ['focus', 'robot', 'autoreveal', 'collapse'];
     const lefts = order.map((id) => m.controls[id].left);
     assert.deepEqual([...lefts].sort((a, b) => a - b), lefts,
-      'the controls do not lay out in the order launchers, sort, collapse.\n'
+      'with the scaffold toggle on, the row does not read launchers then host controls.\n'
       + JSON.stringify(m.controls, null, 2));
   });
 
-  /* The stated width, which is a spec rather than an observation: four
-     controls at 24px with 4px gaps occupy 108px. It is here so a future gap
-     or size change has to be a deliberate edit to this file rather than a
-     silent drift. */
+  test('the community row keeps the same boundary with every control on it' + tag, () => {
+    const m = m0({ scaffoldChrome: false });
+    const order = ['focus', 'robot', 'newnote', 'newfolder', 'sort', 'autoreveal', 'collapse'];
+    const lefts = order.map((id) => m.controls[id].left);
+    assert.deepEqual([...lefts].sort((a, b) => a - b), lefts,
+      'with the scaffold toggle off, the seven controls do not read launchers then the host\'s '
+      + 'own DOM order (new note, new folder, sort, auto-reveal, collapse-all).\n'
+      + JSON.stringify(m.controls, null, 2));
+  });
+
+  /* The stated widths, which are specs rather than observations: four
+     controls at 24px with 4px gaps occupy 108px, seven occupy 192px. They are
+     here so a future gap or size change has to be a deliberate edit to this
+     file rather than a silent drift. */
   test('the settled width is the specified 108' + tag, () => {
     assert.equal(gaps(m0()).span, 108, 'four controls no longer occupy 108px');
   });
 
+  test('the community row settles at the specified 192' + tag, () => {
+    const m = m0({ scaffoldChrome: false });
+    assert.equal(gaps(m, ALL).span, 192, 'seven controls no longer occupy 192px');
+    const g = gaps(m, ALL);
+    assert.ok(Math.abs(g.left - g.right) <= 1,
+      `the community cluster sits ${g.left}px from the left and ${g.right}px from the right; `
+      + 'the centering is the theme\'s and does not depend on which controls the vault shows');
+  });
+
   /* THE NARROW-PANE GATE. Reported by Olivier Van Biervliet, theme channel,
-   * 2026-09-14; ruled by Iris 2026-09-15.
+   * 2026-09-14; ruled by Iris 2026-09-15, re-measured for the seven-control
+   * roster 2026-09-17.
    *
    * The wrap is the HOST's decision, not the theme's: Obsidian's own
    * `.nav-buttons-container` ships `flex-wrap: wrap`, and a narrow sidebar is
@@ -267,16 +332,15 @@ function suite(host) {
    * uses that wrap. A fixed `height` cannot grow, so the second line renders
    * outside the row and paints over the file tree below it.
    *
-   * 180px of pane with six controls is the smallest real case, and it is
-   * measured rather than argued: the scaffold snippet is off, because the
-   * vault that reported this is a community vault that installed the theme
-   * for its typography and never installed the snippet, so every host control
-   * and both launchers render. Six 24px controls with 4px gaps want 164px; at
+   * 180px of pane is the smallest real case, and it is measured rather than
+   * argued: the scaffold toggle is off, because the vault that reported this
+   * is a community vault that installed the theme for its typography and never
+   * turned the toggle on, so every host control and both launchers render. At
    * a 180px pane the host's own nav-header padding (--size-4-2, 8px a side)
-   * and the theme's own 8px side padding leave the row 148px of content, so
-   * five controls take the first line and one wraps to a second. Two 24px
-   * lines with the row's own 4px gap between them is 52px. Every one of those
-   * numbers now comes off app.css or theme.css, none off a stand-in.
+   * and the theme's own 8px side padding leave the row 148px of content; five
+   * 24px controls with 4px gaps want 136px and fit, the remaining two wrap.
+   * Two 24px lines with the row's own 4px gap between them is 52px. Every one
+   * of those numbers comes off app.css or theme.css, none off a stand-in.
    *
    * The second assertion is the defect itself stated as geometry. Row height
    * alone is not enough: a row could report 52px and still let a control hang
@@ -284,12 +348,13 @@ function suite(host) {
    * bottom edge is the tree.
    */
   test('the row grows to fit when the host wraps it' + tag, () => {
-    const m = m0({ paneWidth: 180, scaffoldHides: false });
+    const m = m0({ paneWidth: 180, scaffoldChrome: false });
 
     const secondLine = ALL.filter((id) => m.controls[id] && m.controls[id].top >= 24);
-    assert.ok(secondLine.length > 0,
-      'six controls did not wrap at a 180px pane, so this gate is measuring the wrong case '
-      + `and would go green on a row that never grew.\n${JSON.stringify(m, null, 2)}`);
+    assert.deepEqual(secondLine.sort(), ['autoreveal', 'collapse'].sort(),
+      'the wrap did not put exactly auto-reveal and collapse-all on the second line, so this '
+      + 'gate is measuring a different row than the one it describes and would go green on a '
+      + `row that never grew.\n${JSON.stringify(m, null, 2)}`);
 
     assert.equal(m.rowHeight, 52,
       `the row is ${m.rowHeight}px tall on two wrapped lines; a row that grows with its content `
@@ -323,11 +388,11 @@ const hosts = hostBuilds();
 if (hosts.length === 0) {
   test('the header row, behind Obsidian\'s own app.css', {
     skip: 'no Obsidian install found on this machine, so the header row was NOT measured. '
-      + 'Every number this file checks - the 108px cluster, the 52px wrapped row, the '
-      + 'no-overlap bound - is a consequence of app.css and theme.css together, and the '
-      + 'hand-written stand-in for app.css that used to stand here is what let the 1.6.0 '
-      + 'overlap through. Install Obsidian, or point OBSIDIAN_ASAR at an obsidian.asar, '
-      + 'to run this gate.',
+      + 'Every number this file checks - the 108px cluster, the 192px community cluster, the '
+      + '52px wrapped row, the no-overlap bound - is a consequence of app.css and theme.css '
+      + 'together, and the hand-written stand-in for app.css that used to stand here is what '
+      + 'let the 1.6.0 overlap through. Install Obsidian, or point OBSIDIAN_ASAR at an '
+      + 'obsidian.asar, to run this gate.',
   }, () => {});
 } else {
   for (const host of hosts) suite(host);
