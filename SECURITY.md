@@ -88,15 +88,16 @@ These are not vulnerabilities and we will close them as such:
   [Obsidian](https://github.com/obsidianmd/obsidian-releases/issues).
 - Interactions with third-party plugins, or a plugin's controls looking wrong
   under this theme. Themes and plugins overlap constantly and this is ordinary
-  breakage, not a security issue. Please report it as a normal issue so we can
-  look at compatibility.
+  breakage, not a security issue. Please report it in the ICOR for Life
+  community at https://myicor.com so we can look at compatibility.
 - Any behaviour of a plugin you have installed. A theme cannot make a plugin do
   something it does not already do.
 - Anyone with filesystem access to your vault being able to read your notes. A
   stylesheet is not the control that failed.
-- Contrast, spacing, colour and readability problems. Those are ordinary issues
+- Contrast, spacing, colour and readability problems. Those are ordinary bugs
   and very welcome as such, just not through this channel. Accessibility
-  regressions are taken seriously; they simply go through normal issues.
+  regressions are taken seriously; they simply go to the ICOR for Life
+  community at https://myicor.com.
 - Missing hardening that has no demonstrated impact, or the output of an automated
   scanner with no working proof of concept.
 - Social engineering, physical access, or attacks that require the user to

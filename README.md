@@ -70,11 +70,13 @@ The plugin is optional. The theme is complete without it.
 ## Good to know
 
 - **Beta.** In daily use in a real vault, and you will find rough edges. If
-  something looks off, open an issue.
+  something looks off, tell us in the ICOR for Life community at
+  https://myicor.com.
 
 ## Support
 
-Open an issue on this repository.
+The ICOR for Life community at https://myicor.com. This repository does not
+take issues or pull requests.
 
 ## Licence
 

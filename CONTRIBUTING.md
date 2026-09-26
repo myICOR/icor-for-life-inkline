@@ -1,16 +1,17 @@
 # Contributing to INKLINE
 
-Thank you for wanting to improve INKLINE. Because the theme is licensed
-CC BY-NC-ND 4.0 (no shared derivatives), contributions need explicit
-terms so merged work can ship inside the theme:
+This repository does not take pull requests. Bugs and ideas go to the ICOR for Life community at https://myicor.com.
 
-By submitting a contribution (for example, a pull request) you grant
-Paperless Movement, S.L. (myICOR) a perpetual, worldwide, exclusive,
-transferable, sublicensable, royalty-free license to use, modify, and
-distribute your contribution for any purpose, including under the
-theme's license; you retain the right to use your own contribution for
-personal purposes. If you do not agree, please open an issue describing
-the change instead of a pull request.
+## License
 
-Releases are cut from a version tag, never from a push to `main`. The
-steps are in the README under "Releasing".
+INKLINE is licensed CC BY-NC-ND 4.0, as `LICENSE` describes. The bundled typefaces are under the SIL Open Font License 1.1 and named in `THIRD-PARTY-NOTICES.md`. You may use the theme and change your own copy; you may not share changed versions.
+
+## Security problems
+
+Never report a security problem in a public issue or post. Report it privately as `SECURITY.md` describes. What we do with the personal data in a report: https://myicor.com/privacy#github.
+
+## Names
+
+Using INKLINE does not give you the right to use our names or logos. "myICOR", "ICOR", "ICOR Journey" and "INKLINE" remain the marks of their owner; see `LICENSE`.
+
+This page states our own terms. Where it differs from `LICENSE`, `LICENSE` wins.
