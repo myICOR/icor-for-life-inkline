@@ -2915,8 +2915,8 @@ body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="05
 body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]){
   --room-color: #8087a6;
   --room-color-paper: #565e7e;
-  --room-label: "AI Team";
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 8V4H8'/%3E%3Crect width='16' height='12' x='4' y='8' rx='2'/%3E%3Cpath d='M2 14h2'/%3E%3Cpath d='M20 14h2'/%3E%3Cpath d='M15 13v2'/%3E%3Cpath d='M9 13v2'/%3E%3C/svg%3E");
+  --room-label: "Outer World";
+  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20'/%3E%3Cpath d='M2 12h20'/%3E%3C/svg%3E");
 }
 body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"]){
   --room-color: #b57a86;
@@ -3069,7 +3069,9 @@ body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="06
    ============================================================ */
 
 /* --- root housekeeping files: quiet them down ---------------- */
-/* CLAUDE.md and README are wiring, not content: smaller, fainter. */
+/* AGENTS.md, CLAUDE.md and README are wiring, not content: smaller, fainter. */
+body:not(.icor-rooms-off) .nav-file-title[data-path="AGENTS.md"],
+body:not(.icor-rooms-off) .nav-file-title[data-path="AGENTS.icor-for-life.md"],
 body:not(.icor-rooms-off) .nav-file-title[data-path="CLAUDE.md"],
 body:not(.icor-rooms-off) .nav-file-title[data-path="README.md"],
 body:not(.icor-rooms-off) .nav-file-title[data-path="CLAUDE.txt"],
@@ -3078,6 +3080,8 @@ body:not(.icor-rooms-off) .nav-file-title[data-path="THIRD-PARTY-NOTICES.md"],
 body:not(.icor-rooms-off) .nav-file-title[data-path="LICENSE.md"]{
   opacity: 0.55;
 }
+body:not(.icor-rooms-off) .nav-file-title[data-path="AGENTS.md"] .nav-file-title-content,
+body:not(.icor-rooms-off) .nav-file-title[data-path="AGENTS.icor-for-life.md"] .nav-file-title-content,
 body:not(.icor-rooms-off) .nav-file-title[data-path="CLAUDE.md"] .nav-file-title-content,
 body:not(.icor-rooms-off) .nav-file-title[data-path="README.md"] .nav-file-title-content,
 body:not(.icor-rooms-off) .nav-file-title[data-path="CLAUDE.txt"] .nav-file-title-content,
@@ -3087,6 +3091,8 @@ body:not(.icor-rooms-off) .nav-file-title[data-path="LICENSE.md"] .nav-file-titl
   font-size: calc(var(--nav-item-size, 14px) - 2px);
   color: var(--ink-paper-faint, var(--text-faint));
 }
+body:not(.icor-rooms-off) .nav-file-title[data-path="AGENTS.md"]:hover,
+body:not(.icor-rooms-off) .nav-file-title[data-path="AGENTS.icor-for-life.md"]:hover,
 body:not(.icor-rooms-off) .nav-file-title[data-path="CLAUDE.md"]:hover,
 body:not(.icor-rooms-off) .nav-file-title[data-path="README.md"]:hover,
 body:not(.icor-rooms-off) .nav-file-title[data-path="CLAUDE.txt"]:hover,
@@ -3405,14 +3411,8 @@ body.icor-scaffold-chrome .nav-buttons-container .clickable-icon:has(svg.lucide-
    always was, and it stays the default. Gradient puts INKLINE's brand
    layer on top, as myICOR wears it since November 2026:
 
-   - The aura. ICOR for Life puts the ICOR Journey into practice, so
-     its place light is the journey's: the four stage lights side by
-     side across the top of the window, edge to edge and behind the
-     tab rows of the side panels (Input blue, Control green,
-     Output pink, Refine orange at 6, 36, 66 and 96 percent), each one
-     hue fading into ink, never blended into each other. It is fixed:
-     notes scroll under it, so the light says where you are. No drift
-     here, unlike the app: an editor repaints too often to pay for it.
+   - No aura: a light across the top of the editor did not work in
+     Obsidian (Tom, 2026-11-20), so the brand layer here is depth only.
    - Depth and glass. Cards (callouts, embeds, the properties panel,
      Bases cards) are a faint fill with a lit 1px top edge and a long
      soft shadow; dialogs, menus and the command palette float the
@@ -3429,68 +3429,18 @@ body.icor-scaffold-chrome .nav-buttons-container .clickable-icon:has(svg.lucide-
    ============================================================ */
 
 body.inkline-gradient{
-  --ink-glow-input: #5271fc;
-  --ink-glow-control: #52f49a;
-  --ink-glow-output: #fd63ff;
-  --ink-glow-refine: #f8a73e;
-  --ink-aura-k: 34%;
-  --ink-aura-h: 460px;
   --ink-glass: color-mix(in srgb, var(--ink-paper) 4%, transparent);
   --ink-glass-edge: color-mix(in srgb, var(--ink-paper) 10%, transparent);
   --ink-depth: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 22px 48px -28px rgba(0, 0, 0, 0.6);
   --ink-float: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 28px 70px -24px rgba(0, 0, 0, 0.7), 0 2px 8px rgba(0, 0, 0, 0.25);
   --ink-radius-glass: 18px;
-  /* the tab rows sit on the light: no ground and no hairline of their own */
-  --tab-container-background: transparent;
-  --tab-outline-color: transparent;
 }
 
 .theme-light.inkline-gradient{
-  --ink-aura-k: 24%;
   --ink-glass: color-mix(in srgb, #ffffff 55%, transparent);
   --ink-glass-edge: rgba(14, 15, 18, 0.08);
   --ink-depth: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 18px 40px -26px rgba(14, 15, 18, 0.28);
   --ink-float: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 28px 60px -26px rgba(14, 15, 18, 0.35), 0 2px 8px rgba(14, 15, 18, 0.08);
-}
-
-/* ---- the aura: four stage lights across the top of the window ---- */
-body.inkline-gradient .workspace{
-  background-color: var(--background-primary);
-  background-image:
-    radial-gradient(26% var(--ink-aura-h) at 6% 0%, color-mix(in srgb, var(--ink-glow-input) var(--ink-aura-k), transparent), transparent 72%),
-    radial-gradient(26% var(--ink-aura-h) at 36% 0%, color-mix(in srgb, var(--ink-glow-control) var(--ink-aura-k), transparent), transparent 72%),
-    radial-gradient(26% var(--ink-aura-h) at 66% 0%, color-mix(in srgb, var(--ink-glow-output) var(--ink-aura-k), transparent), transparent 72%),
-    radial-gradient(26% var(--ink-aura-h) at 96% 0%, color-mix(in srgb, var(--ink-glow-refine) var(--ink-aura-k), transparent), transparent 72%);
-  background-repeat: no-repeat;
-}
-/* the light shows through the main area's own grounds */
-body.inkline-gradient .workspace-split.mod-root,
-body.inkline-gradient .workspace-split.mod-root .workspace-tabs,
-body.inkline-gradient .workspace-split.mod-root .workspace-tab-container,
-body.inkline-gradient .workspace-split.mod-root .workspace-leaf,
-body.inkline-gradient .workspace-split.mod-root .workspace-leaf-content,
-body.inkline-gradient .workspace-split.mod-root .view-header,
-body.inkline-gradient .workspace-split.mod-root .view-content,
-body.inkline-gradient .workspace-split.mod-root .markdown-preview-view,
-body.inkline-gradient .workspace-split.mod-root .markdown-source-view,
-body.inkline-gradient .workspace-split.mod-root .workspace-tab-header-container{
-  background-color: transparent;
-}
-/* the rows above the light: no grounds, and groups read from surfaces, not hairlines */
-body.inkline-gradient .workspace-tab-header-container,
-body.inkline-gradient .workspace-split.mod-left-split .workspace-tab-header-container,
-body.inkline-gradient .workspace-split.mod-right-split .workspace-tab-header-container,
-body.inkline-gradient .workspace .sidebar-toggle-button,
-body.inkline-gradient .workspace-tab-header-container .workspace-tab-header-spacer{
-  background-color: transparent;
-  border-bottom-color: transparent;
-}
-body.inkline-gradient .workspace-split.mod-root .view-header{
-  border-bottom-color: transparent;
-}
-body.inkline-gradient .workspace-split.mod-root .workspace-tab-header.is-active .workspace-tab-header-inner{
-  background: var(--ink-glass);
-  box-shadow: var(--ink-depth);
 }
 
 /* ---- glass and depth on cards ---- */
@@ -3550,10 +3500,6 @@ body.inkline-gradient .suggestion-container{
 body.inkline-gradient .workspace-split.mod-left-split .workspace-leaf-resize-handle,
 body.inkline-gradient .workspace-split.mod-right-split .workspace-leaf-resize-handle{
   border-color: color-mix(in srgb, var(--text-normal) 10%, transparent);
-}
-body.inkline-gradient .nav-file-title.is-active{
-  background: var(--ink-glass);
-  box-shadow: var(--ink-depth);
 }
 
 /* ---- the marker's light: the one glow on a control ---- */

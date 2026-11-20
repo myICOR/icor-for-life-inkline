@@ -242,8 +242,8 @@
 .nav-folder-title:not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]) {
   --room-color: #8087a6;
   --room-color-paper: #565e7e;
-  --room-label: "AI Team";
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 8V4H8'/%3E%3Crect width='16' height='12' x='4' y='8' rx='2'/%3E%3Cpath d='M2 14h2'/%3E%3Cpath d='M20 14h2'/%3E%3Cpath d='M15 13v2'/%3E%3Cpath d='M9 13v2'/%3E%3C/svg%3E");
+  --room-label: "Outer World";
+  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20'/%3E%3Cpath d='M2 12h20'/%3E%3C/svg%3E");
 }
 .nav-folder-title:not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"]) {
   --room-color: #b57a86;
@@ -396,7 +396,9 @@
    ============================================================ */
 
 /* --- root housekeeping files: quiet them down ---------------- */
-/* CLAUDE.md and README are wiring, not content: smaller, fainter. */
+/* AGENTS.md, CLAUDE.md and README are wiring, not content: smaller, fainter. */
+.nav-file-title[data-path="AGENTS.md"],
+.nav-file-title[data-path="AGENTS.icor-for-life.md"],
 .nav-file-title[data-path="CLAUDE.md"],
 .nav-file-title[data-path="README.md"],
 .nav-file-title[data-path="CLAUDE.txt"],
@@ -405,6 +407,8 @@
 .nav-file-title[data-path="LICENSE.md"] {
   opacity: 0.55;
 }
+.nav-file-title[data-path="AGENTS.md"] .nav-file-title-content,
+.nav-file-title[data-path="AGENTS.icor-for-life.md"] .nav-file-title-content,
 .nav-file-title[data-path="CLAUDE.md"] .nav-file-title-content,
 .nav-file-title[data-path="README.md"] .nav-file-title-content,
 .nav-file-title[data-path="CLAUDE.txt"] .nav-file-title-content,
@@ -414,6 +418,8 @@
   font-size: calc(var(--nav-item-size, 14px) - 2px);
   color: var(--ink-paper-faint, var(--text-faint));
 }
+.nav-file-title[data-path="AGENTS.md"]:hover,
+.nav-file-title[data-path="AGENTS.icor-for-life.md"]:hover,
 .nav-file-title[data-path="CLAUDE.md"]:hover,
 .nav-file-title[data-path="README.md"]:hover,
 .nav-file-title[data-path="CLAUDE.txt"]:hover,

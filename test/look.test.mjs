@@ -18,7 +18,7 @@ test('the Look switch offers Flat and Gradient, Flat by default', () => {
 });
 
 test('Gradient reaches the main area, the cards and the marker', () => {
-  for (const sel of ['body.inkline-gradient .workspace{', 'body.inkline-gradient .markdown-rendered .callout', 'body.inkline-gradient .modal button.mod-cta']) {
+  for (const sel of ['body.inkline-gradient .markdown-rendered .callout', 'body.inkline-gradient .modal button.mod-cta']) {
     assert.ok(rules.includes(sel), `no rule for ${sel}`);
   }
 });
