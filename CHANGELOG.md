@@ -7,6 +7,20 @@ Versions follow [Semantic Versioning](https://semver.org/).
 Releases before 1.6.1 are described by their tags and release notes on
 GitHub; this file starts with 1.6.1.
 
+## [1.7.0] - unreleased
+
+### Added
+- **A Look switch: Flat or Gradient** (Settings, Style Settings,
+  ICOR for Life - INKLINE, The look). Flat is the theme as it was, and
+  stays the default. Gradient puts INKLINE's brand layer on top, as
+  myICOR wears it since November 2026: the four ICOR Journey stage lights
+  across the top of the main area (Input blue, Control green, Output pink,
+  Refine orange), glass cards with depth for callouts, embeds, the
+  properties panel and Bases cards, floating dialogs, menus and the
+  command palette, and a soft light under the one orange action. Text,
+  links and buttons never carry light. Needs the Style Settings plugin to
+  switch; without it the theme stays Flat.
+
 ## [1.6.2] - 2026-09-17
 
 ### Fixed

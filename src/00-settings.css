@@ -3,6 +3,22 @@
 name: ICOR for Life - INKLINE
 id: icor-for-life-inkline
 settings:
+  - id: inkline-look-heading
+    title: The look
+    type: heading
+    level: 1
+    collapsed: false
+  - id: inkline-look
+    title: Look
+    description: Flat is INKLINE's foundation, ink and paper with one orange marker. Gradient adds the brand layer on top, the four ICOR Journey stage lights across the top of the main area, glass cards with depth and a soft light under the one action.
+    type: class-select
+    allowEmpty: false
+    default: inkline-flat
+    options:
+      - label: Flat
+        value: inkline-flat
+      - label: Gradient
+        value: inkline-gradient
   - id: inkline-layer-heading
     title: The handwritten layer
     type: heading

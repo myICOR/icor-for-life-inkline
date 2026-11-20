@@ -1,0 +1,150 @@
+/* @guard body.inkline-gradient */
+
+/* ============================================================
+   THE GRADIENT LOOK (INKLINE DESIGN §44 and §45, 2026-11-15/16)
+
+   INKLINE has two layers. The flat foundation (ink and paper, the
+   marker on the one thing to act on, hairlines) is the theme as it
+   always was, and it stays the default. Gradient puts INKLINE's brand
+   layer on top, as myICOR wears it since November 2026:
+
+   - The aura. ICOR for Life puts the ICOR Journey into practice, so
+     its place light is the journey's: the four stage lights side by
+     side across the top of the main area (Input blue, Control green,
+     Output pink, Refine orange at 6, 36, 66 and 96 percent), each one
+     hue fading into ink, never blended into each other. It is fixed:
+     notes scroll under it, so the light says where you are. No drift
+     here, unlike the app: an editor repaints too often to pay for it.
+   - Depth and glass. Cards (callouts, embeds, the properties panel,
+     Bases cards) are a faint fill with a lit 1px top edge and a long
+     soft shadow; dialogs, menus and the command palette float the
+     same way, with larger radii.
+   - The marker's light. The one action keeps its orange and gains a
+     soft orange light under it. It is the only glow on a control.
+
+   What never changes: one marker, contrast, no glow on text, no light
+   on buttons, links or text.
+
+   Every selector here sits under body.inkline-gradient (the @guard
+   line above; build.mjs applies it), set by the "Look" switch in
+   Style Settings.
+   ============================================================ */
+
+body {
+  --ink-glow-input: #5271fc;
+  --ink-glow-control: #52f49a;
+  --ink-glow-output: #fd63ff;
+  --ink-glow-refine: #f8a73e;
+  --ink-aura-k: 34%;
+  --ink-aura-h: 460px;
+  --ink-glass: color-mix(in srgb, var(--ink-paper) 4%, transparent);
+  --ink-glass-edge: color-mix(in srgb, var(--ink-paper) 10%, transparent);
+  --ink-depth: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 22px 48px -28px rgba(0, 0, 0, 0.6);
+  --ink-float: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 28px 70px -24px rgba(0, 0, 0, 0.7), 0 2px 8px rgba(0, 0, 0, 0.25);
+  --ink-radius-glass: 18px;
+}
+
+.theme-light {
+  --ink-aura-k: 24%;
+  --ink-glass: color-mix(in srgb, #ffffff 55%, transparent);
+  --ink-glass-edge: rgba(14, 15, 18, 0.08);
+  --ink-depth: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 18px 40px -26px rgba(14, 15, 18, 0.28);
+  --ink-float: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 28px 60px -26px rgba(14, 15, 18, 0.35), 0 2px 8px rgba(14, 15, 18, 0.08);
+}
+
+/* ---- the aura: four stage lights across the top of the main area ---- */
+.workspace-split.mod-root {
+  background-color: var(--background-primary);
+  background-image:
+    radial-gradient(26% var(--ink-aura-h) at 6% 0%, color-mix(in srgb, var(--ink-glow-input) var(--ink-aura-k), transparent), transparent 72%),
+    radial-gradient(26% var(--ink-aura-h) at 36% 0%, color-mix(in srgb, var(--ink-glow-control) var(--ink-aura-k), transparent), transparent 72%),
+    radial-gradient(26% var(--ink-aura-h) at 66% 0%, color-mix(in srgb, var(--ink-glow-output) var(--ink-aura-k), transparent), transparent 72%),
+    radial-gradient(26% var(--ink-aura-h) at 96% 0%, color-mix(in srgb, var(--ink-glow-refine) var(--ink-aura-k), transparent), transparent 72%);
+  background-repeat: no-repeat;
+}
+/* the light shows through the main area's own grounds */
+.workspace-split.mod-root .workspace-tabs,
+.workspace-split.mod-root .workspace-tab-container,
+.workspace-split.mod-root .workspace-leaf,
+.workspace-split.mod-root .workspace-leaf-content,
+.workspace-split.mod-root .view-header,
+.workspace-split.mod-root .view-content,
+.workspace-split.mod-root .markdown-preview-view,
+.workspace-split.mod-root .markdown-source-view,
+.workspace-split.mod-root .workspace-tab-header-container {
+  background-color: transparent;
+}
+.workspace-split.mod-root .workspace-tab-header.is-active .workspace-tab-header-inner {
+  background: var(--ink-glass);
+  box-shadow: var(--ink-depth);
+}
+
+/* ---- glass and depth on cards ---- */
+.markdown-rendered .callout,
+.markdown-source-view.mod-cm6 .callout {
+  background: var(--ink-glass);
+  border: 1px solid var(--ink-glass-edge);
+  border-radius: var(--ink-radius-glass);
+  box-shadow: var(--ink-depth);
+}
+.markdown-rendered .markdown-embed,
+.markdown-source-view.mod-cm6 .markdown-embed,
+.markdown-rendered .internal-embed.file-embed {
+  background: var(--ink-glass);
+  border: 1px solid var(--ink-glass-edge);
+  border-radius: var(--ink-radius-glass);
+  box-shadow: var(--ink-depth);
+  padding: 4px 14px;
+}
+.markdown-source-view .metadata-container,
+.markdown-preview-view .metadata-container {
+  background: var(--ink-glass);
+  border: 1px solid var(--ink-glass-edge);
+  border-radius: var(--ink-radius-glass);
+  box-shadow: var(--ink-depth);
+  padding: 8px 12px 10px;
+}
+.view-content .bases-cards-item {
+  background: var(--ink-glass);
+  border: 1px solid var(--ink-glass-edge);
+  border-radius: var(--ink-radius-glass);
+  box-shadow: var(--ink-depth);
+}
+.markdown-rendered pre,
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-begin-bg {
+  box-shadow: var(--ink-depth);
+}
+
+/* ---- things that float ---- */
+.modal,
+.prompt,
+.menu,
+.suggestion-container {
+  border: 1px solid var(--ink-glass-edge);
+  box-shadow: var(--ink-float);
+}
+.modal,
+.prompt {
+  border-radius: 22px;
+}
+.menu,
+.suggestion-container {
+  border-radius: 14px;
+}
+
+/* ---- the side menu: a hairline edge the light shines through ---- */
+.workspace-split.mod-left-split .workspace-leaf-resize-handle,
+.workspace-split.mod-right-split .workspace-leaf-resize-handle {
+  border-color: color-mix(in srgb, var(--text-normal) 10%, transparent);
+}
+.nav-file-title.is-active {
+  background: var(--ink-glass);
+  box-shadow: var(--ink-depth);
+}
+
+/* ---- the marker's light: the one glow on a control ---- */
+.workspace button.mod-cta,
+.modal button.mod-cta,
+.prompt button.mod-cta {
+  box-shadow: 0 10px 26px -10px rgba(255, 90, 45, 0.6), 0 1px 0 rgba(255, 255, 255, 0.18) inset;
+}
