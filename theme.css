@@ -3407,7 +3407,8 @@ body.icor-scaffold-chrome .nav-buttons-container .clickable-icon:has(svg.lucide-
 
    - The aura. ICOR for Life puts the ICOR Journey into practice, so
      its place light is the journey's: the four stage lights side by
-     side across the top of the main area (Input blue, Control green,
+     side across the top of the window, edge to edge and behind the
+     tab rows of the side panels (Input blue, Control green,
      Output pink, Refine orange at 6, 36, 66 and 96 percent), each one
      hue fading into ink, never blended into each other. It is fixed:
      notes scroll under it, so the light says where you are. No drift
@@ -3439,6 +3440,9 @@ body.inkline-gradient{
   --ink-depth: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 22px 48px -28px rgba(0, 0, 0, 0.6);
   --ink-float: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 28px 70px -24px rgba(0, 0, 0, 0.7), 0 2px 8px rgba(0, 0, 0, 0.25);
   --ink-radius-glass: 18px;
+  /* the tab rows sit on the light: no ground and no hairline of their own */
+  --tab-container-background: transparent;
+  --tab-outline-color: transparent;
 }
 
 .theme-light.inkline-gradient{
@@ -3449,8 +3453,8 @@ body.inkline-gradient{
   --ink-float: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 28px 60px -26px rgba(14, 15, 18, 0.35), 0 2px 8px rgba(14, 15, 18, 0.08);
 }
 
-/* ---- the aura: four stage lights across the top of the main area ---- */
-body.inkline-gradient .workspace-split.mod-root{
+/* ---- the aura: four stage lights across the top of the window ---- */
+body.inkline-gradient .workspace{
   background-color: var(--background-primary);
   background-image:
     radial-gradient(26% var(--ink-aura-h) at 6% 0%, color-mix(in srgb, var(--ink-glow-input) var(--ink-aura-k), transparent), transparent 72%),
@@ -3460,6 +3464,7 @@ body.inkline-gradient .workspace-split.mod-root{
   background-repeat: no-repeat;
 }
 /* the light shows through the main area's own grounds */
+body.inkline-gradient .workspace-split.mod-root,
 body.inkline-gradient .workspace-split.mod-root .workspace-tabs,
 body.inkline-gradient .workspace-split.mod-root .workspace-tab-container,
 body.inkline-gradient .workspace-split.mod-root .workspace-leaf,
@@ -3470,6 +3475,18 @@ body.inkline-gradient .workspace-split.mod-root .markdown-preview-view,
 body.inkline-gradient .workspace-split.mod-root .markdown-source-view,
 body.inkline-gradient .workspace-split.mod-root .workspace-tab-header-container{
   background-color: transparent;
+}
+/* the rows above the light: no grounds, and groups read from surfaces, not hairlines */
+body.inkline-gradient .workspace-tab-header-container,
+body.inkline-gradient .workspace-split.mod-left-split .workspace-tab-header-container,
+body.inkline-gradient .workspace-split.mod-right-split .workspace-tab-header-container,
+body.inkline-gradient .workspace .sidebar-toggle-button,
+body.inkline-gradient .workspace-tab-header-container .workspace-tab-header-spacer{
+  background-color: transparent;
+  border-bottom-color: transparent;
+}
+body.inkline-gradient .workspace-split.mod-root .view-header{
+  border-bottom-color: transparent;
 }
 body.inkline-gradient .workspace-split.mod-root .workspace-tab-header.is-active .workspace-tab-header-inner{
   background: var(--ink-glass);
