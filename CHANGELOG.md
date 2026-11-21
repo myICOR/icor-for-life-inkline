@@ -7,6 +7,14 @@ Versions follow [Semantic Versioning](https://semver.org/).
 Releases before 1.6.1 are described by their tags and release notes on
 GitHub; this file starts with 1.6.1.
 
+
+## 1.7.1 (2026-11-21)
+
+- The banner carries the current myICOR mark: the closed figure-eight with the right loop a little larger, one round
+  marker stroke (brand/mark.svg), in place of the old symmetric infinity. Wordmark and underline unchanged.
+- The properties bar: one row, opened and closed anywhere on it (with ICOR for Life - Interface 0.9), slim when folded,
+  a hover; no marker ring after a click, the focus ring only for the keyboard.
+
 ## [1.7.0] - unreleased
 
 ### Changed

@@ -65,6 +65,13 @@ body {
   box-shadow: var(--ink-depth);
   padding: 8px 12px 10px;
 }
+/* folded: a slim glass row, lit a little on hover; focus keeps the depth, never a marker ring */
+.markdown-source-view .metadata-container.is-collapsed,
+.markdown-preview-view .metadata-container.is-collapsed { padding: 2px 12px; transition: background-color 140ms ease; }
+.markdown-source-view .metadata-container.is-collapsed:hover,
+.markdown-preview-view .metadata-container.is-collapsed:hover { background-color: color-mix(in srgb, var(--ink-glass) 80%, var(--ink-paper) 6%); }
+.markdown-source-view .metadata-container:focus-within,
+.markdown-preview-view .metadata-container:focus-within { box-shadow: var(--ink-depth); }
 .view-content .bases-cards-item {
   background: var(--ink-glass);
   border: 1px solid var(--ink-glass-edge);
