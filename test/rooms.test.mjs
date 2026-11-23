@@ -36,6 +36,12 @@ for (const room of ['ink', 'paper']) {
   });
 }
 
+test('03 is no room (3.0, Tom 2026-11-23): a 03 WiP left in a migrated vault looks like any plain folder', () => {
+  for (const room of ['ink', 'paper']) {
+    assert.deepEqual(now[room].r03, now[room].plain, `03 WiP is still styled as a room in the ${room} room`);
+  }
+});
+
 test('the fixture is actually being styled', () => {
   assert.equal(now.ink.r04.arrow, 'none', 'a room still shows its collapse arrow; theme.css did not apply');
   assert.notEqual(now.ink.r04.before, 'none', 'a room draws no glyph');

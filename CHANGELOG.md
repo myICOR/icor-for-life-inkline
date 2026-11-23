@@ -8,6 +8,11 @@ Releases before 1.6.1 are described by their tags and release notes on
 GitHub; this file starts with 1.6.1.
 
 
+## 1.7.2 (2026-11-23)
+
+- No WiP room. ICOR for Life 3.0 has no `03 WiP`, so the theme no longer colours, labels or marks a `03` folder: one a
+  migrated vault still holds looks like any other plain folder. The other rooms are unchanged.
+
 ## 1.7.1 (2026-11-21)
 
 - The banner carries the current myICOR mark: the closed figure-eight with the right loop a little larger, one round

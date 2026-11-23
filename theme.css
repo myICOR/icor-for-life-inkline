@@ -2741,7 +2741,6 @@ body { --font-mermaid: var(--ink-font-body); }
      Daily Scratchpad  yellow     (pencil work)
      Inbox             terracotta (muted marker: hand-over point)
      Planner           marker     (an app surface among the rooms)
-     WiP               cyan       (the workbench)
      Inner World       success    (growth)
      Assets            burgundy   (the shelf)
      AI Team           indigo     (the staff)
@@ -2783,19 +2782,19 @@ body:not(.icor-rooms-off) .nav-folder-title{
 
    The selector reads: "a plugin said room", OR "no plugin spoke and
    this is a 00-07 root folder". Every rule in 1.1 uses it. */
-body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])){
+body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])){
   border-left: 2px solid var(--room-tone);
   border-radius: 3px;
   background: color-mix(in srgb, var(--room-tone) 7%, transparent);
   margin-bottom: 2px;
 }
-body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])):hover{
+body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])):hover{
   background: color-mix(in srgb, var(--room-tone) 15%, transparent);
 }
 
 /* no collapse arrows on rooms: icon + text only */
-body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .collapse-icon,
-body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .nav-folder-collapse-indicator{
+body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .collapse-icon,
+body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .nav-folder-collapse-indicator{
   /* No !important: this selector weighs (0,5,0) before the guard is merged in,
      and the host sets display on .collapse-icon at (0,1,0) and at most (0,3,0). */
   display: none;
@@ -2805,7 +2804,7 @@ body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([da
 }
 
 /* hide the real name text (with its sort prefix) */
-body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .nav-folder-title-content{
+body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .nav-folder-title-content{
   font-size: 0;
   line-height: var(--nav-item-line-height, 1.4);
   display: flex;
@@ -2813,7 +2812,7 @@ body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([da
 }
 
 /* the inked icon: a mask filled with the room colour */
-body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .nav-folder-title-content::before{
+body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .nav-folder-title-content::before{
   content: "";
   display: inline-block;
   width: 15px;
@@ -2832,7 +2831,7 @@ body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([da
 }
 
 /* the room name, in the room colour */
-body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .nav-folder-title-content::after{
+body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .nav-folder-title-content::after{
   content: var(--room-label, "");
   font-size: var(--nav-item-size, 14px);
   font-weight: var(--nav-item-weight-hover, 600);
@@ -2853,14 +2852,14 @@ body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="room"], :not([da
    room that is not a date, plus anything a plugin marks "family".
    The glyph is --room-icon; the floor defaults set a plain folder
    mark and a named subfolder overrides it. */
-body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="family"], :not([data-icor-kind])[data-path^="00 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 "][data-path*="/"]:not(:where([data-path*="/20"]))) .nav-folder-title-content{
+body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="family"], :not([data-icor-kind])[data-path^="00 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 "][data-path*="/"]:not(:where([data-path*="/20"]))) .nav-folder-title-content{
   font-size: var(--nav-item-size, 14px);
   color: var(--room-tone);
   line-height: var(--nav-item-line-height, 1.4);
   display: flex;
   align-items: center;
 }
-body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="family"], :not([data-icor-kind])[data-path^="00 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 "][data-path*="/"]:not(:where([data-path*="/20"]))) .nav-folder-title-content::before{
+body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="family"], :not([data-icor-kind])[data-path^="00 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 "][data-path*="/"]:not(:where([data-path*="/20"]))) .nav-folder-title-content::before{
   content: "";
   display: inline-block;
   width: 14px;
@@ -2883,7 +2882,7 @@ body:not(.icor-rooms-off) .nav-folder-title:is([data-icor-kind="family"], :not([
    2. THE DATA - the only part that knows a folder's name
    ============================================================ */
 
-/* --- 2.1 the eight rooms --------------------------------------- */
+/* --- 2.1 the rooms --------------------------------------- */
 
 body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]){
   --room-color: #c2a35c;
@@ -2902,12 +2901,6 @@ body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="02
   --room-color-paper: #b3401f;
   --room-label: "Planner";
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='4' rx='2'/%3E%3Cpath d='M16 2v4'/%3E%3Cpath d='M3 10h18'/%3E%3Cpath d='M8 2v4'/%3E%3Cpath d='M17 14h-6'/%3E%3Cpath d='M13 18H7'/%3E%3C/svg%3E");
-}
-body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]){
-  --room-color: #7a99a1;
-  --room-color-paper: #4e6b73;
-  --room-label: "WiP";
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9'/%3E%3Cpath d='m18 15 4-4'/%3E%3Cpath d='m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5'/%3E%3C/svg%3E");
 }
 body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]){
   --room-color: #7d9a7f;
@@ -2941,12 +2934,11 @@ body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="07
 body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="00 "][data-path*="/"]:not(:where([data-path*="/20"])){ --room-color: #c2a35c; --room-color-paper: #7f662f; }
 body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="01 "][data-path*="/"]:not(:where([data-path*="/20"])){ --room-color: #c2765a; --room-color-paper: #9e4526; }
 body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="02 "][data-path*="/"]:not(:where([data-path*="/20"])){ --room-color: #ff5a2d; --room-color-paper: #b3401f; }
-body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="03 "][data-path*="/"]:not(:where([data-path*="/20"])){ --room-color: #7a99a1; --room-color-paper: #4e6b73; }
 body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="04 "][data-path*="/"]:not(:where([data-path*="/20"])){ --room-color: #7d9a7f; --room-color-paper: #5e7a60; }
 body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="05 "][data-path*="/"]:not(:where([data-path*="/20"])){ --room-color: #a87795; --room-color-paper: #7c5570; }
 body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="06 "][data-path*="/"]:not(:where([data-path*="/20"])){ --room-color: #8087a6; --room-color-paper: #565e7e; }
 body:not(.icor-rooms-off) .nav-folder-title:not([data-icor-kind])[data-path^="07 "][data-path*="/"]:not(:where([data-path*="/20"])){ --room-color: #b57a86; --room-color-paper: #8f5560; }
-body:not(.icor-rooms-off) .nav-folder-title:is(:not([data-icor-kind])[data-path^="00 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 "][data-path*="/"]:not(:where([data-path*="/20"]))){
+body:not(.icor-rooms-off) .nav-folder-title:is(:not([data-icor-kind])[data-path^="00 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 "][data-path*="/"]:not(:where([data-path*="/20"]))){
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z'/%3E%3C/svg%3E");
 }
 

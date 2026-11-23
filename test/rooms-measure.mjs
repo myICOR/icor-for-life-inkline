@@ -30,7 +30,7 @@ export const TREE = [
   ['r00', '00 Daily Scratchpad'],
   ['r01', '01 Inbox'],
   ['r02', '02 Planner'],
-  ['r03', '03 WiP'],
+  ['r03', '03 WiP'],        /* no room since 3.0: a 2.x folder left behind renders plain */
   ['r04', '04 Inner World'],
   ['r05', '05 Assets'],
   ['r06', '06 AI Team'],
@@ -43,7 +43,7 @@ export const TREE = [
   ['n05images', '05 Assets/Images'],
   ['n06agents', '06 AI Team/Agents'],
   ['n06sessions', '06 AI Team/AI Sessions'],
-  ['floor', '03 WiP/2026-08-31-some-work'],
+  ['floor', '04 Inner World/2026-08-31-some-work'],
   ['floor2', '06 AI Team/Agents/Penn - Journal Writer'],
   ['floor07', '07 Databases/mypka-health'],
   ['date', '04 Inner World/Journal/2026'],
