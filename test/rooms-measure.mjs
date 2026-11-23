@@ -2,15 +2,19 @@
  *
  * Shared by rooms.test.mjs (which compares a build against the recorded
  * baseline) and by `node test/rooms-measure.mjs --record`, which writes that
- * baseline. The baseline is a MEASUREMENT of 1.4.0, the last release in which
- * every room rule was written out by hand, and it is what the data-driven
- * mechanism has to reproduce exactly: same border, same tint, same glyph,
- * same label, same colour, in both rooms.
+ * baseline. Until 1.7.2 the baseline was a MEASUREMENT of 1.4.0, the last
+ * release in which every rule was written out by hand; 1.8.0 re-recorded it
+ * deliberately for the ICOR stage layout (stage colours, folders by full
+ * name), and it is what every later build has to reproduce exactly: same
+ * border, same tint, same glyph, same label, same colour, in both rooms.
  *
- * The fixture is the awkward tree on purpose: every room, named subfolders,
- * an unnamed folder inside a room (the family floor), a date-nested folder
- * and an AI-session folder (both excluded from the floor), a plain root
- * folder that must stay untouched, and the housekeeping files.
+ * The fixture is the awkward tree on purpose: every stage folder, the same
+ * folders under their names from before the stage layout, folders whose
+ * number matches a stage folder but whose name does not (06 AI Team, 03 WiP),
+ * named subfolders, an unnamed folder inside a stage folder (the family
+ * floor), a date-nested folder and an AI-session folder (both excluded from
+ * the floor), a plain root folder that must stay untouched, and the
+ * housekeeping files.
  */
 
 import { execFileSync } from 'node:child_process';
@@ -25,33 +29,45 @@ const CHROME = process.env.CHROME_BIN
 
 export const BASELINE = resolve(repo, 'test', 'fixtures', 'rooms-baseline.json');
 
-/* Every path is a probe. The id is what the measurement is keyed on. */
+/* Every path is a probe. The id is what the measurement is keyed on.
+   The ICOR stage layout (1.8.0): s* are the seven top folders by stage,
+   l* the same folders under their names from before the stage layout, and
+   the rest are what must NOT be a stage folder although its number says
+   otherwise, the family floor, named subfolders, the exclusions and the
+   plain folders. */
 export const TREE = [
-  ['r00', '00 Daily Scratchpad'],
-  ['r01', '01 Inbox'],
-  ['r02', '02 Planner'],
-  ['r03', '03 WiP'],        /* no room since 3.0: a 2.x folder left behind renders plain */
-  ['r04', '04 Inner World'],
-  ['r05', '05 Assets'],
-  ['r06', '06 AI Team'],
-  ['r07', '07 Databases'],
-  ['r07data', '07 Data'],   /* the private-vault name; the prefix is the identity */
-  ['n04journal', '04 Inner World/Journal'],
-  ['n04mylife', '04 Inner World/My Life'],
-  ['n04goals', '04 Inner World/My Life/Goals'],
+  ['s00', '00 Daily Notes'],      /* Input */
+  ['s01', '01 Inbox'],            /* Input */
+  ['s02', '02 Inner World'],      /* Control */
+  ['s03', '03 Outer World'],      /* Control */
+  ['s04', '04 Assets'],           /* Control */
+  ['s05', '05 Databases'],        /* Control */
+  ['s06', '06 Planner'],          /* Output */
+  ['l00', '00 Daily Scratchpad'], /* before the stage layout: Input */
+  ['l02', '02 Planner'],          /* Output */
+  ['l04', '04 Inner World'],      /* Control */
+  ['l05', '05 Assets'],           /* Control */
+  ['l06', '06 Outer World'],      /* Control */
+  ['l07', '07 Databases'],        /* Control */
+  ['aiteam', '06 AI Team'],       /* 2.x myPKA team: shares 06 with the Planner, in no stage */
+  ['aiteamsub', '06 AI Team/Agents'],
+  ['wip', '03 WiP'],              /* 2.x, nobody's folder any more */
+  ['data07', '07 Data'],          /* a 07 that is not "07 Databases" */
+  ['renamed', '02 Somewhere Else'],
+  ['n02journal', '02 Inner World/Journal'],
+  ['n02mylife', '02 Inner World/My Life'],
+  ['n02goals', '02 Inner World/My Life/Goals'],
   ['n01outer', '01 Inbox/Outer World'],
-  ['n05images', '05 Assets/Images'],
-  ['n06agents', '06 AI Team/Agents'],
-  ['n06sessions', '06 AI Team/AI Sessions'],
-  ['floor', '04 Inner World/2026-08-31-some-work'],
-  ['floor2', '06 AI Team/Agents/Penn - Journal Writer'],
-  ['floor07', '07 Databases/mypka-health'],
-  ['date', '04 Inner World/Journal/2026'],
-  ['date2', '04 Inner World/Journal/2026/08'],
-  ['session', '06 AI Team/AI Sessions/2026-08-30_1312_open-note_abc123'],
+  ['n04images', '04 Assets/Images'],
+  ['nl04journal', '04 Inner World/Journal'],
+  ['floor', '02 Inner World/Notes'],
+  ['floor05', '05 Databases/mypka-health'],
+  ['floor06', '06 Planner/Tasks'],
+  ['date', '00 Daily Notes/2026'],
+  ['date2', '00 Daily Notes/2026/11'],
+  ['session', '02 Inner World/AI Sessions/2026-08-30_1312_open-note_abc123'],
   ['plain', 'Notes'],
   ['plainsub', 'Notes/Ideas'],
-  ['renamed', '04 Somewhere Else'],
 ];
 
 export const FILES = [

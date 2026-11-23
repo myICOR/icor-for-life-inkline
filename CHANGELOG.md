@@ -8,6 +8,23 @@ Releases before 1.6.1 are described by their tags and release notes on
 GitHub; this file starts with 1.6.1.
 
 
+## 1.8.0 (2026-11-23)
+
+- The file tree follows the ICOR stage layout. Each top folder wears its stage's colour: Input (#5271FC) for
+  00 Daily Notes and 01 Inbox, Control (#52F49A) for 02 Inner World, 03 Outer World, 04 Assets and 05 Databases,
+  Output (#FD63FF) for 06 Planner; Refine has no folder. In the light theme each is darkened just enough to read
+  (#4863DE, #2A7C4F, #AC43AD). Every folder inside a stage folder takes the stage colour; named ones (Journal,
+  Contacts, Images...) keep their own icon. Labels are the folder name minus its number.
+- Folders are matched by their full name, no longer by the number in front: a `06 AI Team` or `03 WiP` left from 2.x
+  looks like any plain folder, and so do its subfolders (the AI Team subfolder icons are gone). The same folders under
+  their names from before the stage layout (00 Daily Scratchpad, 02 Planner, 04 Inner World, 05 Assets,
+  06 Outer World, 07 Databases) keep a colour, by stage, until the vault moves.
+- These are the theme's own colours for a vault without ICOR for Life - Interface; with Interface 0.10, the vault's
+  `_System/schema.json` decides.
+- Style Settings says folders: "ICOR for Life folders", "Turn off folder icons and colors".
+- The file-tree baseline (test/fixtures/rooms-baseline.json) is re-recorded for the stage layout, and a new test pins
+  each top folder's stage colour in both themes.
+
 ## 1.7.2 (2026-11-23)
 
 - No WiP room. ICOR for Life 3.0 has no `03 WiP`, so the theme no longer colours, labels or marks a `03` folder: one a

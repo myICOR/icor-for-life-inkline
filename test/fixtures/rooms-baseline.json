@@ -1,9 +1,9 @@
 {
  "ink": {
-  "r00": {
-   "roomColor": "#c2a35c",
-   "borderLeft": "2px solid rgb(194, 163, 92)",
-   "background": "color(srgb 0.760784 0.639216 0.360784 / 0.07)",
+  "s00": {
+   "roomColor": "#5271fc",
+   "borderLeft": "2px solid rgb(82, 113, 252)",
+   "background": "color(srgb 0.321569 0.443137 0.988235 / 0.07)",
    "opacity": "1",
    "arrow": "none",
    "textSize": "0px",
@@ -13,20 +13,20 @@
     "w": "15px",
     "h": "15px",
     "mr": "7px",
-    "bg": "rgb(194, 163, 92)",
+    "bg": "rgb(82, 113, 252)",
     "mask": "svg#1a39116:360"
    },
    "after": {
-    "content": "\"Daily Scratchpad\"",
-    "color": "rgb(194, 163, 92)",
+    "content": "\"Daily Notes\"",
+    "color": "rgb(82, 113, 252)",
     "size": "14px",
     "weight": "400"
    }
   },
-  "r01": {
-   "roomColor": "#c2765a",
-   "borderLeft": "2px solid rgb(194, 118, 90)",
-   "background": "color(srgb 0.760784 0.462745 0.352941 / 0.07)",
+  "s01": {
+   "roomColor": "#5271fc",
+   "borderLeft": "2px solid rgb(82, 113, 252)",
+   "background": "color(srgb 0.321569 0.443137 0.988235 / 0.07)",
    "opacity": "1",
    "arrow": "none",
    "textSize": "0px",
@@ -36,20 +36,20 @@
     "w": "15px",
     "h": "15px",
     "mr": "7px",
-    "bg": "rgb(194, 118, 90)",
+    "bg": "rgb(82, 113, 252)",
     "mask": "svg#b01c950:371"
    },
    "after": {
     "content": "\"Inbox\"",
-    "color": "rgb(194, 118, 90)",
+    "color": "rgb(82, 113, 252)",
     "size": "14px",
     "weight": "400"
    }
   },
-  "r02": {
-   "roomColor": "#ff5a2d",
-   "borderLeft": "2px solid rgb(255, 90, 45)",
-   "background": "color(srgb 1 0.352941 0.176471 / 0.07)",
+  "s02": {
+   "roomColor": "#52f49a",
+   "borderLeft": "2px solid rgb(82, 244, 154)",
+   "background": "color(srgb 0.321569 0.956863 0.603922 / 0.07)",
    "opacity": "1",
    "arrow": "none",
    "textSize": "0px",
@@ -59,17 +59,247 @@
     "w": "15px",
     "h": "15px",
     "mr": "7px",
-    "bg": "rgb(255, 90, 45)",
-    "mask": "svg#7cb940cb:362"
+    "bg": "rgb(82, 244, 154)",
+    "mask": "svg#7f4096b3:459"
    },
    "after": {
-    "content": "\"Planner\"",
-    "color": "rgb(255, 90, 45)",
+    "content": "\"Inner World\"",
+    "color": "rgb(82, 244, 154)",
     "size": "14px",
     "weight": "400"
    }
   },
-  "r03": {
+  "s03": {
+   "roomColor": "#52f49a",
+   "borderLeft": "2px solid rgb(82, 244, 154)",
+   "background": "color(srgb 0.321569 0.956863 0.603922 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(82, 244, 154)",
+    "mask": "svg#dc0788d2:314"
+   },
+   "after": {
+    "content": "\"Outer World\"",
+    "color": "rgb(82, 244, 154)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "s04": {
+   "roomColor": "#52f49a",
+   "borderLeft": "2px solid rgb(82, 244, 154)",
+   "background": "color(srgb 0.321569 0.956863 0.603922 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(82, 244, 154)",
+    "mask": "svg#aa3aa836:416"
+   },
+   "after": {
+    "content": "\"Assets\"",
+    "color": "rgb(82, 244, 154)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "s05": {
+   "roomColor": "#52f49a",
+   "borderLeft": "2px solid rgb(82, 244, 154)",
+   "background": "color(srgb 0.321569 0.956863 0.603922 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(82, 244, 154)",
+    "mask": "svg#28ee53ab:312"
+   },
+   "after": {
+    "content": "\"Databases\"",
+    "color": "rgb(82, 244, 154)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "s06": {
+   "roomColor": "#fd63ff",
+   "borderLeft": "2px solid rgb(253, 99, 255)",
+   "background": "color(srgb 0.992157 0.388235 1 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(253, 99, 255)",
+    "mask": "svg#7cb940cb:362"
+   },
+   "after": {
+    "content": "\"Planner\"",
+    "color": "rgb(253, 99, 255)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "l00": {
+   "roomColor": "#5271fc",
+   "borderLeft": "2px solid rgb(82, 113, 252)",
+   "background": "color(srgb 0.321569 0.443137 0.988235 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(82, 113, 252)",
+    "mask": "svg#1a39116:360"
+   },
+   "after": {
+    "content": "\"Daily Scratchpad\"",
+    "color": "rgb(82, 113, 252)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "l02": {
+   "roomColor": "#fd63ff",
+   "borderLeft": "2px solid rgb(253, 99, 255)",
+   "background": "color(srgb 0.992157 0.388235 1 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(253, 99, 255)",
+    "mask": "svg#7cb940cb:362"
+   },
+   "after": {
+    "content": "\"Planner\"",
+    "color": "rgb(253, 99, 255)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "l04": {
+   "roomColor": "#52f49a",
+   "borderLeft": "2px solid rgb(82, 244, 154)",
+   "background": "color(srgb 0.321569 0.956863 0.603922 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(82, 244, 154)",
+    "mask": "svg#7f4096b3:459"
+   },
+   "after": {
+    "content": "\"Inner World\"",
+    "color": "rgb(82, 244, 154)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "l05": {
+   "roomColor": "#52f49a",
+   "borderLeft": "2px solid rgb(82, 244, 154)",
+   "background": "color(srgb 0.321569 0.956863 0.603922 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(82, 244, 154)",
+    "mask": "svg#aa3aa836:416"
+   },
+   "after": {
+    "content": "\"Assets\"",
+    "color": "rgb(82, 244, 154)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "l06": {
+   "roomColor": "#52f49a",
+   "borderLeft": "2px solid rgb(82, 244, 154)",
+   "background": "color(srgb 0.321569 0.956863 0.603922 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(82, 244, 154)",
+    "mask": "svg#dc0788d2:314"
+   },
+   "after": {
+    "content": "\"Outer World\"",
+    "color": "rgb(82, 244, 154)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "l07": {
+   "roomColor": "#52f49a",
+   "borderLeft": "2px solid rgb(82, 244, 154)",
+   "background": "color(srgb 0.321569 0.956863 0.603922 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(82, 244, 154)",
+    "mask": "svg#28ee53ab:312"
+   },
+   "after": {
+    "content": "\"Databases\"",
+    "color": "rgb(82, 244, 154)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "aiteam": {
    "roomColor": "",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
@@ -81,291 +311,212 @@
    "before": "none",
    "after": "none"
   },
-  "r04": {
-   "roomColor": "#7d9a7f",
-   "borderLeft": "2px solid rgb(125, 154, 127)",
-   "background": "color(srgb 0.490196 0.603922 0.498039 / 0.07)",
+  "aiteamsub": {
+   "roomColor": "",
+   "borderLeft": "0px none rgb(0, 0, 0)",
+   "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
-   "arrow": "none",
-   "textSize": "0px",
+   "arrow": "block",
+   "textSize": "16px",
    "textColor": "rgb(0, 0, 0)",
-   "textDisplay": "flex",
-   "before": {
-    "w": "15px",
-    "h": "15px",
-    "mr": "7px",
-    "bg": "rgb(125, 154, 127)",
-    "mask": "svg#7f4096b3:459"
-   },
-   "after": {
-    "content": "\"Inner World\"",
-    "color": "rgb(125, 154, 127)",
-    "size": "14px",
-    "weight": "400"
-   }
+   "textDisplay": "block",
+   "before": "none",
+   "after": "none"
   },
-  "r05": {
-   "roomColor": "#a87795",
-   "borderLeft": "2px solid rgb(168, 119, 149)",
-   "background": "color(srgb 0.658824 0.466667 0.584314 / 0.07)",
+  "wip": {
+   "roomColor": "",
+   "borderLeft": "0px none rgb(0, 0, 0)",
+   "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
-   "arrow": "none",
-   "textSize": "0px",
+   "arrow": "block",
+   "textSize": "16px",
    "textColor": "rgb(0, 0, 0)",
-   "textDisplay": "flex",
-   "before": {
-    "w": "15px",
-    "h": "15px",
-    "mr": "7px",
-    "bg": "rgb(168, 119, 149)",
-    "mask": "svg#aa3aa836:416"
-   },
-   "after": {
-    "content": "\"Assets\"",
-    "color": "rgb(168, 119, 149)",
-    "size": "14px",
-    "weight": "400"
-   }
+   "textDisplay": "block",
+   "before": "none",
+   "after": "none"
   },
-  "r06": {
-   "roomColor": "#8087a6",
-   "borderLeft": "2px solid rgb(128, 135, 166)",
-   "background": "color(srgb 0.501961 0.529412 0.65098 / 0.07)",
+  "data07": {
+   "roomColor": "",
+   "borderLeft": "0px none rgb(0, 0, 0)",
+   "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
-   "arrow": "none",
-   "textSize": "0px",
+   "arrow": "block",
+   "textSize": "16px",
    "textColor": "rgb(0, 0, 0)",
-   "textDisplay": "flex",
-   "before": {
-    "w": "15px",
-    "h": "15px",
-    "mr": "7px",
-    "bg": "rgb(128, 135, 166)",
-    "mask": "svg#dc0788d2:314"
-   },
-   "after": {
-    "content": "\"Outer World\"",
-    "color": "rgb(128, 135, 166)",
-    "size": "14px",
-    "weight": "400"
-   }
+   "textDisplay": "block",
+   "before": "none",
+   "after": "none"
   },
-  "r07": {
-   "roomColor": "#b57a86",
-   "borderLeft": "2px solid rgb(181, 122, 134)",
-   "background": "color(srgb 0.709804 0.478431 0.52549 / 0.07)",
+  "renamed": {
+   "roomColor": "",
+   "borderLeft": "0px none rgb(0, 0, 0)",
+   "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
-   "arrow": "none",
-   "textSize": "0px",
+   "arrow": "block",
+   "textSize": "16px",
    "textColor": "rgb(0, 0, 0)",
-   "textDisplay": "flex",
-   "before": {
-    "w": "15px",
-    "h": "15px",
-    "mr": "7px",
-    "bg": "rgb(181, 122, 134)",
-    "mask": "svg#28ee53ab:312"
-   },
-   "after": {
-    "content": "\"Databases\"",
-    "color": "rgb(181, 122, 134)",
-    "size": "14px",
-    "weight": "400"
-   }
+   "textDisplay": "block",
+   "before": "none",
+   "after": "none"
   },
-  "r07data": {
-   "roomColor": "#b57a86",
-   "borderLeft": "2px solid rgb(181, 122, 134)",
-   "background": "color(srgb 0.709804 0.478431 0.52549 / 0.07)",
-   "opacity": "1",
-   "arrow": "none",
-   "textSize": "0px",
-   "textColor": "rgb(0, 0, 0)",
-   "textDisplay": "flex",
-   "before": {
-    "w": "15px",
-    "h": "15px",
-    "mr": "7px",
-    "bg": "rgb(181, 122, 134)",
-    "mask": "svg#28ee53ab:312"
-   },
-   "after": {
-    "content": "\"Databases\"",
-    "color": "rgb(181, 122, 134)",
-    "size": "14px",
-    "weight": "400"
-   }
-  },
-  "n04journal": {
-   "roomColor": "#c2a35c",
+  "n02journal": {
+   "roomColor": "#52f49a",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(194, 163, 92)",
+   "textColor": "rgb(82, 244, 154)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(194, 163, 92)",
+    "bg": "rgb(82, 244, 154)",
     "mask": "svg#79b46f4a:502"
    },
    "after": "none"
   },
-  "n04mylife": {
-   "roomColor": "#7d9a7f",
+  "n02mylife": {
+   "roomColor": "#52f49a",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(125, 154, 127)",
+   "textColor": "rgb(82, 244, 154)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(125, 154, 127)",
+    "bg": "rgb(82, 244, 154)",
     "mask": "svg#213f1f1:343"
    },
    "after": "none"
   },
-  "n04goals": {
-   "roomColor": "#c2765a",
+  "n02goals": {
+   "roomColor": "#52f49a",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(194, 118, 90)",
+   "textColor": "rgb(82, 244, 154)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(194, 118, 90)",
+    "bg": "rgb(82, 244, 154)",
     "mask": "svg#95ec3d62:297"
    },
    "after": "none"
   },
   "n01outer": {
-   "roomColor": "#c2765a",
+   "roomColor": "#5271fc",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(194, 118, 90)",
+   "textColor": "rgb(82, 113, 252)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(194, 118, 90)",
+    "bg": "rgb(82, 113, 252)",
     "mask": "svg#dc0788d2:314"
    },
    "after": "none"
   },
-  "n05images": {
-   "roomColor": "#a87795",
+  "n04images": {
+   "roomColor": "#52f49a",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(168, 119, 149)",
+   "textColor": "rgb(82, 244, 154)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(168, 119, 149)",
+    "bg": "rgb(82, 244, 154)",
     "mask": "svg#85e82157:341"
    },
    "after": "none"
   },
-  "n06agents": {
-   "roomColor": "#8087a6",
+  "nl04journal": {
+   "roomColor": "#52f49a",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(128, 135, 166)",
+   "textColor": "rgb(82, 244, 154)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(128, 135, 166)",
-    "mask": "svg#ab559944:364"
-   },
-   "after": "none"
-  },
-  "n06sessions": {
-   "roomColor": "#8087a6",
-   "borderLeft": "0px none rgb(0, 0, 0)",
-   "background": "rgba(0, 0, 0, 0)",
-   "opacity": "1",
-   "arrow": "block",
-   "textSize": "14px",
-   "textColor": "rgb(128, 135, 166)",
-   "textDisplay": "flex",
-   "before": {
-    "w": "14px",
-    "h": "14px",
-    "mr": "6px",
-    "bg": "rgb(128, 135, 166)",
-    "mask": "svg#f4cdd562:331"
+    "bg": "rgb(82, 244, 154)",
+    "mask": "svg#79b46f4a:502"
    },
    "after": "none"
   },
   "floor": {
-   "roomColor": "",
-   "borderLeft": "0px none rgb(0, 0, 0)",
-   "background": "rgba(0, 0, 0, 0)",
-   "opacity": "1",
-   "arrow": "block",
-   "textSize": "16px",
-   "textColor": "rgb(0, 0, 0)",
-   "textDisplay": "block",
-   "before": "none",
-   "after": "none"
-  },
-  "floor2": {
-   "roomColor": "#8087a6",
+   "roomColor": "#52f49a",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(128, 135, 166)",
+   "textColor": "rgb(82, 244, 154)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(128, 135, 166)",
+    "bg": "rgb(82, 244, 154)",
     "mask": "svg#52d66a44:325"
    },
    "after": "none"
   },
-  "floor07": {
-   "roomColor": "#b57a86",
+  "floor05": {
+   "roomColor": "#52f49a",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(181, 122, 134)",
+   "textColor": "rgb(82, 244, 154)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(181, 122, 134)",
+    "bg": "rgb(82, 244, 154)",
+    "mask": "svg#52d66a44:325"
+   },
+   "after": "none"
+  },
+  "floor06": {
+   "roomColor": "#fd63ff",
+   "borderLeft": "0px none rgb(0, 0, 0)",
+   "background": "rgba(0, 0, 0, 0)",
+   "opacity": "1",
+   "arrow": "block",
+   "textSize": "14px",
+   "textColor": "rgb(253, 99, 255)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "14px",
+    "h": "14px",
+    "mr": "6px",
+    "bg": "rgb(253, 99, 255)",
     "mask": "svg#52d66a44:325"
    },
    "after": "none"
@@ -429,29 +580,6 @@
    "textDisplay": "block",
    "before": "none",
    "after": "none"
-  },
-  "renamed": {
-   "roomColor": "#7d9a7f",
-   "borderLeft": "2px solid rgb(125, 154, 127)",
-   "background": "color(srgb 0.490196 0.603922 0.498039 / 0.07)",
-   "opacity": "1",
-   "arrow": "none",
-   "textSize": "0px",
-   "textColor": "rgb(0, 0, 0)",
-   "textDisplay": "flex",
-   "before": {
-    "w": "15px",
-    "h": "15px",
-    "mr": "7px",
-    "bg": "rgb(125, 154, 127)",
-    "mask": "svg#7f4096b3:459"
-   },
-   "after": {
-    "content": "\"Inner World\"",
-    "color": "rgb(125, 154, 127)",
-    "size": "14px",
-    "weight": "400"
-   }
   },
   "fclaude": {
    "roomColor": "",
@@ -491,10 +619,10 @@
   }
  },
  "paper": {
-  "r00": {
-   "roomColor": "#7f662f",
-   "borderLeft": "2px solid rgb(127, 102, 47)",
-   "background": "color(srgb 0.498039 0.4 0.184314 / 0.07)",
+  "s00": {
+   "roomColor": "#4863de",
+   "borderLeft": "2px solid rgb(72, 99, 222)",
+   "background": "color(srgb 0.282353 0.388235 0.870588 / 0.07)",
    "opacity": "1",
    "arrow": "none",
    "textSize": "0px",
@@ -504,20 +632,20 @@
     "w": "15px",
     "h": "15px",
     "mr": "7px",
-    "bg": "rgb(127, 102, 47)",
+    "bg": "rgb(72, 99, 222)",
     "mask": "svg#1a39116:360"
    },
    "after": {
-    "content": "\"Daily Scratchpad\"",
-    "color": "rgb(127, 102, 47)",
+    "content": "\"Daily Notes\"",
+    "color": "rgb(72, 99, 222)",
     "size": "14px",
     "weight": "400"
    }
   },
-  "r01": {
-   "roomColor": "#9e4526",
-   "borderLeft": "2px solid rgb(158, 69, 38)",
-   "background": "color(srgb 0.619608 0.270588 0.14902 / 0.07)",
+  "s01": {
+   "roomColor": "#4863de",
+   "borderLeft": "2px solid rgb(72, 99, 222)",
+   "background": "color(srgb 0.282353 0.388235 0.870588 / 0.07)",
    "opacity": "1",
    "arrow": "none",
    "textSize": "0px",
@@ -527,20 +655,20 @@
     "w": "15px",
     "h": "15px",
     "mr": "7px",
-    "bg": "rgb(158, 69, 38)",
+    "bg": "rgb(72, 99, 222)",
     "mask": "svg#b01c950:371"
    },
    "after": {
     "content": "\"Inbox\"",
-    "color": "rgb(158, 69, 38)",
+    "color": "rgb(72, 99, 222)",
     "size": "14px",
     "weight": "400"
    }
   },
-  "r02": {
-   "roomColor": "#b3401f",
-   "borderLeft": "2px solid rgb(179, 64, 31)",
-   "background": "color(srgb 0.701961 0.25098 0.121569 / 0.07)",
+  "s02": {
+   "roomColor": "#2a7c4f",
+   "borderLeft": "2px solid rgb(42, 124, 79)",
+   "background": "color(srgb 0.164706 0.486274 0.309804 / 0.07)",
    "opacity": "1",
    "arrow": "none",
    "textSize": "0px",
@@ -550,17 +678,247 @@
     "w": "15px",
     "h": "15px",
     "mr": "7px",
-    "bg": "rgb(179, 64, 31)",
-    "mask": "svg#7cb940cb:362"
+    "bg": "rgb(42, 124, 79)",
+    "mask": "svg#7f4096b3:459"
    },
    "after": {
-    "content": "\"Planner\"",
-    "color": "rgb(179, 64, 31)",
+    "content": "\"Inner World\"",
+    "color": "rgb(42, 124, 79)",
     "size": "14px",
     "weight": "400"
    }
   },
-  "r03": {
+  "s03": {
+   "roomColor": "#2a7c4f",
+   "borderLeft": "2px solid rgb(42, 124, 79)",
+   "background": "color(srgb 0.164706 0.486274 0.309804 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(42, 124, 79)",
+    "mask": "svg#dc0788d2:314"
+   },
+   "after": {
+    "content": "\"Outer World\"",
+    "color": "rgb(42, 124, 79)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "s04": {
+   "roomColor": "#2a7c4f",
+   "borderLeft": "2px solid rgb(42, 124, 79)",
+   "background": "color(srgb 0.164706 0.486274 0.309804 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(42, 124, 79)",
+    "mask": "svg#aa3aa836:416"
+   },
+   "after": {
+    "content": "\"Assets\"",
+    "color": "rgb(42, 124, 79)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "s05": {
+   "roomColor": "#2a7c4f",
+   "borderLeft": "2px solid rgb(42, 124, 79)",
+   "background": "color(srgb 0.164706 0.486274 0.309804 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(42, 124, 79)",
+    "mask": "svg#28ee53ab:312"
+   },
+   "after": {
+    "content": "\"Databases\"",
+    "color": "rgb(42, 124, 79)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "s06": {
+   "roomColor": "#ac43ad",
+   "borderLeft": "2px solid rgb(172, 67, 173)",
+   "background": "color(srgb 0.67451 0.262745 0.678431 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(172, 67, 173)",
+    "mask": "svg#7cb940cb:362"
+   },
+   "after": {
+    "content": "\"Planner\"",
+    "color": "rgb(172, 67, 173)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "l00": {
+   "roomColor": "#4863de",
+   "borderLeft": "2px solid rgb(72, 99, 222)",
+   "background": "color(srgb 0.282353 0.388235 0.870588 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(72, 99, 222)",
+    "mask": "svg#1a39116:360"
+   },
+   "after": {
+    "content": "\"Daily Scratchpad\"",
+    "color": "rgb(72, 99, 222)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "l02": {
+   "roomColor": "#ac43ad",
+   "borderLeft": "2px solid rgb(172, 67, 173)",
+   "background": "color(srgb 0.67451 0.262745 0.678431 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(172, 67, 173)",
+    "mask": "svg#7cb940cb:362"
+   },
+   "after": {
+    "content": "\"Planner\"",
+    "color": "rgb(172, 67, 173)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "l04": {
+   "roomColor": "#2a7c4f",
+   "borderLeft": "2px solid rgb(42, 124, 79)",
+   "background": "color(srgb 0.164706 0.486274 0.309804 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(42, 124, 79)",
+    "mask": "svg#7f4096b3:459"
+   },
+   "after": {
+    "content": "\"Inner World\"",
+    "color": "rgb(42, 124, 79)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "l05": {
+   "roomColor": "#2a7c4f",
+   "borderLeft": "2px solid rgb(42, 124, 79)",
+   "background": "color(srgb 0.164706 0.486274 0.309804 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(42, 124, 79)",
+    "mask": "svg#aa3aa836:416"
+   },
+   "after": {
+    "content": "\"Assets\"",
+    "color": "rgb(42, 124, 79)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "l06": {
+   "roomColor": "#2a7c4f",
+   "borderLeft": "2px solid rgb(42, 124, 79)",
+   "background": "color(srgb 0.164706 0.486274 0.309804 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(42, 124, 79)",
+    "mask": "svg#dc0788d2:314"
+   },
+   "after": {
+    "content": "\"Outer World\"",
+    "color": "rgb(42, 124, 79)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "l07": {
+   "roomColor": "#2a7c4f",
+   "borderLeft": "2px solid rgb(42, 124, 79)",
+   "background": "color(srgb 0.164706 0.486274 0.309804 / 0.07)",
+   "opacity": "1",
+   "arrow": "none",
+   "textSize": "0px",
+   "textColor": "rgb(0, 0, 0)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "15px",
+    "h": "15px",
+    "mr": "7px",
+    "bg": "rgb(42, 124, 79)",
+    "mask": "svg#28ee53ab:312"
+   },
+   "after": {
+    "content": "\"Databases\"",
+    "color": "rgb(42, 124, 79)",
+    "size": "14px",
+    "weight": "400"
+   }
+  },
+  "aiteam": {
    "roomColor": "",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
@@ -572,291 +930,212 @@
    "before": "none",
    "after": "none"
   },
-  "r04": {
-   "roomColor": "#5e7a60",
-   "borderLeft": "2px solid rgb(94, 122, 96)",
-   "background": "color(srgb 0.368627 0.478431 0.376471 / 0.07)",
+  "aiteamsub": {
+   "roomColor": "",
+   "borderLeft": "0px none rgb(0, 0, 0)",
+   "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
-   "arrow": "none",
-   "textSize": "0px",
+   "arrow": "block",
+   "textSize": "16px",
    "textColor": "rgb(0, 0, 0)",
-   "textDisplay": "flex",
-   "before": {
-    "w": "15px",
-    "h": "15px",
-    "mr": "7px",
-    "bg": "rgb(94, 122, 96)",
-    "mask": "svg#7f4096b3:459"
-   },
-   "after": {
-    "content": "\"Inner World\"",
-    "color": "rgb(94, 122, 96)",
-    "size": "14px",
-    "weight": "400"
-   }
+   "textDisplay": "block",
+   "before": "none",
+   "after": "none"
   },
-  "r05": {
-   "roomColor": "#7c5570",
-   "borderLeft": "2px solid rgb(124, 85, 112)",
-   "background": "color(srgb 0.486274 0.333333 0.439216 / 0.07)",
+  "wip": {
+   "roomColor": "",
+   "borderLeft": "0px none rgb(0, 0, 0)",
+   "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
-   "arrow": "none",
-   "textSize": "0px",
+   "arrow": "block",
+   "textSize": "16px",
    "textColor": "rgb(0, 0, 0)",
-   "textDisplay": "flex",
-   "before": {
-    "w": "15px",
-    "h": "15px",
-    "mr": "7px",
-    "bg": "rgb(124, 85, 112)",
-    "mask": "svg#aa3aa836:416"
-   },
-   "after": {
-    "content": "\"Assets\"",
-    "color": "rgb(124, 85, 112)",
-    "size": "14px",
-    "weight": "400"
-   }
+   "textDisplay": "block",
+   "before": "none",
+   "after": "none"
   },
-  "r06": {
-   "roomColor": "#565e7e",
-   "borderLeft": "2px solid rgb(86, 94, 126)",
-   "background": "color(srgb 0.337255 0.368627 0.494118 / 0.07)",
+  "data07": {
+   "roomColor": "",
+   "borderLeft": "0px none rgb(0, 0, 0)",
+   "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
-   "arrow": "none",
-   "textSize": "0px",
+   "arrow": "block",
+   "textSize": "16px",
    "textColor": "rgb(0, 0, 0)",
-   "textDisplay": "flex",
-   "before": {
-    "w": "15px",
-    "h": "15px",
-    "mr": "7px",
-    "bg": "rgb(86, 94, 126)",
-    "mask": "svg#dc0788d2:314"
-   },
-   "after": {
-    "content": "\"Outer World\"",
-    "color": "rgb(86, 94, 126)",
-    "size": "14px",
-    "weight": "400"
-   }
+   "textDisplay": "block",
+   "before": "none",
+   "after": "none"
   },
-  "r07": {
-   "roomColor": "#8f5560",
-   "borderLeft": "2px solid rgb(143, 85, 96)",
-   "background": "color(srgb 0.560784 0.333333 0.376471 / 0.07)",
+  "renamed": {
+   "roomColor": "",
+   "borderLeft": "0px none rgb(0, 0, 0)",
+   "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
-   "arrow": "none",
-   "textSize": "0px",
+   "arrow": "block",
+   "textSize": "16px",
    "textColor": "rgb(0, 0, 0)",
-   "textDisplay": "flex",
-   "before": {
-    "w": "15px",
-    "h": "15px",
-    "mr": "7px",
-    "bg": "rgb(143, 85, 96)",
-    "mask": "svg#28ee53ab:312"
-   },
-   "after": {
-    "content": "\"Databases\"",
-    "color": "rgb(143, 85, 96)",
-    "size": "14px",
-    "weight": "400"
-   }
+   "textDisplay": "block",
+   "before": "none",
+   "after": "none"
   },
-  "r07data": {
-   "roomColor": "#8f5560",
-   "borderLeft": "2px solid rgb(143, 85, 96)",
-   "background": "color(srgb 0.560784 0.333333 0.376471 / 0.07)",
-   "opacity": "1",
-   "arrow": "none",
-   "textSize": "0px",
-   "textColor": "rgb(0, 0, 0)",
-   "textDisplay": "flex",
-   "before": {
-    "w": "15px",
-    "h": "15px",
-    "mr": "7px",
-    "bg": "rgb(143, 85, 96)",
-    "mask": "svg#28ee53ab:312"
-   },
-   "after": {
-    "content": "\"Databases\"",
-    "color": "rgb(143, 85, 96)",
-    "size": "14px",
-    "weight": "400"
-   }
-  },
-  "n04journal": {
-   "roomColor": "#7f662f",
+  "n02journal": {
+   "roomColor": "#2a7c4f",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(127, 102, 47)",
+   "textColor": "rgb(42, 124, 79)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(127, 102, 47)",
+    "bg": "rgb(42, 124, 79)",
     "mask": "svg#79b46f4a:502"
    },
    "after": "none"
   },
-  "n04mylife": {
-   "roomColor": "#5e7a60",
+  "n02mylife": {
+   "roomColor": "#2a7c4f",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(94, 122, 96)",
+   "textColor": "rgb(42, 124, 79)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(94, 122, 96)",
+    "bg": "rgb(42, 124, 79)",
     "mask": "svg#213f1f1:343"
    },
    "after": "none"
   },
-  "n04goals": {
-   "roomColor": "#9e4526",
+  "n02goals": {
+   "roomColor": "#2a7c4f",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(158, 69, 38)",
+   "textColor": "rgb(42, 124, 79)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(158, 69, 38)",
+    "bg": "rgb(42, 124, 79)",
     "mask": "svg#95ec3d62:297"
    },
    "after": "none"
   },
   "n01outer": {
-   "roomColor": "#9e4526",
+   "roomColor": "#4863de",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(158, 69, 38)",
+   "textColor": "rgb(72, 99, 222)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(158, 69, 38)",
+    "bg": "rgb(72, 99, 222)",
     "mask": "svg#dc0788d2:314"
    },
    "after": "none"
   },
-  "n05images": {
-   "roomColor": "#7c5570",
+  "n04images": {
+   "roomColor": "#2a7c4f",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(124, 85, 112)",
+   "textColor": "rgb(42, 124, 79)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(124, 85, 112)",
+    "bg": "rgb(42, 124, 79)",
     "mask": "svg#85e82157:341"
    },
    "after": "none"
   },
-  "n06agents": {
-   "roomColor": "#565e7e",
+  "nl04journal": {
+   "roomColor": "#2a7c4f",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(86, 94, 126)",
+   "textColor": "rgb(42, 124, 79)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(86, 94, 126)",
-    "mask": "svg#ab559944:364"
-   },
-   "after": "none"
-  },
-  "n06sessions": {
-   "roomColor": "#565e7e",
-   "borderLeft": "0px none rgb(0, 0, 0)",
-   "background": "rgba(0, 0, 0, 0)",
-   "opacity": "1",
-   "arrow": "block",
-   "textSize": "14px",
-   "textColor": "rgb(86, 94, 126)",
-   "textDisplay": "flex",
-   "before": {
-    "w": "14px",
-    "h": "14px",
-    "mr": "6px",
-    "bg": "rgb(86, 94, 126)",
-    "mask": "svg#f4cdd562:331"
+    "bg": "rgb(42, 124, 79)",
+    "mask": "svg#79b46f4a:502"
    },
    "after": "none"
   },
   "floor": {
-   "roomColor": "",
-   "borderLeft": "0px none rgb(0, 0, 0)",
-   "background": "rgba(0, 0, 0, 0)",
-   "opacity": "1",
-   "arrow": "block",
-   "textSize": "16px",
-   "textColor": "rgb(0, 0, 0)",
-   "textDisplay": "block",
-   "before": "none",
-   "after": "none"
-  },
-  "floor2": {
-   "roomColor": "#565e7e",
+   "roomColor": "#2a7c4f",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(86, 94, 126)",
+   "textColor": "rgb(42, 124, 79)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(86, 94, 126)",
+    "bg": "rgb(42, 124, 79)",
     "mask": "svg#52d66a44:325"
    },
    "after": "none"
   },
-  "floor07": {
-   "roomColor": "#8f5560",
+  "floor05": {
+   "roomColor": "#2a7c4f",
    "borderLeft": "0px none rgb(0, 0, 0)",
    "background": "rgba(0, 0, 0, 0)",
    "opacity": "1",
    "arrow": "block",
    "textSize": "14px",
-   "textColor": "rgb(143, 85, 96)",
+   "textColor": "rgb(42, 124, 79)",
    "textDisplay": "flex",
    "before": {
     "w": "14px",
     "h": "14px",
     "mr": "6px",
-    "bg": "rgb(143, 85, 96)",
+    "bg": "rgb(42, 124, 79)",
+    "mask": "svg#52d66a44:325"
+   },
+   "after": "none"
+  },
+  "floor06": {
+   "roomColor": "#ac43ad",
+   "borderLeft": "0px none rgb(0, 0, 0)",
+   "background": "rgba(0, 0, 0, 0)",
+   "opacity": "1",
+   "arrow": "block",
+   "textSize": "14px",
+   "textColor": "rgb(172, 67, 173)",
+   "textDisplay": "flex",
+   "before": {
+    "w": "14px",
+    "h": "14px",
+    "mr": "6px",
+    "bg": "rgb(172, 67, 173)",
     "mask": "svg#52d66a44:325"
    },
    "after": "none"
@@ -920,29 +1199,6 @@
    "textDisplay": "block",
    "before": "none",
    "after": "none"
-  },
-  "renamed": {
-   "roomColor": "#5e7a60",
-   "borderLeft": "2px solid rgb(94, 122, 96)",
-   "background": "color(srgb 0.368627 0.478431 0.376471 / 0.07)",
-   "opacity": "1",
-   "arrow": "none",
-   "textSize": "0px",
-   "textColor": "rgb(0, 0, 0)",
-   "textDisplay": "flex",
-   "before": {
-    "w": "15px",
-    "h": "15px",
-    "mr": "7px",
-    "bg": "rgb(94, 122, 96)",
-    "mask": "svg#7f4096b3:459"
-   },
-   "after": {
-    "content": "\"Inner World\"",
-    "color": "rgb(94, 122, 96)",
-    "size": "14px",
-    "weight": "400"
-   }
   },
   "fclaude": {
    "roomColor": "",

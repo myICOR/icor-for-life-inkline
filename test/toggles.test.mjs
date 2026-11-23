@@ -167,8 +167,8 @@ function fixture(bodyClass, host) {
           </div>
           <div class="nav-files-container">
             <div class="nav-folder">
-              <div id="room" class="nav-folder-title" data-path="04 Inner World">
-                <div id="roomlabel" class="nav-folder-title-content">04 Inner World</div>
+              <div id="room" class="nav-folder-title" data-path="02 Inner World">
+                <div id="roomlabel" class="nav-folder-title-content">02 Inner World</div>
               </div>
             </div>
           </div>
