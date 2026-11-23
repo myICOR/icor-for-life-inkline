@@ -20,13 +20,13 @@ settings:
       - label: Gradient
         value: inkline-gradient
   - id: inkline-layer-heading
-    title: The handwritten layer
+    title: Handwriting
     type: heading
     level: 1
     collapsed: false
   - id: inkline-no-hand
-    title: Turn off the handwritten layer
-    description: Blockquotes, note/tip/quote callouts and %%comments%% render in the body face instead of handwriting.
+    title: Turn off handwriting
+    description: Interface text is never handwriting. This turns off the rest, the ink-hand margin note and pages with cssclasses inkline-hand, which then render in the body face.
     type: class-toggle
     default: false
   - id: icor-scaffold-heading
@@ -51,7 +51,7 @@ settings:
     default: false
   - id: icor-hide-ribbon
     title: Hide the left ribbon
-    description: Hides Obsidian's thin left ribbon. An ICOR for Life vault reroutes every ribbon action and ships this on; a plain vault should leave it off.
+    description: Hides Obsidian's thin left ribbon. The ICOR for Life plugins put their launchers there, so leave it off unless you reach them another way.
     type: class-toggle
     default: false
 
@@ -67,7 +67,7 @@ settings:
    someone turns it on - so the CLASS NAME is what picks the standalone
    default, and each feature wants a different one:
 
-     handwritten layer   ON  in a plain vault   ->  inkline-no-hand
+     handwriting         ON  in a plain vault   ->  inkline-no-hand
      the banner          ON  in a plain vault   ->  icor-hide-banner
      folder icons        ON  in a plain vault   ->  icor-rooms-off
      reduced chrome      OFF in a plain vault   ->  icor-scaffold-chrome
@@ -77,8 +77,10 @@ settings:
    are the exceptions and they are deliberate: both TAKE SOMETHING AWAY from
    Obsidian - the ribbon, the vault switcher, three toolbar buttons - and a
    theme that removes a stranger's navigation on install has broken their
-   vault to make a point about ours. The ICOR for Life scaffold turns both on
-   for its own vault, where every one of those routes exists elsewhere.
+   vault to make a point about ours. The ICOR for Life scaffold turns the
+   chrome switch on for its own vault, where those routes exist elsewhere;
+   since 2026-11-23 the suite's launchers live in the ribbon, so the ribbon
+   switch stays off there too.
 
    Folder icons default ON because they cost a plain vault nothing: every
    rule keys on a stage folder by its full name ("00 Daily Notes" ...

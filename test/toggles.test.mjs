@@ -134,7 +134,10 @@ function hostBuilds() {
 
 /* One page carrying a probe for each toggle: the sidebar header where the
    banner is painted, a room folder, the ribbon, the toolbar's sort button, the
-   vault-switcher row, and a blockquote for the handwritten layer. Obsidian's
+   vault-switcher row, a page with cssclasses inkline-hand for handwriting (since
+   1.9.0 interface text and blockquotes are never handwriting, so the switch is
+   probed where the hand still lives), and a blockquote that must stay in the
+   body face whatever the switch says. Obsidian's
    own markup, reduced to the parts the guards touch, and nested the way the
    app nests it: the vault row is a direct child of the left sidedock split,
    because that is the ancestor chain the host's own rule on it requires.
@@ -184,7 +187,10 @@ function fixture(bodyClass, host) {
     </div>
   </div></div></div>
   <div class="markdown-reading-view"><div class="markdown-preview-view markdown-rendered">
-    <blockquote id="quote"><p>a margin note</p></blockquote>
+    <blockquote id="quote"><p>a quote</p></blockquote>
+  </div></div>
+  <div class="markdown-reading-view"><div class="markdown-preview-view markdown-rendered inkline-hand">
+    <p id="hand">a page in the hand</p>
   </div></div>
   <pre id="out"></pre>
   <script>
@@ -205,9 +211,10 @@ function fixture(bodyClass, host) {
     ribbon: !!read(document.querySelector('.workspace-ribbon.mod-left')),
     sort: !!read(document.getElementById('sort')),
     vaultProfile: !!read(document.getElementById('vault')),
-    /* the handwritten layer is a different family at a bigger size */
+    /* handwriting is a different family at a bigger size */
+    handFont: getComputedStyle(document.getElementById('hand')).fontFamily,
+    handSize: px(getComputedStyle(document.getElementById('hand')).fontSize),
     quoteFont: getComputedStyle(document.getElementById('quote')).fontFamily,
-    quoteSize: px(getComputedStyle(document.getElementById('quote')).fontSize),
   });
   </script></body></html>`;
 }
@@ -254,8 +261,10 @@ function suite(host) {
     const d = r();
     assert.ok(d.banner, 'no banner is painted on a fresh install');
     assert.ok(d.roomGlyph, 'a 00-06 room draws no icon on a fresh install');
-    assert.ok(/Caveat/i.test(d.quoteFont),
-      `a blockquote renders in ${d.quoteFont}, not the handwriting face`);
+    assert.ok(/Caveat/i.test(d.handFont),
+      `an inkline-hand page renders in ${d.handFont}, not the handwriting face`);
+    assert.ok(!/Caveat/i.test(d.quoteFont),
+      `a blockquote renders in ${d.quoteFont}; since 1.9.0 quotes are reading text in the body face`);
   });
 
   test('out of the box the theme takes nothing away from Obsidian' + tag, () => {
@@ -289,14 +298,14 @@ function suite(host) {
     assert.ok(d.banner, 'turning off the rooms also took the banner');
   });
 
-  test('inkline-no-hand returns the handwritten layer to the body face' + tag, () => {
+  test('inkline-no-hand returns handwriting to the body face' + tag, () => {
     const on = r();
     const off = r('inkline-no-hand');
-    assert.ok(/Caveat/i.test(on.quoteFont), 'the default is not the handwriting face');
-    assert.ok(!/Caveat/i.test(off.quoteFont),
-      `a blockquote still renders in ${off.quoteFont} with .inkline-no-hand on body`);
-    assert.ok(off.quoteSize < on.quoteSize,
-      `the handwriting size ${on.quoteSize}px did not come down (${off.quoteSize}px); the layer `
+    assert.ok(/Caveat/i.test(on.handFont), 'the default is not the handwriting face');
+    assert.ok(!/Caveat/i.test(off.handFont),
+      `an inkline-hand page still renders in ${off.handFont} with .inkline-no-hand on body`);
+    assert.ok(off.handSize < on.handSize,
+      `the handwriting size ${on.handSize}px did not come down (${off.handSize}px); the hand `
       + 'returns as body text at handwriting size');
   });
 
@@ -325,7 +334,7 @@ function suite(host) {
     const d = r('icor-scaffold-chrome icor-hide-ribbon');
     assert.ok(d.banner, 'the scaffold vault has no banner');
     assert.ok(d.roomGlyph, 'the scaffold vault has no room icons');
-    assert.ok(/Caveat/i.test(d.quoteFont), 'the scaffold vault lost the handwritten layer');
+    assert.ok(/Caveat/i.test(d.handFont), 'the scaffold vault lost the opt-in hand page');
     assert.equal(d.ribbon, false, 'the scaffold vault still shows the ribbon');
     assert.equal(d.sort, false, 'the scaffold vault still shows the sort button');
     assert.equal(d.vaultProfile, false, 'the scaffold vault still shows the vault switcher');

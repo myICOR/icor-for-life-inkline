@@ -23,9 +23,11 @@ The one orange is reserved, so when you see it, it means something.
 **Two full modes**, ink and paper, designed as one system rather than one
 inverted into the other.
 
-**A handwritten layer.** Blockquotes, note, tip and quote callouts and your
-`%%comments%%` render in a handwriting face, like a teacher writing in the
-margin. `==Highlights==` are a marker wash, no glow.
+**Text you can read.** Quotes, callouts, `%%comments%%`, the word count and
+empty states read in the body face; tags are quiet chips; tooltips are small
+solid labels. Handwriting is kept for the one margin note a page earns
+(`<span class="ink-hand">`), and for pages you mark `cssclasses: inkline-hand`.
+`==Highlights==` are a marker wash, no glow.
 
 **Mermaid diagrams that survive dark mode.** Obsidian's own dark mode inverts
 the whole diagram, which turns a careful drawing into a photo negative. This
@@ -53,8 +55,8 @@ Everything is on out of the box.
 ## Changing it
 
 Install the [Style Settings](https://obsidian.md/plugins?id=obsidian-style-settings)
-plugin and the theme appears there with five switches: turn off the
-handwritten layer, hide the banner, turn off folder icons and colours, reduce
+plugin and the theme appears there with five switches: turn off
+handwriting, hide the banner, turn off folder icons and colours, reduce
 Obsidian's own controls, and hide the left ribbon.
 
 The last two are off by default because they take a control away from
