@@ -1155,8 +1155,11 @@ strong, b, .cm-strong { font-weight: 640; }
 }
 /* the Tags pane: each tag a quiet chip, as in a note. Obsidian builds the tag's
    text as createDiv("tree-item-inner-text"), which app.css clips with an
-   ellipsis; fit-content keeps the pill to the word and max-width keeps the clip. */
-.tag-pane-tag .tree-item-inner-text {
+   ellipsis; fit-content keeps the pill to the word and max-width keeps the clip.
+   setTag() then fills that div with span.tag-pane-tag-parent and a SECOND
+   span.tree-item-inner-text for the last segment, so a descendant selector
+   drew a pill inside the pill. The child combinator rings the div only. */
+.tag-pane-tag .tree-item-inner > .tree-item-inner-text {
   width: fit-content;
   max-width: 100%;
   padding: 1px 10px;
@@ -1169,7 +1172,7 @@ strong, b, .cm-strong { font-weight: 640; }
   color: var(--ink-paper-dim);
   transition: color 140ms var(--ink-ease-draw), box-shadow 140ms var(--ink-ease-draw);
 }
-.tag-pane-tag:hover .tree-item-inner-text {
+.tag-pane-tag:hover .tree-item-inner > .tree-item-inner-text {
   box-shadow: inset 0 0 0 1px var(--ink-control-border);
   color: var(--ink-paper);
 }

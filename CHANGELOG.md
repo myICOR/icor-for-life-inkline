@@ -8,6 +8,14 @@ Releases before 1.6.1 are described by their tags and release notes on
 GitHub; this file starts with 1.6.1.
 
 
+## Unreleased
+
+- The Tags pane draws one chip per tag again. Obsidian puts the tag's last segment in a second
+  `.tree-item-inner-text` inside the one the chip is drawn on, so 1.9.0's descendant selector ringed and padded both
+  and every tag showed a pill inside a pill. The chip rule now uses the child combinator
+  (`.tree-item-inner > .tree-item-inner-text`), and the type gate's fixture carries Obsidian's real nesting with a
+  test that the inner segment has no ring and no padding.
+
 ## 1.9.0 (2026-11-23)
 
 - Tooltips are INKLINE's one tooltip (`.ik-tip`, DESIGN 13): a small solid label in the body face (600 12.5px/1.25),

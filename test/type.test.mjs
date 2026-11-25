@@ -74,7 +74,7 @@ function fixture(room, host) {
 
   <div class="workspace-leaf-content" data-type="tag"><div class="tag-container">
     <div class="tree-item"><div class="tree-item-self tag-pane-tag is-clickable">
-      <div class="tree-item-inner"><div class="tree-item-inner-text" id="tagpane">method</div></div>
+      <div class="tree-item-inner"><div class="tree-item-inner-text" id="tagpane"><span class="tag-pane-tag-parent">topic/</span><span class="tree-item-inner-text" id="tagleaf">method</span></div></div>
       <div class="tree-item-flair-outer"><span class="tree-item-flair tag-pane-tag-count">3</span></div>
     </div></div>
   </div></div>
@@ -127,6 +127,7 @@ function fixture(room, host) {
   };
   const kbd = getComputedStyle(q('#kbd'));
   const tagPane = getComputedStyle(q('#tagpane'));
+  const tagLeaf = getComputedStyle(q('#tagleaf'));
   const noteTag = getComputedStyle(q('#notetag'));
   const fonts = {};
   for (const [k, s] of Object.entries(${JSON.stringify(NO_HAND)})) fonts[k] = font(s);
@@ -135,6 +136,7 @@ function fixture(room, host) {
     kbd: { height: kbd.height, radius: kbd.borderTopLeftRadius, opacity: kbd.opacity, font: kbd.fontFamily, shadow: kbd.boxShadow },
     fonts,
     tagPane: { radius: tagPane.borderTopLeftRadius, shadow: tagPane.boxShadow, weight: tagPane.fontWeight },
+    tagLeaf: { shadow: tagLeaf.boxShadow, padding: tagLeaf.paddingLeft },
     noteTag: { radius: noteTag.borderTopLeftRadius, border: noteTag.borderTopWidth, bg: noteTag.backgroundColor },
     inkHand: font('#inkhand'),
     handPage: font('#handpage'),
@@ -249,6 +251,14 @@ function suite(room, host) {
     assert.equal(tagPane.radius, '999px', `a tag in the Tags pane has a ${tagPane.radius} corner, not a pill`);
     assert.match(tagPane.shadow, /inset/, `a tag in the Tags pane has no hairline ring (${tagPane.shadow})`);
     assert.equal(tagPane.weight, '500', `a tag in the Tags pane weighs ${tagPane.weight}`);
+  });
+
+  /* Obsidian nests a second .tree-item-inner-text (the tag's last segment)
+     inside the one the chip is drawn on; ringing both drew a pill in a pill. */
+  test('a tag in the Tags pane has one ring, not a pill inside a pill' + tag, () => {
+    const { tagLeaf } = r();
+    assert.equal(tagLeaf.shadow, 'none', `the tag's inner segment draws its own ring (${tagLeaf.shadow})`);
+    assert.equal(tagLeaf.padding, '0px', `the tag's inner segment is padded (${tagLeaf.padding}) like a second chip`);
   });
 
   if (host) {
