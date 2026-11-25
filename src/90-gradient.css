@@ -61,13 +61,17 @@ body {
 .markdown-preview-view .metadata-container {
   background: var(--ink-glass);
   border: 1px solid var(--ink-glass-edge);
-  border-radius: var(--ink-radius-glass);
+  /* 14px, not the 18px glass radius: on a 38px folded row 18px reads as a pill, not the card it opens into */
+  border-radius: 14px;
   box-shadow: var(--ink-depth);
-  padding: 8px 12px 10px;
+  padding: 4px 10px;
+  transition: background-color 140ms ease;
 }
-/* folded: a slim glass row, lit a little on hover; focus keeps the depth, never a marker ring */
-.markdown-source-view .metadata-container.is-collapsed,
-.markdown-preview-view .metadata-container.is-collapsed { padding: 2px 12px; transition: background-color 140ms ease; }
+.markdown-source-view .metadata-container .metadata-content,
+.markdown-preview-view .metadata-container .metadata-content { padding-bottom: 6px; }
+/* folded: the same slim row with the list slid shut, lit a little on hover. The card's padding never changes and
+   the space under the list slides with it, so opening grows the card downward and the bar stays put. Focus keeps
+   the depth, never a ring. */
 .markdown-source-view .metadata-container.is-collapsed:hover,
 .markdown-preview-view .metadata-container.is-collapsed:hover { background-color: color-mix(in srgb, var(--ink-glass) 80%, var(--ink-paper) 6%); }
 .markdown-source-view .metadata-container:focus-within,

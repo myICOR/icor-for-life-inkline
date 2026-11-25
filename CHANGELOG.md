@@ -19,6 +19,13 @@ GitHub; this file starts with 1.6.1.
   again. app.css draws them as flat lines, assuming `--setting-items-border-width` is 0. The theme sets it to 1px for
   the settings cards, so the base border came back on three sides, with no inset and square corners. A run of rows in
   a modal now gets the same card as a flat settings pane: a 12px 16px inset and rounded corners.
+- The properties bar no longer jumps when it folds or opens. In 1.9.0 the card's padding and the heading's padding both
+  changed with `.is-collapsed`, so the bar moved 6px under the pointer on every click. app.css also hung the fold arrow
+  22px outside the heading, onto the card's edge, and its 8px margin under the heading sat the folded title high. The
+  heading is now one 30px row in both states, with the arrow inside it (it turns on fold). The space under the list
+  lives in `.metadata-content`, which Obsidian slides shut, so that space goes with the slide. In the gradient look the
+  card keeps one 4px 10px padding and a 14px corner, so the folded row no longer reads as a pill. New gate:
+  `test/properties.test.mjs`.
 
 ## 1.9.0 (2026-11-23)
 

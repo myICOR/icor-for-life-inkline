@@ -2052,12 +2052,24 @@ li.is-collapsed .list-bullet::after,
 .cm-strikethrough, .markdown-rendered del { color: var(--ink-paper-faint); text-decoration-color: var(--ink-marker-muted); }
 
 /* properties (frontmatter): mono labels, quiet divider, marker focus */
-.metadata-container { background: transparent; padding-bottom: 0.4em; border-bottom: 1px solid var(--ink-hairline); margin-bottom: 1.4em; }
+.metadata-container { background: transparent; padding-bottom: 0; border-bottom: 1px solid var(--ink-hairline); margin-bottom: 1.4em; }
 /* the properties bar: one row you open and close anywhere on it (ICOR for Life - Interface forwards the click), a
    hover so it reads as a control, no marker ring after a click; the ring is for the keyboard only */
-.metadata-properties-heading { display: flex; align-items: center; gap: 8px; width: 100%; padding: 4px 2px; border-radius: 8px; }
-.metadata-container.is-collapsed { padding-bottom: 0; }
-.metadata-container.is-collapsed .metadata-properties-heading { padding-block: 6px; }
+/* One row geometry, folded or open, so a click never moves the bar: app.css gives the heading an 8px margin-bottom
+   (which sat the folded title high) and hangs the arrow 22px outside the box (onto the card's edge); both go. The
+   arrow sits inside the row and turns, and the gap under an open heading comes from the list, not the heading. */
+.metadata-properties-heading {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  min-height: 30px; padding: 0 4px; margin: 0; border-radius: 8px;
+}
+.metadata-properties-heading .collapse-indicator {
+  position: static; inset: auto; padding: 0; opacity: 1;
+  display: inline-flex; align-items: center; justify-content: center; flex: none; width: 14px;
+}
+.metadata-properties-heading .collapse-indicator svg { transition: transform 140ms var(--ink-ease-draw); }
+/* the space under the list lives in .metadata-content, which Obsidian slides shut on fold, so it goes with the
+   slide instead of snapping when the class flips */
+.metadata-content { padding-top: 6px; padding-bottom: 0.4em; }
 .metadata-container.is-collapsed:hover .metadata-properties-heading,
 .metadata-properties-heading:hover { color: var(--ink-paper); }
 .metadata-container:focus, .metadata-container:focus-within, .metadata-properties-heading:focus { outline: none; box-shadow: none; }
