@@ -15,6 +15,10 @@ GitHub; this file starts with 1.6.1.
   and every tag showed a pill inside a pill. The chip rule now uses the child combinator
   (`.tree-item-inner > .tree-item-inner-text`), and the type gate's fixture carries Obsidian's real nesting with a
   test that the inner segment has no ring and no padding.
+- Settings rows inside other modals (Sync's "Unlock your remote vault" password row, plugin prompts) are a card
+  again. app.css draws them as flat lines, assuming `--setting-items-border-width` is 0. The theme sets it to 1px for
+  the settings cards, so the base border came back on three sides, with no inset and square corners. A run of rows in
+  a modal now gets the same card as a flat settings pane: a 12px 16px inset and rounded corners.
 
 ## 1.9.0 (2026-11-23)
 

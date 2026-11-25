@@ -79,6 +79,12 @@ function fixture(room, host) {
     </div></div>
   </div></div>
 
+  <div class="modal-container"><div class="modal"><div class="modal-content">
+    <p>The remote vault is currently encrypted.</p>
+    <div class="setting-item" id="modalrow"><div class="setting-item-info"><div class="setting-item-name">Encryption password</div></div>
+      <div class="setting-item-control"><input type="password"></div></div>
+  </div></div></div>
+
   <div class="metadata-container"><div class="metadata-property" data-property-key="tags">
     <div class="metadata-property-value"><div class="multi-select-container">
       <div class="multi-select-pill"><div class="multi-select-pill-content" id="tagpill">method</div></div>
@@ -128,6 +134,7 @@ function fixture(room, host) {
   const kbd = getComputedStyle(q('#kbd'));
   const tagPane = getComputedStyle(q('#tagpane'));
   const tagLeaf = getComputedStyle(q('#tagleaf'));
+  const modalRow = getComputedStyle(q('#modalrow'));
   const noteTag = getComputedStyle(q('#notetag'));
   const fonts = {};
   for (const [k, s] of Object.entries(${JSON.stringify(NO_HAND)})) fonts[k] = font(s);
@@ -137,6 +144,7 @@ function fixture(room, host) {
     fonts,
     tagPane: { radius: tagPane.borderTopLeftRadius, shadow: tagPane.boxShadow, weight: tagPane.fontWeight },
     tagLeaf: { shadow: tagLeaf.boxShadow, padding: tagLeaf.paddingLeft },
+    modalRow: { padding: modalRow.paddingLeft, radius: modalRow.borderTopLeftRadius, top: modalRow.borderTopWidth, left: modalRow.borderLeftWidth },
     noteTag: { radius: noteTag.borderTopLeftRadius, border: noteTag.borderTopWidth, bg: noteTag.backgroundColor },
     inkHand: font('#inkhand'),
     handPage: font('#handpage'),
@@ -255,6 +263,16 @@ function suite(room, host) {
 
   /* Obsidian nests a second .tree-item-inner-text (the tag's last segment)
      inside the one the chip is drawn on; ringing both drew a pill in a pill. */
+  /* Sync's "Unlock your remote vault" row: app.css draws modal rows as flat
+     lines, but the theme's 1px --setting-items-border-width brings the base
+     border back, so the row must be a whole card: inset and rounded. */
+  test('a settings row in a modal is a card with an inset and rounded corners' + tag, () => {
+    const { modalRow } = r();
+    assert.equal(modalRow.padding, '16px', `a modal row's content touches its border (${modalRow.padding} inset)`);
+    assert.notEqual(modalRow.radius, '0px', 'a modal row has square corners');
+    assert.equal(modalRow.top, modalRow.left, `a modal row's top edge (${modalRow.top}) differs from its sides (${modalRow.left})`);
+  });
+
   test('a tag in the Tags pane has one ring, not a pill inside a pill' + tag, () => {
     const { tagLeaf } = r();
     assert.equal(tagLeaf.shadow, 'none', `the tag's inner segment draws its own ring (${tagLeaf.shadow})`);
