@@ -1,7 +1,8 @@
 /* =========================================================================
    INKLINE for Obsidian  (myICOR)
    Two rooms: an ink room and a paper room. One marker, drawn hairlines,
-   and the teacher's handwriting in the margin.
+   and reading text in the body face. Handwriting is kept for the one
+   deliberate aside a page earns (INKLINE DESIGN 3 and 16).
 
    Derived from the myICOR application design tokens (ink room: the
    night-graphite ramp; near-black, chroma at or below 0.008, any residual
@@ -15,17 +16,13 @@
    No remote requests.
 
    -------------------------------------------------------------------------
-   USAGE: the handwritten-notes layer
+   USAGE: what is handwriting and what is not (1.9.0)
    -------------------------------------------------------------------------
-   Automatic, no markup needed:
-     > blockquote            handwritten margin note (Caveat 23px, weight 500)
-     > [!note] / [!tip] / [!quote]   callout body in handwriting
+   Interface text is never handwriting. Quotes, callouts, %%comments%%,
+   tags, the word count, empty states, canvas labels, Mermaid notes and
+   tooltips all read in the body face (Instrument Sans) in normal colours;
+   tags are quiet chips; tooltips are INKLINE's one tooltip (.ik-tip).
      ==text==                marker highlight (the pen, one wash, no glow)
-     %%comment%%             editor comment in handwriting, faint voice
-     #tag                    handwritten label in marker ink, no chip
-     status bar word count   handwritten
-     empty states            handwritten ("No file is open" etc.)
-     tooltips                handwritten labels
 
    Page-level, via frontmatter:
      ---
@@ -47,7 +44,8 @@
 
    Inline (HTML in a note):
      <span class="ink-hand">short margin note</span>   the app's own voice
-     class (Caveat, marker ink, -2deg), for short earned notes only.
+     class (Caveat, marker ink, -2deg): one per screen, five words or fewer,
+     pointing at something real (INKLINE DESIGN 16).
    ========================================================================= */
 
 /* ---------- 0. embedded fonts (self-hosted woff2 as base64) ------------ */
@@ -219,16 +217,6 @@ body {
   --ink-text-hand-xl: 26px;
   --ink-hand-weight: 600;       /* flourish voice */
   --ink-hand-weight-note: 500;  /* functional note voice */
-  /* Caveat draws its word-final ink OUTSIDE its advance box: up to 0.203em on
-     the worst glyph, and 49 of the face's 62 alphanumerics overhang by more than
-     1px at the 20px rung. Any container that clips at the advance edge therefore
-     cuts the last letter, which rendered the tag "method" as "methoa".
-     One number for every clipped hand surface, in em so it tracks the rung;
-     0.25em clears the worst glyph by 23%.
-     PHYSICAL, not logical, on purpose: the overhang belongs to a Latin-only face
-     that always runs LTR, and padding-inline-end resolves off the element's own
-     direction, so in an RTL vault it would put the room on the wrong side. */
-  --ink-hand-overhang: 0.25em;
 
   /* corner law */
   --ink-radius-micro: 2px;   /* marker wash only: a pen stroke, not a box */
@@ -252,6 +240,9 @@ body {
 
   /* draw-on easing */
   --ink-ease-draw: cubic-bezier(0.22, 1, 0.36, 1);
+  /* INKLINE's SOFT spring (tokens.css --ik-soft: stiffness 220, damping 22),
+     the curve only; the tooltip runs it at 0.55 of its 500ms, as inkline.js does */
+  --ink-spring-soft: linear(0, 0.016, 0.057, 0.117, 0.189, 0.267, 0.349, 0.431, 0.51, 0.585, 0.654, 0.717, 0.773, 0.823, 0.866, 0.902, 0.933, 0.959, 0.979, 0.995, 1.008, 1.017, 1.023, 1.028, 1.03, 1.031, 1.031, 1.03, 1.028, 1.026, 1.023, 1.021, 1.018, 1.016, 1.013, 1.011, 1.009, 1.007, 1.006, 1.004, 1.003, 1.002, 1.001, 1.001, 1, 1, 1, 0.999, 1);
 }
 
 /* ---------- 1a. the ink room (dark) ------------------------------------- */
@@ -326,6 +317,10 @@ body {
   --ink-blockquote: #c9c4b8;
   --ink-glass: rgba(15, 17, 19, 0.92);
   --ink-hand-ink: #ff5a2d;
+  /* solid controls invert with the ground (INKLINE --ik-solid / --ik-on-solid):
+     paper on ink here, ink on paper in the paper room */
+  --ink-solid: #f6f3ec;
+  --ink-on-solid: #090a0c;
 
   /* Obsidian accent (hsl of #FF5A2D) */
   --accent-h: 13;
@@ -408,6 +403,9 @@ body {
   --ink-blockquote: #4d4a42;
   --ink-glass: rgba(255, 253, 247, 0.96);
   --ink-hand-ink: #b93613;
+  /* solid controls invert with the ground: ink on paper */
+  --ink-solid: #171a20;
+  --ink-on-solid: #f6f3ec;
 
   /* Obsidian accent (hsl of #B93613, the paper room's fill step) */
   --accent-h: 13;
@@ -525,21 +523,35 @@ body {
   --link-unresolved-decoration-style: dashed;
   --link-unresolved-decoration-color: var(--ink-hairline-emphasis);
 
-  /* tags: handwritten labels, no chip */
-  --tag-size: var(--ink-text-hand-sm);
-  --tag-color: var(--ink-hand-ink);
-  --tag-color-hover: var(--ink-marker-up);
+  /* tags: quiet chips, INKLINE's .ik-chip look at text size. Transparent, a
+     hairline ring, the body face at 500, the dim ink; hover only firms the
+     ring and the ink. No marker: a tag is not the one thing on the page. */
+  --tag-size: 0.82em;
+  --tag-color: var(--ink-paper-dim);
+  --tag-color-hover: var(--ink-paper);
   --tag-decoration: none;
-  --tag-decoration-hover: underline;
+  --tag-decoration-hover: none;
   --tag-background: transparent;
   --tag-background-hover: transparent;
-  --tag-border-color: transparent;
-  --tag-border-color-hover: transparent;
-  --tag-border-width: 0;
-  --tag-padding-x: 0.1em;
-  --tag-padding-y: 0;
-  --tag-radius: 0;
-  --tag-weight: var(--ink-hand-weight-note);
+  --tag-border-color: var(--ink-hairline-emphasis);
+  --tag-border-color-hover: var(--ink-control-border);
+  --tag-border-width: 1px;
+  --tag-padding-x: 0.62em;
+  --tag-padding-y: 0.08em;
+  --tag-radius: var(--ink-radius-pill);
+  --tag-weight: 500;
+
+  /* tooltips: INKLINE's one tooltip (.ik-tip). Obsidian's own channels, so a
+     plugin that reads them agrees with the rule in section 4. */
+  --tooltip-background: var(--ink-solid);
+  --tooltip-color: var(--ink-on-solid);
+  --tooltip-radius: 8px;
+  --tooltip-padding: 7px 10px;
+  --tooltip-font-size: 12.5px;
+  --tooltip-font-weight: 600;
+  --tooltip-line-height: 1.25;
+  --tooltip-max-width: 260px;
+  --tooltip-shadow: none;
 
   /* code: the mono label voice, quiet content on its chip */
   --code-background: var(--ink-3);
@@ -906,9 +918,11 @@ strong, b, .cm-strong { font-weight: 640; }
   color: var(--ink-paper-faint);
 }
 
-/* ---------- 4. the handwritten-notes layer ------------------------------ */
+/* ---------- 4. reading text, and the one hand note ---------------------- */
 
-/* the app's own voice class: Caveat, marker ink, -2deg */
+/* the app's own voice class: Caveat, marker ink, -2deg. The ONLY handwriting
+   outside the opt-in .inkline-hand page: a page's one deliberate aside, five
+   words or fewer, pointing at something real (INKLINE DESIGN 16). */
 .ink-hand {
   font-family: var(--ink-font-hand);
   font-weight: var(--ink-hand-weight);
@@ -919,13 +933,10 @@ strong, b, .cm-strong { font-weight: 640; }
   display: inline-block;
 }
 
-/* blockquotes as margin notes: Caveat 23px, the functional note voice */
+/* blockquotes: reading text in the body face, the dim ink, one left thread */
 .markdown-rendered blockquote,
 .cm-s-obsidian .HyperMD-quote {
-  font-family: var(--ink-font-hand);
-  font-weight: var(--ink-hand-weight-note);
-  font-size: var(--ink-text-hand);
-  line-height: 1.35;
+  font-family: var(--ink-font-body);
   color: var(--ink-blockquote);
 }
 .markdown-rendered blockquote {
@@ -939,7 +950,8 @@ strong, b, .cm-strong { font-weight: 640; }
 .cm-s-obsidian .HyperMD-quote .cm-quote { color: var(--ink-blockquote); }
 .cm-s-obsidian .cm-formatting-quote { color: var(--ink-paper-faint); }
 
-/* callouts: flat on the page, one left thread, mono kicker title.
+/* callouts: flat on the page, one left thread, mono kicker title, the body in
+   the body face (note, tip, quote and cite included).
 
    THE COLOUR CHANNEL IS OURS, NOT OBSIDIAN'S, AND THAT IS DELIBERATE.
    Obsidian re-encoded --callout-* from a bare comma triple to a colour
@@ -1004,27 +1016,6 @@ strong, b, .cm-strong { font-weight: 640; }
 .callout.is-collapsible .callout-title { cursor: pointer; }
 .callout-fold .svg-icon { color: var(--ink-paper-faint); }
 
-/* note / tip / quote callouts read in the hand */
-.callout[data-callout="note"] .callout-content,
-.callout[data-callout="tip"] .callout-content,
-.callout[data-callout="hint"] .callout-content,
-.callout[data-callout="quote"] .callout-content,
-.callout[data-callout="cite"] .callout-content {
-  font-family: var(--ink-font-hand);
-  font-weight: var(--ink-hand-weight-note);
-  font-size: var(--ink-text-hand);
-  line-height: 1.35;
-  color: var(--ink-blockquote);
-}
-.callout[data-callout="note"] .callout-content strong,
-.callout[data-callout="tip"] .callout-content strong,
-.callout[data-callout="hint"] .callout-content strong,
-.callout[data-callout="quote"] .callout-content strong,
-.callout[data-callout="cite"] .callout-content strong { font-weight: 700; }
-.callout[data-callout="note"] .callout-content code,
-.callout[data-callout="tip"] .callout-content code,
-.callout[data-callout="quote"] .callout-content code { font-size: 13px; }
-
 /* ==highlights== are the marker: one wash, no glow, clone across lines */
 .markdown-rendered mark,
 .cm-s-obsidian span.cm-highlight {
@@ -1038,44 +1029,43 @@ strong, b, .cm-strong { font-weight: 640; }
 }
 .cm-s-obsidian .cm-formatting-highlight { color: var(--ink-paper-faint); }
 
-/* %%inline comments%% are pencil in the margin: hand, faint voice */
+/* %%inline comments%% are the faint voice: body face, upright, line size */
 .cm-s-obsidian span.cm-comment,
 .cm-s-obsidian span.cm-comment.cm-formatting {
-  font-family: var(--ink-font-hand);
-  font-weight: var(--ink-hand-weight-note);
-  font-size: var(--ink-text-hand-sm);
+  font-family: var(--ink-font-body);
   color: var(--ink-paper-faint);
   font-style: normal;
 }
 .cm-s-obsidian .cm-line .cm-comment.cm-formatting-comment { color: var(--ink-paper-faint); }
 
-/* tags: handwritten marker labels, no chip */
+/* tags: quiet chips (the --tag-* channels in section 2 draw them, through
+   Obsidian's own a.tag and .cm-hashtag rules, so the editor's split begin/end
+   spans join into one pill). Only the face is set here. */
 .markdown-rendered a.tag,
 .cm-s-obsidian span.cm-hashtag {
-  font-family: var(--ink-font-hand);
-  font-weight: var(--ink-hand-weight-note);
-  font-size: var(--ink-text-hand-sm);
-  line-height: 1;
-  color: var(--ink-hand-ink);
-  background: transparent;
-  border: 0;
-  padding: 0 0.1em;
-  border-radius: 0;
+  font-family: var(--ink-font-body);
   text-decoration: none;
+  transition: color 140ms var(--ink-ease-draw), border-color 140ms var(--ink-ease-draw);
 }
-.cm-s-obsidian span.cm-hashtag-begin { padding-right: 0; }
-.markdown-rendered a.tag:hover,
-.cm-s-obsidian span.cm-hashtag:hover { color: var(--ink-marker-up); text-decoration: underline; }
-/* app.css:9579 gives .tree-item-inner-text overflow:hidden + text-overflow:ellipsis,
-   the same clipping container as the pill at the same 20px rung, so the same cut.
-   The second arm here was .tag-pane-tag-text, which Obsidian does not have: its
-   renderer builds the tag's text node as createDiv("tree-item-inner-text"). */
+/* the Tags pane: each tag a quiet chip, as in a note. Obsidian builds the tag's
+   text as createDiv("tree-item-inner-text"), which app.css clips with an
+   ellipsis; fit-content keeps the pill to the word and max-width keeps the clip. */
 .tag-pane-tag .tree-item-inner-text {
-  font-family: var(--ink-font-hand);
-  font-weight: var(--ink-hand-weight-note);
-  font-size: var(--ink-text-hand-xs);
-  color: var(--ink-hand-ink);
-  padding-right: var(--ink-hand-overhang);
+  width: fit-content;
+  max-width: 100%;
+  padding: 1px 10px;
+  border-radius: var(--ink-radius-pill);
+  box-shadow: inset 0 0 0 1px var(--ink-hairline-emphasis);
+  font-family: var(--ink-font-body);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-paper-dim);
+  transition: color 140ms var(--ink-ease-draw), box-shadow 140ms var(--ink-ease-draw);
+}
+.tag-pane-tag:hover .tree-item-inner-text {
+  box-shadow: inset 0 0 0 1px var(--ink-control-border);
+  color: var(--ink-paper);
 }
 .tag-pane-tag-count {
   font-family: var(--ink-font-mono);
@@ -1084,7 +1074,7 @@ strong, b, .cm-strong { font-weight: 640; }
   background: transparent;
 }
 
-/* status bar: mono kicker chrome; the word count in the hand */
+/* status bar: mono kicker chrome; the word count is plain reading text */
 .status-bar {
   font-family: var(--ink-font-mono);
   letter-spacing: 0.08em;
@@ -1092,56 +1082,108 @@ strong, b, .cm-strong { font-weight: 640; }
 }
 .status-bar-item.plugin-word-count,
 .status-bar-item.plugin-word-count .status-bar-item-segment {
-  font-family: var(--ink-font-hand);
-  font-weight: var(--ink-hand-weight-note);
-  font-size: var(--ink-text-hand-xs);
+  font-family: var(--ink-font-body);
+  font-variant-numeric: tabular-nums;
   letter-spacing: 0;
   text-transform: none;
-  color: var(--ink-hand-ink);
+  color: inherit;
 }
 
-/* empty states: one handwritten line, centered, quiet */
+/* empty states: one plain line, centered, quiet; the actions are quiet links */
 .empty-state,
 .empty-state-title,
 .pane-empty,
 .search-empty-state,
-.nav-folder-children:empty::after,
 .workspace-leaf-content[data-type="empty"] .empty-state-title {
-  font-family: var(--ink-font-hand);
-  font-weight: var(--ink-hand-weight);
-  font-size: var(--ink-text-hand-lg);
+  font-family: var(--ink-font-body);
+  font-weight: 500;
+  font-size: 16px;
   color: var(--ink-paper-faint);
 }
 .empty-state-action {
-  font-family: var(--ink-font-hand);
-  font-weight: var(--ink-hand-weight-note);
-  font-size: var(--ink-text-hand);
-  color: var(--ink-hand-ink);
+  font-family: var(--ink-font-body);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--ink-paper-dim);
 }
-.empty-state-action:hover { color: var(--ink-marker-up); text-decoration: underline; }
+.empty-state-action:hover { color: var(--ink-paper); text-decoration: underline; text-decoration-color: var(--ink-marker); }
 
-/* tooltips: handwritten labels replace tooltips */
+/* tooltips: INKLINE's one tooltip (.ik-tip, inkline.css; DESIGN 13). A small
+   solid label that names a control: no hand, no tilt, no arrow, no shadow.
+
+   THE TRANSFORM IS OBSIDIAN'S AND STAYS OBSIDIAN'S. app.css centres the label
+   with `transform: translate(-50%)` (top, bottom) or `translateY(-50%)` (left,
+   right), and the 1.8.0 rule's `transform: rotate(-2deg)` replaced it, so every
+   label sat half its width off its control. The entrance therefore moves only
+   the individual `translate` and `scale` properties, which compose with the
+   host's transform instead of overwriting it.
+
+   THE TIMING IS OBSIDIAN'S TOO. It waits a beat before the first label (1s in
+   1.15) and shows the next one at once while a label is up or just went, and
+   it builds a new element per control, so this entrance runs on every swap,
+   as inkline.js re-runs it. Obsidian removes the element on leave, so the
+   fade-out INKLINE does on the web has nothing to animate here.
+
+   Direction: Obsidian marks top, left and right with mod-top / mod-left /
+   mod-right and leaves the default, below the control, unmarked. The label
+   springs in from its control's side: 6px of travel and a 0.94 scale, on the
+   SOFT spring at 0.55 of its length. */
 .tooltip {
-  font-family: var(--ink-font-hand);
-  font-weight: var(--ink-hand-weight-note);
-  font-size: var(--ink-text-hand-sm);
-  line-height: 1;
-  color: var(--ink-hand-ink);
-  background: var(--ink-overlay);
-  border: 1px solid var(--ink-hairline);
-  border-radius: var(--ink-radius-subtle);
-  padding: 6px 12px;
+  --ink-tip-from: 0 -6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 260px;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--ink-solid);
+  color: var(--ink-on-solid);
   box-shadow: none;
-  transform: rotate(-2deg);
-  animation: ink-hand-in 180ms var(--ink-ease-draw);
+  font-family: var(--ink-font-body);
+  font-weight: 600;
+  font-size: 12.5px;
+  line-height: 1.25;
+  letter-spacing: 0;
+  text-transform: none;
+  rotate: none;
+  animation: ink-tip-in 275ms var(--ink-spring-soft) both;
 }
+.tooltip.mod-top { --ink-tip-from: 0 6px; }
+.tooltip.mod-left { --ink-tip-from: 6px 0; }
+.tooltip.mod-right { --ink-tip-from: -6px 0; }
 .tooltip .tooltip-arrow { display: none; }
-@keyframes ink-hand-in { from { opacity: 0; translate: -6px 0; } to { opacity: 1; translate: 0 0; } }
+/* a shortcut inside a label is INKLINE's kbd chip on the solid ground */
+.tooltip kbd,
+.tooltip .kbd {
+  display: inline-grid;
+  place-items: center;
+  height: 18px;
+  min-width: 18px;
+  padding: 0 5px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  opacity: 0.75;
+  box-shadow: inset 0 0 0 1px currentColor;
+  font-family: var(--ink-font-body);
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+@keyframes ink-tip-in {
+  from { opacity: 0; translate: var(--ink-tip-from); scale: 0.94; }
+  to { opacity: 1; translate: 0 0; scale: 1; }
+}
 
-/* ---------- 4-off. opting out of the handwriting layer -------------------
+/* ---------- 4-off. opting out of handwriting ------------------------------
    cssclasses: inkline-no-hand on one note, or body.inkline-no-hand from a vault
-   snippet. The sizes have to move with the family or the layer returns as 23px
-   body text. Everything in section 4 routes through these seven variables. */
+   snippet. Since 1.9.0 interface text is never handwriting, so this reaches only
+   the .ink-hand aside and the opt-in .inkline-hand page below. The sizes have to
+   move with the family or the hand returns as 23px body text. */
 .inkline-no-hand,
 body.inkline-no-hand {
   --ink-font-hand: var(--ink-font-body);
@@ -1288,123 +1330,18 @@ body.inkline-no-hand {
 .nav-folder-title-content { font-weight: 500; }
 .nav-header { border-bottom: 1px solid var(--ink-hairline-subtle); }
 
-/* ====================================================================== *
- * THE FILE-TREE HEADER SLOT
+/* THE FILE-TREE BUTTON ROW IS OBSIDIAN'S (1.9.0).
  *
- * Every rule here is scoped to `.micor-tree-slot`, a class the myICOR
- * Connect plugin puts on Obsidian's own `.nav-buttons-container`. Nothing
- * below can paint a vault that does not have that plugin, which is the
- * degradation contract: a community user who installed this theme for its
- * typography keeps Obsidian's file-tree toolbar exactly as the host ships
- * it. The theme STYLES what Obsidian shows; it never decides WHAT it shows.
- *
- * CENTERED (user ruling, 2026-08-30), replacing the left-packed cut.
- *
- * A centered row anchors to its own container and to nothing else. The
- * banner-inset token this row used to consume existed for exactly one
- * job, aligning the row's left edge to the banner above it, and centering
- * supersedes that anchor - so the consumption is REMOVED rather than kept
- * as a dead declaration a future editor would read as live. The token
- * itself stays where it lives, beside the banner that owns it. The 8px
- * side padding is breathing room for narrow panes, from the theme's own
- * spacing scale and deliberately NOT the banner token: chrome anchored to
- * artwork breaks the day the artwork is re-exported.
- *
- * Centering is invariant under pane width and under plugin subset - the
- * cluster keeps the same shape however wide the pane is and whichever
- * launchers are installed - which is the same invariance argument that
- * chose left-packing over space-between, carried forward.
- *
- * Settled width, stated as a checkable number rather than a feeling:
- * four controls occupy 108px, centered. `test/header-row.test.mjs`
- * measures it in a real engine.
- * ====================================================================== */
-.micor-tree-slot {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  min-height: 24px;
-  margin-bottom: 8px;
-  padding: 0 8px;
-}
-
-/* Both controls take the SAME voice, and the sameness is the ruling.
- * Ranking two adjacent glyphs by colour puts two greys at different values
- * side by side, and the quieter one stops reading as secondary and starts
- * reading as disabled. The conditional control is already ranked by being
- * conditional: it is absent most of the time, and that is rank enough. */
-.micor-tree-slot .clickable-icon {
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  border-radius: var(--ink-radius-control);
-  color: var(--ink-paper-faint);
-  background: transparent;
-  border: none;
-}
-.micor-tree-slot .clickable-icon:hover {
-  color: var(--ink-paper);
-  background: var(--ink-hover-wash);
-  transition: color 140ms var(--ink-ease-draw), background 140ms var(--ink-ease-draw);
-}
-.micor-tree-slot .clickable-icon:focus-visible {
-  outline: 2px solid var(--ink-marker);
-  outline-offset: 2px;
-}
-.micor-tree-slot .clickable-icon svg { width: 16px; height: 16px; }
-
-/* THE ORDER: every launcher first, then every host control in the host's
- * own order. Ruled by Iris, 2026-09-17.
- *
- * Two groups and one boundary. Group one is every suite launcher - Connect's
- * four, Focus, Planner, the AI Team robot - which keeps the initial
- * `order: 0` and is named nowhere, so a plugin added tomorrow sorts itself
- * and there is no launcher roster in this file to maintain. They appear in
- * the order their plugins created them, which is the one ordering that
- * needs no authority to decide it.
- *
- * Group two is every HOST control, at `order: 1`, and inside that group
- * NOTHING is ranked. Flex ties break on DOM order, so Obsidian's own
- * `addNavButton` sequence decides it: new note, new folder, sort,
- * auto-reveal, collapse-all. Collapse-all still closes the row, and it does
- * so by the host's own hand rather than by a rank written here, which keeps
- * the 2026-08-30 "verb closes the row" ruling without a per-control number
- * that can drift. The earlier rule ranked sort 1 and collapse-all 2 and
- * named nothing else, so auto-reveal - restored to the toolbar by Interface
- * 0.7.0 - landed at 0 and sorted itself INTO the launcher group.
- *
- * The controls are named by their lucide icon rather than by `aria-label`,
- * which is translated. New note carries three ids across Obsidian builds
- * (`lucide-edit` live on 1.13.7, `lucide-edit-3` and `lucide-pen-box`
- * older) and collapse-all two, one per state; see src/85-chrome.css for the
- * measurement behind that list.
- *
- * No separator glyph and no wider gap at the boundary: the row keeps its
- * 4px rhythm and 24px grid, and the boundary reads by glyph vocabulary -
- * destinations, then panel verbs. A separator would be a fourth kind of
- * thing on a row that already has three.
- *
- * The scaffold hides new note, new folder and sort by its own dated ruling
- * (src/85-chrome.css, OFF by default); this rule stays complete so a
- * community vault with every control on the row gets the same boundary.
- *
- * If the host ever renames one of these icons the rule stops matching and
- * that control joins the launcher group. Untidy, never absent - the failure
- * mode is a wrong position, not a missing button. */
-.micor-tree-slot .clickable-icon:has(svg.lucide-edit),
-.micor-tree-slot .clickable-icon:has(svg.lucide-edit-3),
-.micor-tree-slot .clickable-icon:has(svg.lucide-pen-box),
-.micor-tree-slot .clickable-icon:has(svg.lucide-folder-plus),
-.micor-tree-slot .clickable-icon:has(svg.lucide-sort-asc),
-.micor-tree-slot .clickable-icon:has(svg.lucide-gallery-vertical),
-.micor-tree-slot .clickable-icon:has(svg.lucide-chevrons-down-up),
-.micor-tree-slot .clickable-icon:has(svg.lucide-chevrons-up-down) { order: 1; }
-
-/* No height collapse when the row is empty, and the absence is deliberate.
- * With collapse-all permanent (user ruling, 2026-08-30) this row can
- * never hold nothing, so a rule for that state would read as enforced and
- * would never once fire. */
+ * Until 1.8.0 this file drew `.micor-tree-slot` - the class myICOR Connect put
+ * on `.nav-buttons-container` - as a branded launcher row: centred, a 24px
+ * grid, its own gap and margin, every suite launcher ranked before the host's
+ * controls. The launchers now live in Obsidian's left ribbon (Tom, 2026-11-23),
+ * so the row holds only Obsidian's own buttons (new note, new folder, sort,
+ * auto-reveal, collapse) and the theme no longer styles it at all: it renders
+ * exactly as app.css draws it, under the banner, above the tree. The scaffold's
+ * dated hides in src/85-chrome.css are a separate switch and are unchanged.
+ * test/header-row.test.mjs measures the row against app.css with the theme on
+ * and off and holds them equal. */
 
 .tree-item-self.is-clickable:hover { background: var(--ink-hover-wash); }
 
@@ -2089,6 +2026,15 @@ li.is-collapsed .list-bullet::after,
 
 /* properties (frontmatter): mono labels, quiet divider, marker focus */
 .metadata-container { background: transparent; padding-bottom: 0.4em; border-bottom: 1px solid var(--ink-hairline); margin-bottom: 1.4em; }
+/* the properties bar: one row you open and close anywhere on it (ICOR for Life - Interface forwards the click), a
+   hover so it reads as a control, no marker ring after a click; the ring is for the keyboard only */
+.metadata-properties-heading { display: flex; align-items: center; gap: 8px; width: 100%; padding: 4px 2px; border-radius: 8px; }
+.metadata-container.is-collapsed { padding-bottom: 0; }
+.metadata-container.is-collapsed .metadata-properties-heading { padding-block: 6px; }
+.metadata-container.is-collapsed:hover .metadata-properties-heading,
+.metadata-properties-heading:hover { color: var(--ink-paper); }
+.metadata-container:focus, .metadata-container:focus-within, .metadata-properties-heading:focus { outline: none; box-shadow: none; }
+.metadata-properties-heading:focus-visible { outline: 2px solid var(--interactive-accent); outline-offset: 2px; }
 .metadata-properties-heading, .metadata-properties-title {
   font-family: var(--ink-font-mono);
   font-size: 10.5px;
@@ -2125,15 +2071,10 @@ li.is-collapsed .list-bullet::after,
 }
 .multi-select-pill:hover { border-color: var(--ink-hairline-emphasis); color: var(--ink-paper); }
 .multi-select-pill.is-active { border-color: var(--ink-marker); color: var(--ink-paper); }
-/* app.css:8416 sets overflow:hidden on .multi-select-pill-content, and the box is
-   sized to the advance width, so Caveat's word-final ink is cut at that edge. */
+/* tag pills in properties are the same quiet chip as every pill above, in the
+   body face: no second look for tags. */
 .metadata-property[data-property-key="tags"] .multi-select-pill-content {
-  font-family: var(--ink-font-hand);
-  font-weight: var(--ink-hand-weight-note);
-  font-size: var(--ink-text-hand-xs);
-  color: var(--ink-hand-ink);
-  line-height: 1;
-  padding-right: var(--ink-hand-overhang);
+  font-family: var(--ink-font-body);
 }
 .metadata-input-longtext, .metadata-input-text { color: var(--ink-paper); }
 .metadata-input.mod-date, .metadata-input.mod-datetime, .metadata-input-number { font-family: var(--ink-font-mono); font-size: 12px; }
@@ -2234,14 +2175,12 @@ li.is-collapsed .list-bullet::after,
    to the value and the ground together. */
 .canvas-edges > g:not(.is-themed) path.canvas-display-path { stroke: var(--ink-line-rest); }
 .canvas-edges > g:not(.is-themed) polygon.canvas-path-end { stroke: var(--ink-line-rest); fill: var(--ink-line-rest); }
-/* app.css:16672 gives .canvas-node-label overflow:hidden + text-overflow:ellipsis
-   + white-space:nowrap. Third clipping container on the 20px hand rung. */
+/* canvas node labels: plain readable text, the dim ink */
 .canvas-node-label {
-  font-family: var(--ink-font-hand);
-  font-weight: var(--ink-hand-weight-note);
-  font-size: var(--ink-text-hand-xs);
-  color: var(--ink-hand-ink);
-  padding-right: var(--ink-hand-overhang);
+  font-family: var(--ink-font-body);
+  font-weight: 500;
+  font-size: var(--ink-content-caption);
+  color: var(--ink-paper-dim);
 }
 .canvas-group-label {
   font-family: var(--ink-font-mono);
@@ -2532,7 +2471,7 @@ body { --font-mermaid: var(--ink-font-body); }
   fill: var(--ink-marker-bg) !important;
   stroke: var(--ink-marker-border) !important;
 }
-/* notes speak the handwriting layer: a soft wash, no box, Caveat */
+/* notes: a soft wash, no box, plain text at the message size */
 .mermaid rect.note {
   fill: var(--ink-hover-wash) !important;
   stroke: none !important;
@@ -2541,9 +2480,9 @@ body { --font-mermaid: var(--ink-font-body); }
 .mermaid .noteText,
 .mermaid .noteText tspan {
   fill: var(--ink-paper-dim) !important;
-  font-family: var(--ink-font-hand) !important;
-  font-size: 19px !important;
-  font-weight: 500;
+  font-family: var(--ink-font-body) !important;
+  font-size: 13px !important;
+  font-weight: 400;
 }
 .mermaid .labelBox {
   fill: var(--ink-2) !important;

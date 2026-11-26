@@ -96,14 +96,14 @@ body:not(.is-mobile) .workspace-split.mod-left-split .workspace-sidedock-vault-p
  *
  * Kept: collapse all, permanent under the same ruling.
  *
- * Also here, and NOT hidden: the Focus map launcher and the AI Team
- * robot. The left ribbon is hidden by `icor-ribbon.css`, so this row is
- * the only place either plugin has a visible entry point. That is the
- * same only-route rule the sort button is kept under, one layer up: a
- * plugin whose icon lives only on a hidden surface has no icon.
+ * The suite launchers (Focus, the AI Team robot, Connect's) left this
+ * row for Obsidian's left ribbon (Tom, 2026-11-23). Since 1.9.0 the theme
+ * does not style the row: what remains is Obsidian's own, drawn as app.css
+ * draws it. NOTE for the scaffold: with the launchers in the ribbon, the
+ * ribbon is their only visible route, so `icor-hide-ribbon` (src/80-ribbon.css)
+ * now hides them; the vault should leave that switch off.
  *
- * The CONTAINER is deliberately not hidden. It is the slot these
- * controls live in, and the theme styles it.
+ * The CONTAINER is deliberately not hidden.
  *
  * This hide stays in the SCAFFOLD and never moves into the theme: what
  * Obsidian shows is a product decision, and a community user who

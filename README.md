@@ -23,19 +23,22 @@ The one orange is reserved, so when you see it, it means something.
 **Two full modes**, ink and paper, designed as one system rather than one
 inverted into the other.
 
-**A handwritten layer.** Blockquotes, note, tip and quote callouts and your
-`%%comments%%` render in a handwriting face, like a teacher writing in the
-margin. `==Highlights==` are a marker wash, no glow.
+**Text you can read.** Quotes, callouts, `%%comments%%`, the word count and
+empty states read in the body face; tags are quiet chips; tooltips are small
+solid labels. Handwriting is kept for the one margin note a page earns
+(`<span class="ink-hand">`), and for pages you mark `cssclasses: inkline-hand`.
+`==Highlights==` are a marker wash, no glow.
 
 **Mermaid diagrams that survive dark mode.** Obsidian's own dark mode inverts
 the whole diagram, which turns a careful drawing into a photo negative. This
 colours them properly in both rooms, with your reading typeface inside the
 nodes.
 
-**Room icons for numbered folders.** A root folder named `00` through `07`
-drops its number in the sidebar and gains an inked icon in its own hue. Built
-for the ICOR for Life vault; harmless in any other, where it simply matches
-nothing.
+**Folder icons by ICOR stage.** The ICOR for Life top folders drop their
+number in the sidebar and gain an inked icon in their stage's colour: Input
+(00 Daily Notes, 01 Inbox), Control (02 Inner World, 03 Outer World,
+04 Assets, 05 Databases), Output (06 Planner). Matched by full name; harmless
+in any other vault, where it simply matches nothing.
 
 **Fonts that make no requests.** Four typefaces ship inside the theme itself.
 It connects to nothing.
@@ -52,8 +55,8 @@ Everything is on out of the box.
 ## Changing it
 
 Install the [Style Settings](https://obsidian.md/plugins?id=obsidian-style-settings)
-plugin and the theme appears there with five switches: turn off the
-handwritten layer, hide the banner, turn off room icons and colours, reduce
+plugin and the theme appears there with five switches: turn off
+handwriting, hide the banner, turn off folder icons and colours, reduce
 Obsidian's own controls, and hide the left ribbon.
 
 The last two are off by default because they take a control away from

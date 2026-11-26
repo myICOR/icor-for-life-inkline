@@ -1,0 +1,114 @@
+/* @guard body.inkline-gradient */
+
+/* ============================================================
+   THE GRADIENT LOOK (INKLINE DESIGN §44 and §45, 2026-11-15/16)
+
+   INKLINE has two layers. The flat foundation (ink and paper, the
+   marker on the one thing to act on, hairlines) is the theme as it
+   always was, and it stays the default. Gradient puts INKLINE's brand
+   layer on top, as myICOR wears it since November 2026:
+
+   - No aura: a light across the top of the editor did not work in
+     Obsidian (Tom, 2026-11-20), so the brand layer here is depth only.
+   - Depth and glass. Cards (callouts, embeds, the properties panel,
+     Bases cards) are a faint fill with a lit 1px top edge and a long
+     soft shadow; dialogs, menus and the command palette float the
+     same way, with larger radii.
+   - The marker's light. The one action keeps its orange and gains a
+     soft orange light under it. It is the only glow on a control.
+
+   What never changes: one marker, contrast, no glow on text, no light
+   on buttons, links or text.
+
+   Every selector here sits under body.inkline-gradient (the @guard
+   line above; build.mjs applies it), set by the "Look" switch in
+   Style Settings.
+   ============================================================ */
+
+body {
+  --ink-glass: color-mix(in srgb, var(--ink-paper) 4%, transparent);
+  --ink-glass-edge: color-mix(in srgb, var(--ink-paper) 10%, transparent);
+  --ink-depth: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 22px 48px -28px rgba(0, 0, 0, 0.6);
+  --ink-float: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 28px 70px -24px rgba(0, 0, 0, 0.7), 0 2px 8px rgba(0, 0, 0, 0.25);
+  --ink-radius-glass: 18px;
+}
+
+.theme-light {
+  --ink-glass: color-mix(in srgb, #ffffff 55%, transparent);
+  --ink-glass-edge: rgba(14, 15, 18, 0.08);
+  --ink-depth: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 18px 40px -26px rgba(14, 15, 18, 0.28);
+  --ink-float: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 28px 60px -26px rgba(14, 15, 18, 0.35), 0 2px 8px rgba(14, 15, 18, 0.08);
+}
+
+/* ---- glass and depth on cards ---- */
+.markdown-rendered .callout,
+.markdown-source-view.mod-cm6 .callout {
+  background: var(--ink-glass);
+  border: 1px solid var(--ink-glass-edge);
+  border-radius: var(--ink-radius-glass);
+  box-shadow: var(--ink-depth);
+}
+.markdown-rendered .markdown-embed,
+.markdown-source-view.mod-cm6 .markdown-embed,
+.markdown-rendered .internal-embed.file-embed {
+  background: var(--ink-glass);
+  border: 1px solid var(--ink-glass-edge);
+  border-radius: var(--ink-radius-glass);
+  box-shadow: var(--ink-depth);
+  padding: 4px 14px;
+}
+.markdown-source-view .metadata-container,
+.markdown-preview-view .metadata-container {
+  background: var(--ink-glass);
+  border: 1px solid var(--ink-glass-edge);
+  border-radius: var(--ink-radius-glass);
+  box-shadow: var(--ink-depth);
+  padding: 8px 12px 10px;
+}
+/* folded: a slim glass row, lit a little on hover; focus keeps the depth, never a marker ring */
+.markdown-source-view .metadata-container.is-collapsed,
+.markdown-preview-view .metadata-container.is-collapsed { padding: 2px 12px; transition: background-color 140ms ease; }
+.markdown-source-view .metadata-container.is-collapsed:hover,
+.markdown-preview-view .metadata-container.is-collapsed:hover { background-color: color-mix(in srgb, var(--ink-glass) 80%, var(--ink-paper) 6%); }
+.markdown-source-view .metadata-container:focus-within,
+.markdown-preview-view .metadata-container:focus-within { box-shadow: var(--ink-depth); }
+.view-content .bases-cards-item {
+  background: var(--ink-glass);
+  border: 1px solid var(--ink-glass-edge);
+  border-radius: var(--ink-radius-glass);
+  box-shadow: var(--ink-depth);
+}
+.markdown-rendered pre,
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-begin-bg {
+  box-shadow: var(--ink-depth);
+}
+
+/* ---- things that float ---- */
+.modal,
+.prompt,
+.menu,
+.suggestion-container {
+  border: 1px solid var(--ink-glass-edge);
+  box-shadow: var(--ink-float);
+}
+.modal,
+.prompt {
+  border-radius: 22px;
+}
+.menu,
+.suggestion-container {
+  border-radius: 14px;
+}
+
+/* ---- the side menu: a hairline edge the light shines through ---- */
+.workspace-split.mod-left-split .workspace-leaf-resize-handle,
+.workspace-split.mod-right-split .workspace-leaf-resize-handle {
+  border-color: color-mix(in srgb, var(--text-normal) 10%, transparent);
+}
+
+/* ---- the marker's light: the one glow on a control ---- */
+.workspace button.mod-cta,
+.modal button.mod-cta,
+.prompt button.mod-cta {
+  box-shadow: 0 10px 26px -10px rgba(255, 90, 45, 0.6), 0 1px 0 rgba(255, 255, 255, 0.18) inset;
+}

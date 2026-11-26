@@ -37,15 +37,39 @@
    plugin wins wherever it has an opinion.
 
    -------------------------------------------------------------
-   HOW THE DEFAULTS KEY, AND WHY (Iris, 2026-08-30; unchanged)
+   HOW THE DEFAULTS KEY, AND WHY (the ICOR stages, 1.8.0)
    -------------------------------------------------------------
-   A ROOM is keyed on its numeric prefix and on having no slash in
-   its path. The prefix is the room's identity; the words after it
-   are a label Tom may rewrite at any time. The FAMILY TREATMENT is
-   DERIVED: any folder inside a room picks up that room's colour and
-   a plain folder mark whether or not anybody wrote a rule for it.
-   A GLYPH is ENUMERATED, because choosing an icon is an editorial
-   act and no rule can derive one.
+   ICOR for Life groups its top folders by ICOR stage (the ICOR stages
+   contract, Tom 2026-11-23), flat at the root, no stage parent folders:
+
+     Input    00 Daily Notes, 01 Inbox                 #5271FC
+     Control  02 Inner World, 03 Outer World,
+              04 Assets, 05 Databases                  #52F49A
+     Output   06 Planner                               #FD63FF
+     Refine   no folder (the plugins and the weekly review)
+
+   A top folder is keyed on its FULL NAME and on having no slash in its
+   path; until 1.7.2 it was keyed on its number, which the stage layout
+   makes wrong: a migrated 2.x vault may still hold "06 AI Team", and
+   06 is now the Planner. Each top folder takes its STAGE'S colour, an
+   icon of its own and its name minus the number as its label. The
+   FAMILY TREATMENT is DERIVED: any folder inside a stage folder picks
+   up the stage colour and a plain folder mark whether or not anybody
+   wrote a rule for it. A GLYPH is ENUMERATED, because choosing an icon
+   is an editorial act and no rule can derive one.
+
+   The colours are INKLINE's ICOR stage colours, made for ink. The paper
+   room uses each one darkened just enough to read at 4.5:1 on paper
+   (#f6f3ec): Input #4863DE, Control #2A7C4F, Output #AC43AD. ICOR for
+   Life - Interface derives the same three from the vault's
+   _System/schema.json `stages` with the same rule; with it installed,
+   the schema decides and these rules stand back (see the contract).
+
+   The second group of names in 2.1 is the same folders as they were
+   named before the stage layout (00 Daily Scratchpad, 02 Planner,
+   04 Inner World, 05 Assets, 06 Outer World, 07 Databases), in the
+   stage each became, so a vault that has not moved yet keeps a colour.
+   "06 AI Team" and "03 WiP" are in no stage and render plain.
 
    CROSS-REPO CONTRACT: `[data-path*="/20"]` excludes date-nested
    trees (/2026/08) from the family floor, and by the same substring
@@ -55,26 +79,9 @@
    where it builds the name. validate-scaffold.py check 6 derives its
    scope from THIS file rather than restating the pattern.
 
-   Hue mapping (INKLINE --ink-* tokens):
-     Daily Scratchpad  yellow     (pencil work)
-     Inbox             terracotta (muted marker: hand-over point)
-     Planner           marker     (an app surface among the rooms)
-     WiP               cyan       (the workbench)
-     Inner World       success    (growth)
-     Assets            burgundy   (the shelf)
-     AI Team           indigo     (the staff)
-     Databases         rose       (the records: sources, never mirrors)
-
-   The room palette is an ASSIGNED palette drawn from the GL-003 §2.6
-   calmed lens set, one distinct lens per room. Admission is A268's
-   chroma test (OKLCH C <= 0.10); brass and marker are excluded from
-   assignment by the A159 fence (Planner's marker is the recorded
-   exception: an app surface among the rooms). Rose #B57A86 / #8F5560
-   was the one remaining sanctioned member when room 07 arrived
-   (Iris, 2026-09-01): C 0.0752 ink / 0.0781 paper, label contrast
-   5.16-5.81 on the ink grounds and 4.94-5.21 on paper, inside the
-   band the seven shipped rooms already span. The light step is the
-   A160 canonized rose light, read rather than re-derived.
+   The variable names (--room-*), the data-icor-kind values and the
+   .icor-rooms-off guard keep their names: they are the contract with
+   ICOR for Life - Interface and with saved Style Settings.
    ============================================================ */
 
 
@@ -100,20 +107,21 @@
    label drawn in its place from --room-label.
 
    The selector reads: "a plugin said room", OR "no plugin spoke and
-   this is a 00-07 root folder". Every rule in 1.1 uses it. */
-.nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) {
+   this is a stage's top folder, by full name". Every rule in 1.1 uses
+   it. */
+.nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path="00 Daily Notes"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="01 Inbox"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="02 Inner World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="03 Outer World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="04 Assets"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="05 Databases"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="06 Planner"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="00 Daily Scratchpad"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="02 Planner"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="04 Inner World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="05 Assets"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="06 Outer World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="07 Databases"]:not([data-path*="/"])) {
   border-left: 2px solid var(--room-tone);
   border-radius: 3px;
   background: color-mix(in srgb, var(--room-tone) 7%, transparent);
   margin-bottom: 2px;
 }
-.nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])):hover {
+.nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path="00 Daily Notes"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="01 Inbox"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="02 Inner World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="03 Outer World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="04 Assets"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="05 Databases"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="06 Planner"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="00 Daily Scratchpad"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="02 Planner"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="04 Inner World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="05 Assets"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="06 Outer World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="07 Databases"]:not([data-path*="/"])):hover {
   background: color-mix(in srgb, var(--room-tone) 15%, transparent);
 }
 
 /* no collapse arrows on rooms: icon + text only */
-.nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .collapse-icon,
-.nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .nav-folder-collapse-indicator {
+.nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path="00 Daily Notes"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="01 Inbox"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="02 Inner World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="03 Outer World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="04 Assets"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="05 Databases"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="06 Planner"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="00 Daily Scratchpad"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="02 Planner"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="04 Inner World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="05 Assets"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="06 Outer World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="07 Databases"]:not([data-path*="/"])) .collapse-icon,
+.nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path="00 Daily Notes"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="01 Inbox"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="02 Inner World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="03 Outer World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="04 Assets"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="05 Databases"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="06 Planner"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="00 Daily Scratchpad"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="02 Planner"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="04 Inner World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="05 Assets"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="06 Outer World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="07 Databases"]:not([data-path*="/"])) .nav-folder-collapse-indicator {
   /* No !important: this selector weighs (0,5,0) before the guard is merged in,
      and the host sets display on .collapse-icon at (0,1,0) and at most (0,3,0). */
   display: none;
@@ -123,7 +131,7 @@
 }
 
 /* hide the real name text (with its sort prefix) */
-.nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .nav-folder-title-content {
+.nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path="00 Daily Notes"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="01 Inbox"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="02 Inner World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="03 Outer World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="04 Assets"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="05 Databases"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="06 Planner"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="00 Daily Scratchpad"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="02 Planner"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="04 Inner World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="05 Assets"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="06 Outer World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="07 Databases"]:not([data-path*="/"])) .nav-folder-title-content {
   font-size: 0;
   line-height: var(--nav-item-line-height, 1.4);
   display: flex;
@@ -131,7 +139,7 @@
 }
 
 /* the inked icon: a mask filled with the room colour */
-.nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .nav-folder-title-content::before {
+.nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path="00 Daily Notes"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="01 Inbox"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="02 Inner World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="03 Outer World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="04 Assets"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="05 Databases"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="06 Planner"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="00 Daily Scratchpad"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="02 Planner"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="04 Inner World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="05 Assets"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="06 Outer World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="07 Databases"]:not([data-path*="/"])) .nav-folder-title-content::before {
   content: "";
   display: inline-block;
   width: 15px;
@@ -150,7 +158,7 @@
 }
 
 /* the room name, in the room colour */
-.nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]), :not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"])) .nav-folder-title-content::after {
+.nav-folder-title:is([data-icor-kind="room"], :not([data-icor-kind])[data-path="00 Daily Notes"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="01 Inbox"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="02 Inner World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="03 Outer World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="04 Assets"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="05 Databases"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="06 Planner"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="00 Daily Scratchpad"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="02 Planner"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="04 Inner World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="05 Assets"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="06 Outer World"]:not([data-path*="/"]), :not([data-icor-kind])[data-path="07 Databases"]:not([data-path*="/"])) .nav-folder-title-content::after {
   content: var(--room-label, "");
   font-size: var(--nav-item-size, 14px);
   font-weight: var(--nav-item-weight-hover, 600);
@@ -168,17 +176,18 @@
    the seven named probes moved, nothing else.
 
    Coloured name and a small glyph, no block. For everything inside a
-   room that is not a date, plus anything a plugin marks "family".
+   stage folder that is not a date, plus anything a plugin marks
+   "family".
    The glyph is --room-icon; the floor defaults set a plain folder
    mark and a named subfolder overrides it. */
-.nav-folder-title:is([data-icor-kind="family"], :not([data-icor-kind])[data-path^="00 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 "][data-path*="/"]:not(:where([data-path*="/20"]))) .nav-folder-title-content {
+.nav-folder-title:is([data-icor-kind="family"], :not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"]))) .nav-folder-title-content {
   font-size: var(--nav-item-size, 14px);
   color: var(--room-tone);
   line-height: var(--nav-item-line-height, 1.4);
   display: flex;
   align-items: center;
 }
-.nav-folder-title:is([data-icor-kind="family"], :not([data-icor-kind])[data-path^="00 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 "][data-path*="/"]:not(:where([data-path*="/20"]))) .nav-folder-title-content::before {
+.nav-folder-title:is([data-icor-kind="family"], :not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"]))) .nav-folder-title-content::before {
   content: "";
   display: inline-block;
   width: 14px;
@@ -201,193 +210,162 @@
    2. THE DATA - the only part that knows a folder's name
    ============================================================ */
 
-/* --- 2.1 the eight rooms --------------------------------------- */
+/* --- 2.1 the top folders, by stage ------------------------------
+   Matched by FULL NAME, never by the number in front: "06 AI Team"
+   (a 2.x myPKA team) is not the Output stage's "06 Planner", and "03 WiP"
+   is in no stage. The :not([data-path*="/"]) is redundant beside an exact
+   name and is kept for weight: every rule here weighs what the 1.7.2 rule
+   for the same place did, so nothing that lost to them before wins now.
+   Labels are the name minus its number. The second group is the same
+   folders under the names they had before the stage layout, so a vault
+   that has not moved yet keeps its colours. */
 
-.nav-folder-title:not([data-icor-kind])[data-path^="00 "]:not([data-path*="/"]) {
-  --room-color: #c2a35c;
-  --room-color-paper: #7f662f;
-  --room-label: "Daily Scratchpad";
+/* Input */
+.nav-folder-title:not([data-icor-kind])[data-path="00 Daily Notes"]:not([data-path*="/"]) {
+  --room-color: #5271fc;
+  --room-color-paper: #4863de;
+  --room-label: "Daily Notes";
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z'/%3E%3Cpath d='m15 5 4 4'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="01 "]:not([data-path*="/"]) {
-  --room-color: #c2765a;
-  --room-color-paper: #9e4526;
+.nav-folder-title:not([data-icor-kind])[data-path="01 Inbox"]:not([data-path*="/"]) {
+  --room-color: #5271fc;
+  --room-color-paper: #4863de;
   --room-label: "Inbox";
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='22 12 16 12 14 15 10 15 8 12 2 12'/%3E%3Cpath d='M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="02 "]:not([data-path*="/"]) {
-  --room-color: #ff5a2d;
-  --room-color-paper: #b3401f;
-  --room-label: "Planner";
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='4' rx='2'/%3E%3Cpath d='M16 2v4'/%3E%3Cpath d='M3 10h18'/%3E%3Cpath d='M8 2v4'/%3E%3Cpath d='M17 14h-6'/%3E%3Cpath d='M13 18H7'/%3E%3C/svg%3E");
-}
-.nav-folder-title:not([data-icor-kind])[data-path^="03 "]:not([data-path*="/"]) {
-  --room-color: #7a99a1;
-  --room-color-paper: #4e6b73;
-  --room-label: "WiP";
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9'/%3E%3Cpath d='m18 15 4-4'/%3E%3Cpath d='m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5'/%3E%3C/svg%3E");
-}
-.nav-folder-title:not([data-icor-kind])[data-path^="04 "]:not([data-path*="/"]) {
-  --room-color: #7d9a7f;
-  --room-color-paper: #5e7a60;
+/* Control */
+.nav-folder-title:not([data-icor-kind])[data-path="02 Inner World"]:not([data-path*="/"]) {
+  --room-color: #52f49a;
+  --room-color-paper: #2a7c4f;
   --room-label: "Inner World";
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 20h10'/%3E%3Cpath d='M10 20c5.5-2.5.8-6.4 3-10'/%3E%3Cpath d='M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z'/%3E%3Cpath d='M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="05 "]:not([data-path*="/"]) {
-  --room-color: #a87795;
-  --room-color-paper: #7c5570;
+.nav-folder-title:not([data-icor-kind])[data-path="03 Outer World"]:not([data-path*="/"]) {
+  --room-color: #52f49a;
+  --room-color-paper: #2a7c4f;
+  --room-label: "Outer World";
+  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20'/%3E%3Cpath d='M2 12h20'/%3E%3C/svg%3E");
+}
+.nav-folder-title:not([data-icor-kind])[data-path="04 Assets"]:not([data-path*="/"]) {
+  --room-color: #52f49a;
+  --room-color-paper: #2a7c4f;
   --room-label: "Assets";
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7.5 4.27 9 5.15'/%3E%3Cpath d='M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z'/%3E%3Cpath d='m3.3 7 8.7 5 8.7-5'/%3E%3Cpath d='M12 22V12'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="06 "]:not([data-path*="/"]) {
-  --room-color: #8087a6;
-  --room-color-paper: #565e7e;
-  --room-label: "AI Team";
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 8V4H8'/%3E%3Crect width='16' height='12' x='4' y='8' rx='2'/%3E%3Cpath d='M2 14h2'/%3E%3Cpath d='M20 14h2'/%3E%3Cpath d='M15 13v2'/%3E%3Cpath d='M9 13v2'/%3E%3C/svg%3E");
+.nav-folder-title:not([data-icor-kind])[data-path="05 Databases"]:not([data-path*="/"]) {
+  --room-color: #52f49a;
+  --room-color-paper: #2a7c4f;
+  --room-label: "Databases";
+  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cellipse cx='12' cy='5' rx='9' ry='3'/%3E%3Cpath d='M3 5V19A9 3 0 0 0 21 19V5'/%3E%3Cpath d='M3 12A9 3 0 0 0 21 12'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="07 "]:not([data-path*="/"]) {
-  --room-color: #b57a86;
-  --room-color-paper: #8f5560;
+/* Output */
+.nav-folder-title:not([data-icor-kind])[data-path="06 Planner"]:not([data-path*="/"]) {
+  --room-color: #fd63ff;
+  --room-color-paper: #ac43ad;
+  --room-label: "Planner";
+  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='4' rx='2'/%3E%3Cpath d='M16 2v4'/%3E%3Cpath d='M3 10h18'/%3E%3Cpath d='M8 2v4'/%3E%3Cpath d='M17 14h-6'/%3E%3Cpath d='M13 18H7'/%3E%3C/svg%3E");
+}
+/* before the stage layout (2.x, early 3.0) */
+.nav-folder-title:not([data-icor-kind])[data-path="00 Daily Scratchpad"]:not([data-path*="/"]) {
+  --room-color: #5271fc;
+  --room-color-paper: #4863de;
+  --room-label: "Daily Scratchpad";
+  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z'/%3E%3Cpath d='m15 5 4 4'/%3E%3C/svg%3E");
+}
+.nav-folder-title:not([data-icor-kind])[data-path="02 Planner"]:not([data-path*="/"]) {
+  --room-color: #fd63ff;
+  --room-color-paper: #ac43ad;
+  --room-label: "Planner";
+  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='4' rx='2'/%3E%3Cpath d='M16 2v4'/%3E%3Cpath d='M3 10h18'/%3E%3Cpath d='M8 2v4'/%3E%3Cpath d='M17 14h-6'/%3E%3Cpath d='M13 18H7'/%3E%3C/svg%3E");
+}
+.nav-folder-title:not([data-icor-kind])[data-path="04 Inner World"]:not([data-path*="/"]) {
+  --room-color: #52f49a;
+  --room-color-paper: #2a7c4f;
+  --room-label: "Inner World";
+  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 20h10'/%3E%3Cpath d='M10 20c5.5-2.5.8-6.4 3-10'/%3E%3Cpath d='M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z'/%3E%3Cpath d='M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z'/%3E%3C/svg%3E");
+}
+.nav-folder-title:not([data-icor-kind])[data-path="05 Assets"]:not([data-path*="/"]) {
+  --room-color: #52f49a;
+  --room-color-paper: #2a7c4f;
+  --room-label: "Assets";
+  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7.5 4.27 9 5.15'/%3E%3Cpath d='M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z'/%3E%3Cpath d='m3.3 7 8.7 5 8.7-5'/%3E%3Cpath d='M12 22V12'/%3E%3C/svg%3E");
+}
+.nav-folder-title:not([data-icor-kind])[data-path="06 Outer World"]:not([data-path*="/"]) {
+  --room-color: #52f49a;
+  --room-color-paper: #2a7c4f;
+  --room-label: "Outer World";
+  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20'/%3E%3Cpath d='M2 12h20'/%3E%3C/svg%3E");
+}
+.nav-folder-title:not([data-icor-kind])[data-path="07 Databases"]:not([data-path*="/"]) {
+  --room-color: #52f49a;
+  --room-color-paper: #2a7c4f;
   --room-label: "Databases";
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cellipse cx='12' cy='5' rx='9' ry='3'/%3E%3Cpath d='M3 5V19A9 3 0 0 0 21 19V5'/%3E%3Cpath d='M3 12A9 3 0 0 0 21 12'/%3E%3C/svg%3E");
 }
 
 /* --- 2.2 the family floor ---------------------------------------
-   Every folder inside a room inherits the room colour and a plain
-   folder mark. Under-specified, never naked. Named subfolders below
-   sit later at equal specificity and simply win. */
-.nav-folder-title:not([data-icor-kind])[data-path^="00 "][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #c2a35c; --room-color-paper: #7f662f; }
-.nav-folder-title:not([data-icor-kind])[data-path^="01 "][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #c2765a; --room-color-paper: #9e4526; }
-.nav-folder-title:not([data-icor-kind])[data-path^="02 "][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #ff5a2d; --room-color-paper: #b3401f; }
-.nav-folder-title:not([data-icor-kind])[data-path^="03 "][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #7a99a1; --room-color-paper: #4e6b73; }
-.nav-folder-title:not([data-icor-kind])[data-path^="04 "][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #7d9a7f; --room-color-paper: #5e7a60; }
-.nav-folder-title:not([data-icor-kind])[data-path^="05 "][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #a87795; --room-color-paper: #7c5570; }
-.nav-folder-title:not([data-icor-kind])[data-path^="06 "][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #8087a6; --room-color-paper: #565e7e; }
-.nav-folder-title:not([data-icor-kind])[data-path^="07 "][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #b57a86; --room-color-paper: #8f5560; }
-.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 "][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 "][data-path*="/"]:not(:where([data-path*="/20"]))) {
+   Every folder inside a stage folder takes the stage colour and a plain
+   folder mark. Under-specified, never naked. Named subfolders below sit
+   later at a higher weight and change only the glyph. As in 1.1, the
+   [data-path*="/"] is redundant beside the trailing slash and is kept
+   for weight. */
+.nav-folder-title:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #5271fc; --room-color-paper: #4863de; }
+.nav-folder-title:not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #5271fc; --room-color-paper: #4863de; }
+.nav-folder-title:not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #52f49a; --room-color-paper: #2a7c4f; }
+.nav-folder-title:not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #52f49a; --room-color-paper: #2a7c4f; }
+.nav-folder-title:not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #52f49a; --room-color-paper: #2a7c4f; }
+.nav-folder-title:not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #52f49a; --room-color-paper: #2a7c4f; }
+.nav-folder-title:not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #fd63ff; --room-color-paper: #ac43ad; }
+.nav-folder-title:not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #5271fc; --room-color-paper: #4863de; }
+.nav-folder-title:not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #fd63ff; --room-color-paper: #ac43ad; }
+.nav-folder-title:not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #52f49a; --room-color-paper: #2a7c4f; }
+.nav-folder-title:not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #52f49a; --room-color-paper: #2a7c4f; }
+.nav-folder-title:not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #52f49a; --room-color-paper: #2a7c4f; }
+.nav-folder-title:not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])) { --room-color: #52f49a; --room-color-paper: #2a7c4f; }
+.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"]))) {
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z'/%3E%3C/svg%3E");
 }
 
-/* --- 2.3 named subfolders: their own colour and glyph ----------- */
-.nav-folder-title:not([data-icor-kind])[data-path^="04 "][data-path$="/Contacts"] {
-  --room-color: #7a99a1;
-  --room-color-paper: #4e6b73;
+/* --- 2.3 named subfolders: their own glyph, the stage's colour ----
+   Anywhere inside a stage folder, as ICOR for Life - Interface does. */
+.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])))[data-path$="/Contacts"] {
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M22 21v-2a4 4 0 0 0-3-3.87'/%3E%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="04 "][data-path$="/Journal"] {
-  --room-color: #c2a35c;
-  --room-color-paper: #7f662f;
+.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])))[data-path$="/Journal"] {
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4'/%3E%3Cpath d='M2 6h4'/%3E%3Cpath d='M2 10h4'/%3E%3Cpath d='M2 14h4'/%3E%3Cpath d='M2 18h4'/%3E%3Cpath d='M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="04 "][data-path$="/My Life"] {
-  --room-color: #7d9a7f;
-  --room-color-paper: #5e7a60;
+.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])))[data-path$="/My Life"] {
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="04 "][data-path$="/Goals"] {
-  --room-color: #c2765a;
-  --room-color-paper: #9e4526;
+.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])))[data-path$="/Goals"] {
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Ccircle cx='12' cy='12' r='6'/%3E%3Ccircle cx='12' cy='12' r='2'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="04 "][data-path$="/Habits"] {
-  --room-color: #8087a6;
-  --room-color-paper: #565e7e;
+.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])))[data-path$="/Habits"] {
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m17 2 4 4-4 4'/%3E%3Cpath d='M3 11v-1a4 4 0 0 1 4-4h14'/%3E%3Cpath d='m7 22-4-4 4-4'/%3E%3Cpath d='M21 13v1a4 4 0 0 1-4 4H3'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="04 "][data-path$="/Key Elements"] {
-  --room-color: #a87795;
-  --room-color-paper: #7c5570;
+.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])))[data-path$="/Key Elements"] {
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='3' x2='21' y1='22' y2='22'/%3E%3Cline x1='6' x2='6' y1='18' y2='11'/%3E%3Cline x1='10' x2='10' y1='18' y2='11'/%3E%3Cline x1='14' x2='14' y1='18' y2='11'/%3E%3Cline x1='18' x2='18' y1='18' y2='11'/%3E%3Cpolygon points='12 2 20 7 4 7'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="04 "][data-path$="/Projects"] {
-  --room-color: #7a99a1;
-  --room-color-paper: #4e6b73;
+.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])))[data-path$="/Projects"] {
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z'/%3E%3Cpath d='M8 10v4'/%3E%3Cpath d='M12 10v2'/%3E%3Cpath d='M16 10v6'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="04 "][data-path$="/Topics"] {
-  --room-color: #c2a35c;
-  --room-color-paper: #7f662f;
+.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])))[data-path$="/Topics"] {
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m16 6 4 14'/%3E%3Cpath d='M12 6v14'/%3E%3Cpath d='M8 8v12'/%3E%3Cpath d='M4 4v16'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="01 "][data-path$="/Outer World"] {
-  --room-color: #c2765a;
-  --room-color-paper: #9e4526;
+.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])))[data-path$="/Outer World"] {
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20'/%3E%3Cpath d='M2 12h20'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="01 "][data-path$="/Scanner Inbox"] {
-  --room-color: #c2765a;
-  --room-color-paper: #9e4526;
+.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])))[data-path$="/Scanner Inbox"] {
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 7V5a2 2 0 0 1 2-2h2'/%3E%3Cpath d='M17 3h2a2 2 0 0 1 2 2v2'/%3E%3Cpath d='M21 17v2a2 2 0 0 1-2 2h-2'/%3E%3Cpath d='M7 21H5a2 2 0 0 1-2-2v-2'/%3E%3Cpath d='M7 12h10'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="05 "][data-path$="/Images"] {
-  --room-color: #a87795;
-  --room-color-paper: #7c5570;
+.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])))[data-path$="/Images"] {
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='3' rx='2' ry='2'/%3E%3Ccircle cx='9' cy='9' r='2'/%3E%3Cpath d='m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="05 "][data-path$="/Audio"] {
-  --room-color: #a87795;
-  --room-color-paper: #7c5570;
+.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])))[data-path$="/Audio"] {
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18V5l12-2v13'/%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Ccircle cx='18' cy='16' r='3'/%3E%3C/svg%3E");
 }
-.nav-folder-title:not([data-icor-kind])[data-path^="05 "][data-path$="/Documents"] {
-  --room-color: #a87795;
-  --room-color-paper: #7c5570;
+.nav-folder-title:is(:not([data-icor-kind])[data-path^="00 Daily Notes/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="01 Inbox/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="03 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="00 Daily Scratchpad/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="02 Planner/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="04 Inner World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="05 Assets/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="06 Outer World/"][data-path*="/"]:not(:where([data-path*="/20"])), :not([data-icor-kind])[data-path^="07 Databases/"][data-path*="/"]:not(:where([data-path*="/20"])))[data-path$="/Documents"] {
   --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z'/%3E%3Cpath d='M14 2v4a2 2 0 0 0 2 2h4'/%3E%3Cpath d='M10 9H8'/%3E%3Cpath d='M16 13H8'/%3E%3Cpath d='M16 17H8'/%3E%3C/svg%3E");
-}
-.nav-folder-title:not([data-icor-kind])[data-path^="06 "][data-path$="/AI Team Knowledge"] {
-  --room-color: #8087a6;
-  --room-color-paper: #565e7e;
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 7v14'/%3E%3Cpath d='M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z'/%3E%3C/svg%3E");
-}
-.nav-folder-title:not([data-icor-kind])[data-path^="06 "][data-path$="/Agents"] {
-  --room-color: #8087a6;
-  --room-color-paper: #565e7e;
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M22 21v-2a4 4 0 0 0-3-3.87'/%3E%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%3C/svg%3E");
-}
-.nav-folder-title:not([data-icor-kind])[data-path^="06 "][data-path$="/AI Sessions"] {
-  --room-color: #8087a6;
-  --room-color-paper: #565e7e;
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z'/%3E%3Cpath d='M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1'/%3E%3C/svg%3E");
-}
-.nav-folder-title:not([data-icor-kind])[data-path^="06 "][data-path$="/Workstreams"] {
-  --room-color: #8087a6;
-  --room-color-paper: #565e7e;
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='8' height='8' x='3' y='3' rx='2'/%3E%3Cpath d='M7 11v4a2 2 0 0 0 2 2h4'/%3E%3Crect width='8' height='8' x='13' y='13' rx='2'/%3E%3C/svg%3E");
-}
-.nav-folder-title:not([data-icor-kind])[data-path^="06 "][data-path$="/SOPs"] {
-  --room-color: #8087a6;
-  --room-color-paper: #565e7e;
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='8' height='4' x='8' y='2' rx='1' ry='1'/%3E%3Cpath d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/%3E%3Cpath d='M12 11h4'/%3E%3Cpath d='M12 16h4'/%3E%3Cpath d='M8 11h.01'/%3E%3Cpath d='M8 16h.01'/%3E%3C/svg%3E");
-}
-.nav-folder-title:not([data-icor-kind])[data-path^="06 "][data-path$="/Guidelines"] {
-  --room-color: #8087a6;
-  --room-color-paper: #565e7e;
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 2v8l3-3 3 3V2'/%3E%3Cpath d='M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20'/%3E%3C/svg%3E");
-}
-.nav-folder-title:not([data-icor-kind])[data-path^="06 "][data-path$="/Scripts"] {
-  --room-color: #8087a6;
-  --room-color-paper: #565e7e;
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='16 18 22 12 16 6'/%3E%3Cpolyline points='8 6 2 12 8 18'/%3E%3C/svg%3E");
-}
-.nav-folder-title:not([data-icor-kind])[data-path^="06 "][data-path$="/Tasks"] {
-  --room-color: #8087a6;
-  --room-color-paper: #565e7e;
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 11 3 3L22 4'/%3E%3Cpath d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'/%3E%3C/svg%3E");
-}
-.nav-folder-title:not([data-icor-kind])[data-path^="06 "][data-path$="/Session Logs"] {
-  --room-color: #8087a6;
-  --room-color-paper: #565e7e;
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8'/%3E%3Cpath d='M3 3v5h5'/%3E%3Cpath d='M12 7v5l4 2'/%3E%3C/svg%3E");
-}
-.nav-folder-title:not([data-icor-kind])[data-path^="06 "][data-path$="/Avatars"] {
-  --room-color: #8087a6;
-  --room-color-paper: #565e7e;
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3Cpath d='M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662'/%3E%3C/svg%3E");
-}
-.nav-folder-title:not([data-icor-kind])[data-path^="06 "][data-path$="/Brand"] {
-  --room-color: #8087a6;
-  --room-color-paper: #565e7e;
-  --room-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z'/%3E%3C/svg%3E");
 }
 
 
@@ -396,7 +374,9 @@
    ============================================================ */
 
 /* --- root housekeeping files: quiet them down ---------------- */
-/* CLAUDE.md and README are wiring, not content: smaller, fainter. */
+/* AGENTS.md, CLAUDE.md and README are wiring, not content: smaller, fainter. */
+.nav-file-title[data-path="AGENTS.md"],
+.nav-file-title[data-path="AGENTS.icor-for-life.md"],
 .nav-file-title[data-path="CLAUDE.md"],
 .nav-file-title[data-path="README.md"],
 .nav-file-title[data-path="CLAUDE.txt"],
@@ -405,6 +385,8 @@
 .nav-file-title[data-path="LICENSE.md"] {
   opacity: 0.55;
 }
+.nav-file-title[data-path="AGENTS.md"] .nav-file-title-content,
+.nav-file-title[data-path="AGENTS.icor-for-life.md"] .nav-file-title-content,
 .nav-file-title[data-path="CLAUDE.md"] .nav-file-title-content,
 .nav-file-title[data-path="README.md"] .nav-file-title-content,
 .nav-file-title[data-path="CLAUDE.txt"] .nav-file-title-content,
@@ -414,6 +396,8 @@
   font-size: calc(var(--nav-item-size, 14px) - 2px);
   color: var(--ink-paper-faint, var(--text-faint));
 }
+.nav-file-title[data-path="AGENTS.md"]:hover,
+.nav-file-title[data-path="AGENTS.icor-for-life.md"]:hover,
 .nav-file-title[data-path="CLAUDE.md"]:hover,
 .nav-file-title[data-path="README.md"]:hover,
 .nav-file-title[data-path="CLAUDE.txt"]:hover,

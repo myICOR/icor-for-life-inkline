@@ -5,11 +5,10 @@
 
    THE POLARITY FLIPPED, and it is the only one that did. In the scaffold
    this was `body:not(.icor-keep-ribbon)`: hidden by default, a toggle to
-   bring it back. That is right for the scaffold, where every action the
-   ribbon carried has another route - terminal and settings in the top row,
-   sort and collapse and the Focus map and the AI Team robot on the file-tree
-   toolbar, myICOR in the folder-tree footer, and new note, daily note, new
-   scratchpad canvas and graph view as palette commands.
+   bring it back. That was right while every action the ribbon carried had
+   another route. It no longer holds for the suite: since 2026-11-23 every
+   plugin launcher (Focus, the AI Team robot, Connect's) lives in this
+   ribbon and nowhere else, so turning this switch on hides them.
 
    It is wrong for a theme. Someone installing INKLINE in their own vault has
    none of those routes, and a theme that removes a navigation surface on

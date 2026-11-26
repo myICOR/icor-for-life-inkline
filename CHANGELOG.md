@@ -7,6 +7,79 @@ Versions follow [Semantic Versioning](https://semver.org/).
 Releases before 1.6.1 are described by their tags and release notes on
 GitHub; this file starts with 1.6.1.
 
+
+## 1.9.0 (2026-11-23)
+
+- Tooltips are INKLINE's one tooltip (`.ik-tip`, DESIGN 13): a small solid label in the body face (600 12.5px/1.25),
+  7px 10px of padding, an 8px corner, no tilt, no hand, no arrow, no shadow; paper on ink in the dark theme, ink on
+  paper in the light one (new `--ink-solid` / `--ink-on-solid`). A shortcut inside one is the kbd chip. Each label
+  springs in from its control's side (6px and a 0.94 scale on the SOFT spring), by Obsidian's `mod-top`, `mod-left`,
+  `mod-right` and the unmarked default below. Obsidian keeps its own timing: it waits a beat before the first label and
+  swaps the next one at once; it removes a label on leave, so there is no fade-out to draw. Fixed on the way: the
+  1.8.0 `transform: rotate(-2deg)` replaced Obsidian's own centring transform, so every label sat half its width off
+  its control; the entrance now moves only `translate` and `scale`. Reduced motion still turns it off.
+- No handwriting in interface text (INKLINE DESIGN 3 and 16). The Tags pane, tag pills in properties and tags in notes
+  and in the editor are quiet chips in the `.ik-chip` look (transparent, a hairline ring, the body face at 500, the
+  dim ink, no marker). The word count, empty states, blockquotes, note/tip/quote/cite callouts, `%%comments%%`, canvas
+  node labels and Mermaid notes are plain text in the body face in normal colours. Handwriting stays only in
+  `.ink-hand` (a page's one aside) and in the opt-in `cssclasses: inkline-hand` page, which is unchanged. The unused
+  `--ink-hand-overhang` is gone; Style Settings says "Turn off handwriting" and what it still reaches.
+- The file-tree button row is Obsidian's. The suite launchers moved to the left ribbon, so the theme no longer styles
+  `.micor-tree-slot` (centring, 24px grid, gap, margin, launcher order): the row renders as app.css draws it, with
+  Obsidian's own new note, new folder, sort, auto-reveal and collapse; the banner above it is unchanged, and the
+  scaffold's hides stay behind `icor-scaffold-chrome`. The settings and comments no longer say the ribbon is safe to
+  hide in an ICOR for Life vault: the launchers live there now.
+- Tests: `test/type.test.mjs` pins the tooltip (no rotation, body face, solid ground, 8px corner, padding, kbd chip,
+  direction) and no hand font on the Tags pane, tag pills, tags, word count, empty states, quotes, callouts, comments,
+  canvas labels and Mermaid notes, in both themes, alone and behind app.css. `test/header-row.test.mjs` now holds the
+  button row equal to Obsidian's own and checks the tree still starts below the header (full, scaffold, narrow and
+  empty row). The toggles gate probes handwriting on an `inkline-hand` page. `THEME_CSS=<path>` runs the type and
+  header-row gates against another build.
+
+## 1.8.0 (2026-11-23)
+
+- The file tree follows the ICOR stage layout. Each top folder wears its stage's colour: Input (#5271FC) for
+  00 Daily Notes and 01 Inbox, Control (#52F49A) for 02 Inner World, 03 Outer World, 04 Assets and 05 Databases,
+  Output (#FD63FF) for 06 Planner; Refine has no folder. In the light theme each is darkened just enough to read
+  (#4863DE, #2A7C4F, #AC43AD). Every folder inside a stage folder takes the stage colour; named ones (Journal,
+  Contacts, Images...) keep their own icon. Labels are the folder name minus its number.
+- Folders are matched by their full name, no longer by the number in front: a `06 AI Team` or `03 WiP` left from 2.x
+  looks like any plain folder, and so do its subfolders (the AI Team subfolder icons are gone). The same folders under
+  their names from before the stage layout (00 Daily Scratchpad, 02 Planner, 04 Inner World, 05 Assets,
+  06 Outer World, 07 Databases) keep a colour, by stage, until the vault moves.
+- These are the theme's own colours for a vault without ICOR for Life - Interface; with Interface 0.10, the vault's
+  `_System/schema.json` decides.
+- Style Settings says folders: "ICOR for Life folders", "Turn off folder icons and colors".
+- The file-tree baseline (test/fixtures/rooms-baseline.json) is re-recorded for the stage layout, and a new test pins
+  each top folder's stage colour in both themes.
+
+## 1.7.2 (2026-11-23)
+
+- No WiP room. ICOR for Life 3.0 has no `03 WiP`, so the theme no longer colours, labels or marks a `03` folder: one a
+  migrated vault still holds looks like any other plain folder. The other rooms are unchanged.
+
+## 1.7.1 (2026-11-21)
+
+- The banner carries the current myICOR mark: the closed figure-eight with the right loop a little larger, one round
+  marker stroke (brand/mark.svg), in place of the old symmetric infinity. Wordmark and underline unchanged.
+- The properties bar: one row, opened and closed anywhere on it (with ICOR for Life - Interface 0.9), slim when folded,
+  a hover; no marker ring after a click, the focus ring only for the keyboard.
+
+## [1.7.0] - unreleased
+
+### Changed
+- Root folder `06` is labelled **Outer World** (globe icon); `AGENTS.md` is a quiet housekeeping file like README.
+
+### Added
+- **A Look switch: Flat or Gradient** (the ICOR for Life Objects plugin's
+  settings, or Style Settings, ICOR for Life - INKLINE, The look). Flat is the theme as it was, and
+  stays the default. Gradient puts INKLINE's brand layer on top, as
+  myICOR wears it since November 2026: glass cards with depth for callouts, embeds, the
+  properties panel and Bases cards, floating dialogs, menus and the
+  command palette, and a soft light under the one orange action. Text,
+  links and buttons never carry light. Needs the Style Settings plugin to
+  switch; without it the theme stays Flat.
+
 ## [1.6.2] - 2026-09-17
 
 ### Fixed
